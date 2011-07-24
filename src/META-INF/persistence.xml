@@ -4,42 +4,21 @@
              http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-  <persistence-unit name="au.com.uptick.serendipity" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="ARTEFINO" transaction-type="RESOURCE_LOCAL">
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-    <class>au.com.uptick.serendipity.server.domain.User</class>
-    <class>au.com.uptick.serendipity.server.domain.Account</class>
-    <class>au.com.uptick.serendipity.server.domain.Address</class>
-    <class>au.com.uptick.serendipity.server.domain.Report</class>
+    <class>br.com.artefino.ordermanager.server.entities.Cliente</class>
+    <class>br.com.artefino.ordermanager.server.entities.Usuario</class>
 
-    <exclude-unlisted-classes/>
 
-    <!--
-	<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-	<validation-mode>NONE</validation-mode>
-    -->
+
 
     <properties>
 
-      <!--
-	  A uniform method is used to distinguish between different types of connection.
-	  The common driver identifier is jdbc:hsqldb: followed by a protocol identifier
-	  (mem: file: res: hsql: http: hsqls: https:) then followed by host and port
-	  identifiers in the case of servers, then followed by database identifier.
-	  Additional property / value pairs can be appended to the end of the URL,
-	  separated with semicolons.
-
-      Aqua Data Studio
-	  URL: jdbc:hsqldb:file:/db/serendipitydb
-      Driver: org.hsqldb.jdbcDriver
-      Driver Location: /tools/common/hsqldb-2.0.1/libhsqldb.jar
-
-	  -->
 
 	  <!-- Database connection settings -->
 	  <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-	  <!-- <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:serendipitydb" /> -->
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost/serendipitydb" />
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost/artefinodb" />
 	  <property name="hibernate.connection.username" value="root" />
 	  <property name="hibernate.connection.password" value="12345" />
 
@@ -61,7 +40,7 @@
 
 	  <!-- Drop and re-create the database schema on startup -->
 	  <!-- This property should not be set in PRODUCTION environments -->
-<!-- 	  <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+	  <property name="hibernate.hbm2ddl.auto" value="create" />
 
 	  <property name="hibernate.c3p0.min_size" value="5" />
 	  <property name="hibernate.c3p0.max_size" value="20" />

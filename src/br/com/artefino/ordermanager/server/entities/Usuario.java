@@ -2,25 +2,27 @@ package br.com.artefino.ordermanager.server.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_USER")
-public class User {
+@Table(name = "TB_USUARIO")
+public class Usuario {
 
 	private String id;
 
 	private String login;
 
-	private String password;
+	private String senha;
 
 	// JPA requires a no-argument constructor
-	public User() {
+	public Usuario() {
 	}
 
 	@Id
-	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public String getId() {
 		return id;
 	}
@@ -38,13 +40,13 @@ public class User {
 		this.login = login;
 	}
 
-	@Column(name = "DS_PASSWORD")
-	public String getPassword() {
-		return password;
+	@Column(name = "DS_SENHA")
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public boolean isAccountNonExpired() {

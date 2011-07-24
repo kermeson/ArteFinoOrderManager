@@ -1,17 +1,3 @@
-/**
- * (C) Copyright 2010, 2011 upTick Pty Ltd
- *
- * Licensed under the terms of the GNU General Public License version 3
- * as published by the Free Software Foundation. You may obtain a copy of the
- * License at: http://www.gnu.org/copyleft/gpl.html
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations
- * under the License.
- */
-
 package br.com.artefino.ordermanager.client.ui.widgets;
 
 import com.smartgwt.client.types.Alignment;
@@ -33,12 +19,12 @@ public class NavigationPaneHeader extends HLayout {
     // Log.debug("NavigationPaneHeader()");
 
     // initialise the Navigation Pane Header layout container
-    this.setStyleName("crm-NavigationPane-Header");
+    this.setStyleName("navigationPaneHeader");
     this.setHeight(NAVIGATION_PANE_HEADER_HEIGHT);
 
     // initialise the Navigation Pane Header Label
     navigationPaneHeaderLabel = new Label();
-    navigationPaneHeaderLabel.setStyleName("crm-NavigationPane-Header-Label");
+    navigationPaneHeaderLabel.setStyleName("navigationPaneHeaderLabel");
     navigationPaneHeaderLabel.setWidth(WEST_WIDTH);
     navigationPaneHeaderLabel.setContents("Workplace");
     navigationPaneHeaderLabel.setAlign(Alignment.LEFT);
@@ -46,7 +32,7 @@ public class NavigationPaneHeader extends HLayout {
 
     // initialise the Context Area Header Label
     contextAreaHeaderLabel = new Label();
-    contextAreaHeaderLabel.setStyleName("crm-ContextArea-Header-Label");
+    contextAreaHeaderLabel.setStyleName("navigationPaneHeaderLabel");
     contextAreaHeaderLabel.setContents("actividades");
     contextAreaHeaderLabel.setAlign(Alignment.LEFT);
     contextAreaHeaderLabel.setOverflow(Overflow.HIDDEN);

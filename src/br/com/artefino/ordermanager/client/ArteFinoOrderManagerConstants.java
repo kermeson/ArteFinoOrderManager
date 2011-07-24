@@ -1,259 +1,337 @@
 package br.com.artefino.ordermanager.client;
 
-public interface ArteFinoOrderManagerConstants extends com.google.gwt.i18n.client.Constants {
+public interface ArteFinoOrderManagerConstants extends
+		com.google.gwt.i18n.client.Constants {
 
-  // Menus
+	// Menus
 
-  @DefaultStringValue("<u>N</u>ew Activity")
-  String newActivityMenuName();
+	@DefaultStringValue("<u>N</u>ew Activity")
+	String newActivityMenuName();
 
-  @DefaultStringValue("Task, Fax, Phone Call, Email, Letter, Appointment")
-  String newActivityMenuItemNames();
+	@DefaultStringValue("Task, Fax, Phone Call, Email, Letter, Appointment")
+	String newActivityMenuItemNames();
 
-  @DefaultStringValue("New Re<u>c</u>ord")
-  String newRecordMenuName();
+	@DefaultStringValue("New Re<u>c</u>ord")
+	String newRecordMenuName();
 
-  // @DefaultStringValue("Account, Contact, separator, Lead, Opportunity")
-  // newRecordMenuItemNames: Konto, Kontakt, separator, Blei, Gelegenheit
-  @DefaultStringValue("Account, Contact")
-  String newRecordMenuItemNames();
+	// @DefaultStringValue("Account, Contact, separator, Lead, Opportunity")
+	// newRecordMenuItemNames: Konto, Kontakt, separator, Blei, Gelegenheit
+	@DefaultStringValue("Account, Contact")
+	String newRecordMenuItemNames();
 
-  @DefaultStringValue("<u>G</u>o To")
-  String goToMenuName();
+	@DefaultStringValue("<u>G</u>o To")
+	String goToMenuName();
 
-  @DefaultStringValue("Sales")
-  String salesMenuItemName();
+	@DefaultStringValue("Sales")
+	String salesMenuItemName();
 
-  @DefaultStringValue("Activities, Calendar, Dashboards, Imports, Accounts, Contacts, Queues, Reports")
-  String salesMenuItemNames();
-  @DefaultStringValue("Activities")
-  String activitiesMenuItemName();
-  @DefaultStringValue("Calendar")
-  String calendarMenuItemName();
-  @DefaultStringValue("Dashboards")
-  String dashboardsMenuItemName();
-  @DefaultStringValue("Imports")
-  String importsMenuItemName();
-  @DefaultStringValue("Accounts")
-  String accountsMenuItemName();
-  @DefaultStringValue("Contacts")
-  String contactsMenuItemName();
-  @DefaultStringValue("Queues")
-  String queuesMenuItemName();
-  @DefaultStringValue("Reports")
-  String reportsMenuItemName();
+	@DefaultStringValue("Activities, Calendar, Dashboards, Imports, Accounts, Contacts, Queues, Reports")
+	String salesMenuItemNames();
 
-  @DefaultStringValue("Settings")
-  String settingsMenuItemName();
+	@DefaultStringValue("Activities")
+	String activitiesMenuItemName();
 
-  @DefaultStringValue("Administration, Templates, Data Management")
-  String settingsMenuItemNames();
-  @DefaultStringValue("Administration")
-  String administrationMenuItemName();
+	@DefaultStringValue("Calendar")
+	String calendarMenuItemName();
 
-  @DefaultStringValue("Resource Centre")
-  String resourceCentreMenuItemName();
+	@DefaultStringValue("Dashboards")
+	String dashboardsMenuItemName();
 
-  @DefaultStringValue("Highlights, Sales, Settings")
-  String resourceCentreMenuItemNames();
-  @DefaultStringValue("Highlights")
-  String highlightsMenuItemName();
+	@DefaultStringValue("Imports")
+	String importsMenuItemName();
 
-  @DefaultStringValue("<u>T</u>ools")
-  String toolsMenuName();
+	@DefaultStringValue("Accounts")
+	String accountsMenuItemName();
 
-  @DefaultStringValue("Import Data, Duplicate Detection, Advanced Find, Options")
-  String toolsMenuItemNames();
+	@DefaultStringValue("Contacts")
+	String contactsMenuItemName();
 
-  @DefaultStringValue("<u>H</u>elp")
-  String helpMenuName();
+	@DefaultStringValue("Queues")
+	String queuesMenuItemName();
 
-  @DefaultStringValue("Help on this Page, Contents, Serendipity Online, About Serendipity")
-  String helpMenuItemNames();
+	@DefaultStringValue("Reports")
+	String reportsMenuItemName();
 
-  // Navigation Pane Header
+	@DefaultStringValue("Settings")
+	String settingsMenuItemName();
 
-  @DefaultStringValue("Workplace")
-  String workplace();
+	@DefaultStringValue("Administration, Templates, Data Management")
+	String settingsMenuItemNames();
 
-  @DefaultStringValue("Activities")
-  String activities();
+	@DefaultStringValue("Administration")
+	String administrationMenuItemName();
 
-  // Navigation Pane
+	@DefaultStringValue("Resource Centre")
+	String resourceCentreMenuItemName();
 
-  @DefaultStringValue("Sales")
-  String salesStackSectionName();
+	@DefaultStringValue("Highlights, Sales, Settings")
+	String resourceCentreMenuItemNames();
 
-  @DefaultStringValue("Settings")
-  String settingsStackSectionName();
+	@DefaultStringValue("Highlights")
+	String highlightsMenuItemName();
 
-  @DefaultStringValue("Resource Centre")
-  String resourceCentreStackSectionName();
+	@DefaultStringValue("<u>T</u>ools")
+	String toolsMenuName();
 
-  // Entity Navigation Pane
+	@DefaultStringValue("Import Data, Duplicate Detection, Advanced Find, Options")
+	String toolsMenuItemNames();
 
-  @DefaultStringValue("Details")
-  String accountDetailsStackSectionName();
+	@DefaultStringValue("<u>H</u>elp")
+	String helpMenuName();
 
-  // ToolBar
+	@DefaultStringValue("Help on this Page, Contents, Serendipity Online, About Serendipity")
+	String helpMenuItemNames();
 
-  @DefaultStringValue("New")
-  String newButton();
-  @DefaultStringValue("New")
-  String newButtonTooltip();
+	// Navigation Pane Header
 
-  @DefaultStringValue("Run Workflow...")
-  String workflowButton();
-  @DefaultStringValue("Run Workflow")
-  String workflowButtonTooltip();
+	@DefaultStringValue("Workplace")
+	String workplace();
 
-  @DefaultStringValue("Reports")
-  String reportsButton();
-  @DefaultStringValue("Reports")
-  String reportsButtonTooltip();
+	@DefaultStringValue("Activities")
+	String activities();
 
-  @DefaultStringValue("Print Preview")
-  String printPreviewButtonTooltip();
-  @DefaultStringValue("Export")
-  String exportButtonTooltip();
-  @DefaultStringValue("Mail Merge")
-  String mailMergeButtonTooltip();
-  @DefaultStringValue("Assign")
-  String assignButtonTooltip();
-  @DefaultStringValue("Delete")
-  String deleteButtonTooltip();
-  @DefaultStringValue("Email")
-  String emailButtonTooltip();
-  @DefaultStringValue("Attach")
-  String attachButtonTooltip();
-  @DefaultStringValue("Refresh")
-  String refreshButtonTooltip();
+	// Navigation Pane
 
-  // Form ToolBar
+	@DefaultStringValue("Sales")
+	String salesStackSectionName();
 
-  @DefaultStringValue("Save and Close")
-  String saveAndCloseButton();
+	@DefaultStringValue("Settings")
+	String settingsStackSectionName();
 
-  @DefaultStringValue("Help")
-  String helpButton();
+	@DefaultStringValue("Resource Centre")
+	String resourceCentreStackSectionName();
 
-  @DefaultStringValue("Save")
-  String saveButtonTooltip();
-  @DefaultStringValue("Save and Close")
-  String saveAndCloseButtonTooltip();
-  @DefaultStringValue("Help")
-  String helpButtonTooltip();
+	// Entity Navigation Pane
 
-  //
-  // Account Form tabs
-  //
+	@DefaultStringValue("Details")
+	String accountDetailsStackSectionName();
 
-  @DefaultStringValue("Account: ")
-  String accountWindowTitle();
+	// ToolBar
 
-  @DefaultStringValue("General")
-  String generalTab();
+	@DefaultStringValue("Novo")
+	String newButton();
 
-  @DefaultStringValue("General Information")
-  String generalInformationSectionItem();
+	@DefaultStringValue("Novo")
+	String newButtonTooltip();
 
-  @DefaultStringValue("Account Name")
-  String accountNameLabel();
-  @DefaultStringValue("Account Number")
-  String accountNumberLabel();
-  @DefaultStringValue("Parent Account")
-  String parentAccountLabel();
-  @DefaultStringValue("Primary Contact")
-  String primaryContactLabel();
-  @DefaultStringValue("Relationship Type")
-  String relationshipTypeLabel();
-  @DefaultStringValue("Main Phone")
-  String mainPhoneLabel();
-  @DefaultStringValue("Other Phone")
-  String otherPhoneLabel();
-  @DefaultStringValue("Fax")
-  String faxLabel();
-  @DefaultStringValue("Web Site")
-  String webSiteLabel();
-  @DefaultStringValue("Email")
-  String emailLabel();
+	@DefaultStringValue("Run Workflow...")
+	String workflowButton();
 
-  @DefaultStringValue("Address Information")
-  String addressInformationSectionItem();
+	@DefaultStringValue("Run Workflow")
+	String workflowButtonTooltip();
 
-  @DefaultStringValue("Address Name")
-  String addressNameLabel();
-  @DefaultStringValue("Street 1")
-  String addressLine1Label();
-  @DefaultStringValue("Street 2")
-  String addressLine2Label();
-  @DefaultStringValue("Street 3")
-  String addressLine3Label();
-  @DefaultStringValue("City")
-  String cityLabel();
-  @DefaultStringValue("State/Province")
-  String stateLabel();
-  @DefaultStringValue("ZIP/Postal Code")
-  String postalCodeLabel();
-  @DefaultStringValue("Country/Region")
-  String countryLabel();
-  @DefaultStringValue("Address Type")
-  String addressTypeLabel();
+	@DefaultStringValue("Reports")
+	String reportsButton();
 
-  @DefaultStringValue("Administration")
-  String administrationTab();
+	@DefaultStringValue("Reports")
+	String reportsButtonTooltip();
 
-  @DefaultStringValue("Notes")
-  String notesTab();
+	@DefaultStringValue("Print Preview")
+	String printPreviewButtonTooltip();
 
-  // ActivitiesRecord
-  @DefaultStringValue("Activity Type")
-  String activityType();
-  @DefaultStringValue("Subject")
-  String subject();
-  @DefaultStringValue("Regarding")
-  String regarding();
-  @DefaultStringValue("Priority")
-  String priority();
-  @DefaultStringValue("Start Date")
-  String startDate();
-  @DefaultStringValue("Due Date")
-  String dueDate();
+	@DefaultStringValue("Export")
+	String exportButtonTooltip();
 
-  // AccountsRecord
-  @DefaultStringValue("Account Name")
-  String accountName();
-  @DefaultStringValue("Main Phone")
-  String mainPhone();
-  @DefaultStringValue("Location")
-  String location();
-  @DefaultStringValue("Primary Contact")
-  String primaryContact();
-  @DefaultStringValue("Email (Primary Contact)")
-  String emailPrimaryContact();
+	@DefaultStringValue("Mail Merge")
+	String mailMergeButtonTooltip();
 
-  // ReportsRecord
-  @DefaultStringValue("Report Name")
-  String reportName();
-  @DefaultStringValue("Report Type")
-  String reportType();
-  @DefaultStringValue("Modified On")
-  String modifiedOn();
-  @DefaultStringValue("Description")
-  String description();
+	@DefaultStringValue("Assign")
+	String assignButtonTooltip();
 
-  // ImportsRecord
-  @DefaultStringValue("Import Name")
-  String importName();
-  @DefaultStringValue("Status")
-  String status();
-  @DefaultStringValue("Successes")
-  String successes();
-  @DefaultStringValue("Errors")
-  String errors();
-  @DefaultStringValue("Total")
-  String total();
-  @DefaultStringValue("Created On")
-  String createdOn();
+	@DefaultStringValue("Excluir")
+	String deleteButtonTooltip();
+
+	@DefaultStringValue("Email")
+	String emailButtonTooltip();
+
+	@DefaultStringValue("Attach")
+	String attachButtonTooltip();
+
+	@DefaultStringValue("Refresh")
+	String refreshButtonTooltip();
+
+	// Form ToolBar
+
+	@DefaultStringValue("Save and Close")
+	String saveAndCloseButton();
+
+	@DefaultStringValue("Help")
+	String helpButton();
+
+	@DefaultStringValue("Salvar")
+	String saveButtonTooltip();
+
+	@DefaultStringValue("Save and Close")
+	String saveAndCloseButtonTooltip();
+
+	@DefaultStringValue("Ajuda")
+	String helpButtonTooltip();
+
+	//
+	// Account Form tabs
+	//
+
+	@DefaultStringValue("Account: ")
+	String accountWindowTitle();
+
+	@DefaultStringValue("General")
+	String generalTab();
+
+	@DefaultStringValue("General Information")
+	String generalInformationSectionItem();
+
+	@DefaultStringValue("Account Name")
+	String accountNameLabel();
+
+	@DefaultStringValue("Account Number")
+	String accountNumberLabel();
+
+	@DefaultStringValue("Parent Account")
+	String parentAccountLabel();
+
+	@DefaultStringValue("Primary Contact")
+	String primaryContactLabel();
+
+	@DefaultStringValue("Relationship Type")
+	String relationshipTypeLabel();
+
+	@DefaultStringValue("Main Phone")
+	String mainPhoneLabel();
+
+	@DefaultStringValue("Other Phone")
+	String otherPhoneLabel();
+
+	@DefaultStringValue("Fax")
+	String faxLabel();
+
+	@DefaultStringValue("Web Site")
+	String webSiteLabel();
+
+	@DefaultStringValue("Email")
+	String emailLabel();
+
+	@DefaultStringValue("Address Information")
+	String addressInformationSectionItem();
+
+	@DefaultStringValue("Address Name")
+	String addressNameLabel();
+
+	@DefaultStringValue("Street 1")
+	String addressLine1Label();
+
+	@DefaultStringValue("Street 2")
+	String addressLine2Label();
+
+	@DefaultStringValue("Street 3")
+	String addressLine3Label();
+
+	@DefaultStringValue("City")
+	String cityLabel();
+
+	@DefaultStringValue("State/Province")
+	String stateLabel();
+
+	@DefaultStringValue("ZIP/Postal Code")
+	String postalCodeLabel();
+
+	@DefaultStringValue("Country/Region")
+	String countryLabel();
+
+	@DefaultStringValue("Address Type")
+	String addressTypeLabel();
+
+	@DefaultStringValue("Administration")
+	String administrationTab();
+
+	@DefaultStringValue("Notes")
+	String notesTab();
+
+	// ActivitiesRecord
+	@DefaultStringValue("Activity Type")
+	String activityType();
+
+	@DefaultStringValue("Subject")
+	String subject();
+
+	@DefaultStringValue("Regarding")
+	String regarding();
+
+	@DefaultStringValue("Priority")
+	String priority();
+
+	@DefaultStringValue("Start Date")
+	String startDate();
+
+	@DefaultStringValue("Due Date")
+	String dueDate();
+
+	// AccountsRecord
+	@DefaultStringValue("Account Name")
+	String accountName();
+
+	@DefaultStringValue("Main Phone")
+	String mainPhone();
+
+	@DefaultStringValue("Location")
+	String location();
+
+	@DefaultStringValue("Primary Contact")
+	String primaryContact();
+
+	@DefaultStringValue("Email (Primary Contact)")
+	String emailPrimaryContact();
+
+	// ReportsRecord
+	@DefaultStringValue("Report Name")
+	String reportName();
+
+	@DefaultStringValue("Report Type")
+	String reportType();
+
+	@DefaultStringValue("Modified On")
+	String modifiedOn();
+
+	@DefaultStringValue("Description")
+	String description();
+
+	// ImportsRecord
+	@DefaultStringValue("Import Name")
+	String importName();
+
+	@DefaultStringValue("Status")
+	String status();
+
+	@DefaultStringValue("Successes")
+	String successes();
+
+	@DefaultStringValue("Errors")
+	String errors();
+
+	@DefaultStringValue("Total")
+	String total();
+
+	@DefaultStringValue("Created On")
+	String createdOn();
+
+	@DefaultStringValue("Salvar")
+	String salvar();
+
+	@DefaultStringValue("Voltar")
+	String voltar();
+
+	@DefaultStringValue("Nome")
+	String nome();
+
+	@DefaultStringValue("Tipo de Pessoa")
+	String tipoPessoa();
+
+	@DefaultStringValue("Física")
+	String fisica();
+
+	@DefaultStringValue("Jurídica")
+	String juridica();
+
+	@DefaultStringValue("Endereço")
+	String endereco();
 
 }

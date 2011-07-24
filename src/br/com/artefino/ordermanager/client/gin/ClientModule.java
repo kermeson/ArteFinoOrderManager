@@ -10,6 +10,8 @@ import br.com.artefino.ordermanager.client.place.DefaultPlace;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clients.ClientPresenter;
 import br.com.artefino.ordermanager.client.ui.clients.ClientView;
+import br.com.artefino.ordermanager.client.ui.clients.ClientInformationPresenter;
+import br.com.artefino.ordermanager.client.ui.clients.ClientInformationView;
 
 public class ClientModule extends AbstractPresenterModule {
 
@@ -24,5 +26,10 @@ public class ClientModule extends AbstractPresenterModule {
 
 		bindPresenter(ClientPresenter.class, ClientPresenter.MyView.class,
 				ClientView.class, ClientPresenter.MyProxy.class);
+
+		bindPresenter(ClientInformationPresenter.class,
+				ClientInformationPresenter.MyView.class,
+				ClientInformationView.class,
+				ClientInformationPresenter.MyProxy.class);
 	}
 }

@@ -8,6 +8,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.google.inject.Provider;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.clients.ClientPresenter;
+import br.com.artefino.ordermanager.client.ui.clients.ClientInformationPresenter;
 
 @GinModules({ DispatchAsyncModule.class, ClientModule.class })
 public interface ClientGinjector extends Ginjector {
@@ -19,4 +20,6 @@ public interface ClientGinjector extends Ginjector {
 	Provider<MainPagePresenter> getMainPagePresenter();
 
 	Provider<ClientPresenter> getClientPresenter();
+
+	Provider<ClientInformationPresenter> getClientInformationPresenter();
 }
