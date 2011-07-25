@@ -1,0 +1,5 @@
+*.class
+*.log
+war/WEB-INF/deploy/
+Thumbs.db
+.gwt/
