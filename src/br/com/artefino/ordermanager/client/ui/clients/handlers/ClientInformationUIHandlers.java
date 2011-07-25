@@ -7,4 +7,6 @@ import com.gwtplatform.mvp.client.UiHandlers;
 public interface ClientInformationUIHandlers extends UiHandlers {
 
 	void onButtonSalvarClicked(ClienteVo cliente);
+
+	void onButtonVoltarClicked();
 }

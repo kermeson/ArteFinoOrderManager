@@ -4,94 +4,126 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+
+import org.apache.log4j.Logger;
+
 
 public class JPAUtil {
 
-    private static EntityManagerFactory emf;
+	private final static String PERSISTENCE_UNIT_NAME = "ARTEFINO";
+    private static final EntityManagerFactory factory;
+    private static Logger logger = Logger.getLogger(JPAUtil.class);
 
 
-    /**
-     * Padrão singleton.
-     *
-     * @return EntityManagerFactory
-     *         <p>
-     *         uma fabrica de EntityManager
-     *         </p>
-     */
-    private synchronized static EntityManagerFactory getEmf() {
+    static {
+        try {
+            factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
-        if (emf == null) {
+        } catch (Throwable ex) {
+            logger.error("Erro ao criar o EntityManagerFactory", ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
 
-            try {
-                emf = Persistence.createEntityManagerFactory("ARTEFINO");
-            } catch (RuntimeException ex) {
-                throw ex;
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return factory;
+    }
+    
+    public static EntityManager getEntityManager() {
+        return JPAUtil.getEntityManagerFactory().createEntityManager();
+    }
+
+    public static void startTransaction(EntityManager em) {
+        em.getTransaction().begin();
+    }
+
+    public static void finishTransacton(EntityManager em) {
+        if (em.isOpen()) {
+            EntityTransaction tx = em.getTransaction();
+            if (tx.isActive()) {
+                em.getTransaction().commit();
+            }
+            em.close();
+        }
+    }
+
+    public static void transactionFailed(EntityManager em) {
+        if (em.isOpen()) {
+            EntityTransaction tx = em.getTransaction();
+
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
             }
         }
-
-        return emf;
     }
 
-    private static EntityManager getEntityManager() {
-        return getEmf().createEntityManager();
-    }
+    public static void save(Object o) {
+        EntityManager em = null;
 
-    private static EntityTransaction getTransaction() {
-        return getEntityManager().getTransaction();
-    }
+        try {
+            em = JPAUtil.getEntityManagerFactory().createEntityManager();
+            JPAUtil.startTransaction(em);
+            em.persist(o);
+            JPAUtil.finishTransacton(em);
 
-    public static void startTransaction() {
-        getTransaction().begin();
-    }
-
-    public static void endTransaction(boolean commit) {
-        if (commit) {
-            getTransaction().commit();
-        } else {
-            getTransaction().rollback();
+        } catch (PersistenceException e) {
+            JPAUtil.transactionFailed(em);
+            throw e;
         }
     }
 
-    /** Clear the persistence context, causing all managed entities to become detached. */
-    public static void clear() {
-        getEntityManager().clear();
-    }
+    public static void update(Object o) {
+        EntityManager em = null;
 
-    /** Close an application-managed EntityManager. */
-    public static void close() {
         try {
-            getEntityManager().close();
-        } catch (Exception e) { }
+            em = JPAUtil.getEntityManagerFactory().createEntityManager();
+            JPAUtil.startTransaction(em);
+            em.merge(o);
+            JPAUtil.finishTransacton(em);
+
+        } catch (PersistenceException e) {
+            JPAUtil.transactionFailed(em);
+            throw e;
+        }
     }
 
-    /** Create an instance of Query for executing a named query (in EJB QL or native SQL). */
-    public static Query createNamedQuery(String name) {
-        return getEntityManager().createNamedQuery(name);
+    @SuppressWarnings("unchecked")
+	public static void remove(Class type, long id) {
+        EntityManager em = null;
+
+        try {
+            em = JPAUtil.getEntityManagerFactory().createEntityManager();
+            JPAUtil.startTransaction(em);
+
+            Query query = em.createQuery("DELETE FROM " + type.getName() + " c WHERE c.id = ?");
+            query.setParameter(1, id);
+            query.executeUpdate();
+
+            JPAUtil.finishTransacton(em);
+
+        } catch (PersistenceException e) {
+            JPAUtil.transactionFailed(em);
+            throw e;
+        }
     }
 
-    /** Create an instance of Query for executing an EJB QL statement. */
-    public static Query createQuery(String ejbqlString) {
-        return getEntityManager().createQuery(ejbqlString);
-    }
+    @SuppressWarnings("unchecked")
+	public static Object findByID(Class type, long id) {
+        EntityManager em = null;
 
-    /** Synchronize the persistence context to the underlying database. */
-    public static void flush() {
-        getEntityManager().flush();
-    }
+        try {
+            em = JPAUtil.getEntityManagerFactory().createEntityManager();
+            JPAUtil.startTransaction(em);
+            Object o = em.find(type, id);
+            JPAUtil.finishTransacton(em);
 
-    /** Make an entity instance managed and persistent. */
-    public static void persist(Object entity) {
-        getEntityManager().persist(entity);
-    }
+            return o;
 
-    /** Refresh the state of the instance from the database, overwriting changes made to the entity, if any. */
-    public static void refresh(Object entity) {
-        getEntityManager().refresh(entity);
-    }
-
-    /** Remove the entity instance. */
-    public static void remove(Object entity) {
-        getEntityManager().remove(entity);
+        } catch (PersistenceException e) {
+            JPAUtil.transactionFailed(em);
+            throw e;
+        }
     }
 }

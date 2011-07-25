@@ -20,5 +20,5 @@ public class CadastrarCliente extends ActionImpl<CadastrarClienteResult> {
 
 	public ClienteVo getClienteVo() {
 		return clienteVo;
-	}
+	}	
 }

@@ -1,8 +1,11 @@
 package br.com.artefino.ordermanager.client.ui.clients;
 
+import java.util.List;
+
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
+import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
@@ -17,13 +20,18 @@ public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
 
 	private VLayout panel;
 	private ToolBar toolBar;
+	private ClientesListGrid clientesListGrid;
 
 	@Inject
-	public ClientView() {
+	public ClientView(ClientesListGrid clientesListGrid) {
 		panel = new VLayout();
 
 		toolBar = new ToolBar();
 		panel.addMember(toolBar);
+		
+		//
+		this.clientesListGrid = clientesListGrid;
+		panel.addMember(clientesListGrid);
 
 		bindCustomUiHandlers();
 	}
@@ -86,5 +94,12 @@ public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
 			}
 		});
 
+	}
+
+	@Override
+	public void setResultSet(List<ClienteVo> clientes) {
+		if (clientes != null) {
+		      clientesListGrid.setResultSet(clientes);
+		    }		
 	}
 }

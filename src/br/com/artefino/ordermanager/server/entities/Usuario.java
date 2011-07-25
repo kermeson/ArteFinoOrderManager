@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "TB_USUARIO")
 public class Usuario {
 
-	private String id;
+	private Long id;
 
 	private String login;
 
@@ -23,11 +23,12 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public String getId() {
+	@Column(name = "ID")
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -47,22 +48,6 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	public boolean isEnabled() {
-		return true;
 	}
 
 }

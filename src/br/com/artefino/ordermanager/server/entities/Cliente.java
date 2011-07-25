@@ -43,6 +43,7 @@ public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	public Long getId() {
 		return id;
 	}
