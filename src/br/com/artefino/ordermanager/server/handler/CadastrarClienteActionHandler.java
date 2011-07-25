@@ -32,16 +32,13 @@ public class CadastrarClienteActionHandler implements
 
 			Cliente cliente = new Cliente(action.getClienteVo());
 
-			JPAUtil.startTransaction();
-			JPAUtil.persist(cliente);
-			JPAUtil.endTransaction(true);
+			JPAUtil.save(cliente);
 
 			Log.info("Cliente cadastrado" + cliente.getId());
 
 			result = new CadastrarClienteResult(cliente.getId());
 		} catch (Exception e) {
-			Log.error("Unable to create Account", e);
-
+			Log.error("Erro ao salvar cliente", e);
 			throw new ActionException(e);
 		}
 

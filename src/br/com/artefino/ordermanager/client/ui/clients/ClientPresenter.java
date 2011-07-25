@@ -1,11 +1,19 @@
 package br.com.artefino.ordermanager.client.ui.clients;
 
+import java.util.List;
+
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
+import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
+import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesResult;
+import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -20,21 +28,25 @@ public class ClientPresenter extends
 		Presenter<ClientPresenter.MyView, ClientPresenter.MyProxy>  implements ClientUIHandlers {
 
 	public interface MyView extends View, HasUiHandlers<ClientUIHandlers>  {
-		// TODO Put your view methods here
+
+		void setResultSet(List<ClienteVo> clientes);
+
 	}
 
 	@ProxyStandard
-	@NameToken(NameTokens.client)
+	@NameToken(NameTokens.clientes)
 	public interface MyProxy extends ProxyPlace<ClientPresenter> {
 	}
 
 	private PlaceManager placeManager;
+	private DispatchAsync dispatcher;
 
 	@Inject
 	public ClientPresenter(final EventBus eventBus, final MyView view,
-			final MyProxy proxy, PlaceManager placeManager) {
+			final MyProxy proxy, PlaceManager placeManager, DispatchAsync dispatcher) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
+		this.dispatcher = dispatcher;
 
 		getView().setUiHandlers(this);
 	}
@@ -48,6 +60,7 @@ public class ClientPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
+		pesquisarClientes();
 	}
 
 	@Override
@@ -60,4 +73,20 @@ public class ClientPresenter extends
 		PlaceRequest placeRequest = new PlaceRequest(NameTokens.clientinformation);
 		placeManager.revealPlace(placeRequest);
 	}
+	
+	private void pesquisarClientes() {
+
+		dispatcher.execute(new PesquisarClientesAction(10, 1),
+	        new AsyncCallback<PesquisarClientesResult>() {
+	      @Override
+	      public void onFailure(Throwable caught) {
+	        Log.debug("onFailure() - " + caught.getLocalizedMessage());
+	      }
+
+	      @Override
+	      public void onSuccess(PesquisarClientesResult result) {
+	    	  getView().setResultSet(result.getClientes());	        
+	      }
+	    });
+	  }
 }

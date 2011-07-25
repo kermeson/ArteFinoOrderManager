@@ -79,14 +79,14 @@ public class ClientInformationView extends
 		toolBar.addButton(ToolBar.BACK_BUTTON, ArteFinoOrderManager
 				.getConstants().voltar(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				// if (validateTabs()) {
-
+				if (getUiHandlers() != null) {
+					getUiHandlers().onButtonVoltarClicked();
+				}
 			}
 		});
 
 		toolBar.addButton(ToolBar.SAVE_BUTTON, ArteFinoOrderManager
-				.getConstants().salvar(), ArteFinoOrderManager.getConstants()
-				.saveButtonTooltip(), new ClickHandler() {
+				.getConstants().salvar(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				//if (validateTabs()) {
 					if (getUiHandlers() != null) {
@@ -102,12 +102,13 @@ public class ClientInformationView extends
 	}
 
 	protected ClienteVo getCliente() {
-		if (clienteVo != null) {
+		if (clienteVo == null) {
 			clienteVo = new ClienteVo();
 		}
 		clienteVo.setNome(textItemNome.getValueAsString());
 		clienteVo.setTipoPessoa(Integer.valueOf(selectItemTipoPessoa.getValueAsString()));
-
+		clienteVo.setEndereco(textItemEndereco.getValueAsString());
+		
 		return clienteVo;
 	}
 }

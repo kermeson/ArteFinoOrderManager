@@ -2,6 +2,7 @@ package br.com.artefino.ordermanager.client.gin;
 
 import br.com.artefino.ordermanager.client.place.ClientPlaceManager;
 
+import com.gwtplatform.dispatch.shared.SecurityCookie;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
@@ -17,6 +18,10 @@ public class ClientModule extends AbstractPresenterModule {
 
 	@Override
 	protected void configure() {
+		
+		// Protect against XSRF attacks
+	    bindConstant().annotatedWith(SecurityCookie.class).to("gwtSessionId");
+		
 		install(new DefaultModule(ClientPlaceManager.class));
 
 		bindPresenter(MainPagePresenter.class, MainPagePresenter.MyView.class,

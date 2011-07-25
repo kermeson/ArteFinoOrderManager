@@ -5,28 +5,17 @@ import org.junit.Test;
 import br.com.artefino.ordermanager.server.entities.Cliente;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
 
-import com.allen_sauer.gwt.log.client.Log;
-
 public class ClienteTest {
 
 	@Test
-	public void cadastrarCliente() throws Exception {
-		try {
+	public void cadastrarCliente() {
 
-			Cliente cliente = new Cliente();
+		Cliente cliente = new Cliente();
 
-			cliente.setNome("kermeson");
-			JPAUtil.startTransaction();
-			JPAUtil.persist(cliente);
-			JPAUtil.endTransaction(true);
+		cliente.setNome("kermeson");
 
-			Log.info("Cliente cadastrado" + cliente.getId());
+		JPAUtil.save(cliente);
 
-
-		} catch (Exception e) {
-			Log.error("Unable to create Account", e);
-
-			throw e;
-		}
 	}
+
 }

@@ -1,9 +1,16 @@
 package br.com.artefino.ordermanager.shared.vo;
 
+import java.io.Serializable;
 
-public class ClienteVo {
 
-	private String id;
+public class ClienteVo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8979038313031009647L;
+
+	private Long id;
 
 	private String nome;
 
@@ -20,12 +27,12 @@ public class ClienteVo {
 	public ClienteVo() {
 
 	}
-
-	public String getId() {
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

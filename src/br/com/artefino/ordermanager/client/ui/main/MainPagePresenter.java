@@ -52,7 +52,7 @@ public class MainPagePresenter extends
 		super.onBind();
 
 	    // reveal the first nested Presenter
-	    PlaceRequest placRequest = new PlaceRequest(NameTokens.client);
+	    PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);
 	    placeManager.revealPlace(placRequest);
 	}
 
