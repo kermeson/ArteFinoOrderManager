@@ -334,4 +334,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Endereço")
 	String endereco();
 
+	@DefaultStringValue("Carregando...")
+	String mensagemCarregando();
+
 }

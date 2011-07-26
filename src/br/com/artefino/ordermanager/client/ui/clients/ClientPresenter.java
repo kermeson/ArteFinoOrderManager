@@ -2,6 +2,8 @@ package br.com.artefino.ordermanager.client.ui.clients;
 
 import java.util.List;
 
+import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
+import br.com.artefino.ordermanager.client.ArteFinoOrderManagerConstants;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
@@ -23,6 +25,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
+import com.smartgwt.client.util.SC;
 
 public class ClientPresenter extends
 		Presenter<ClientPresenter.MyView, ClientPresenter.MyProxy>  implements ClientUIHandlers {
@@ -60,12 +63,13 @@ public class ClientPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
-		pesquisarClientes();
+		
 	}
 
 	@Override
 	protected void onReveal() {
 		super.onReveal();
+		pesquisarClientes();
 	}
 
 	@Override
@@ -75,16 +79,18 @@ public class ClientPresenter extends
 	}
 	
 	private void pesquisarClientes() {
-
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
 		dispatcher.execute(new PesquisarClientesAction(10, 1),
 	        new AsyncCallback<PesquisarClientesResult>() {
 	      @Override
 	      public void onFailure(Throwable caught) {
+	    	SC.clearPrompt();
 	        Log.debug("onFailure() - " + caught.getLocalizedMessage());
 	      }
 
 	      @Override
 	      public void onSuccess(PesquisarClientesResult result) {
+	    	  SC.clearPrompt();
 	    	  getView().setResultSet(result.getClientes());	        
 	      }
 	    });
