@@ -31,10 +31,13 @@ public class ClientInformationView extends
 
 	private ToolBar toolBar;
 	private SelectItem selectItemTipoPessoa;
+	private TextItem textItemCnpjf;
+	private TextItem textItemNumero;
 
 	@Inject
 	public ClientInformationView() {
-		clienteVo = null;;
+		clienteVo = null;
+		;
 
 		painel = new VLayout();
 
@@ -49,11 +52,21 @@ public class ClientInformationView extends
 		map.put("2", ArteFinoOrderManager.getConstants().juridica());
 		selectItemTipoPessoa.setValueMap(map);
 
+		textItemCnpjf = new TextItem();
+		textItemCnpjf.setTitle(ArteFinoOrderManager.getConstants().cnpjf());
+
 		textItemEndereco = new TextItem();
-		textItemEndereco.setTitle(ArteFinoOrderManager.getConstants().endereco());
+		textItemEndereco.setTitle(ArteFinoOrderManager.getConstants()
+				.endereco());
+
+		textItemNumero = new TextItem();
+		textItemNumero.setTitle(ArteFinoOrderManager.getConstants()
+				.numeroEndereco());
+		textItemNumero.setLength(5);
 
 		dynamicForm = new DynamicForm();
-		dynamicForm.setFields(textItemNome, selectItemTipoPessoa, textItemEndereco);
+		dynamicForm.setFields(textItemNome, selectItemTipoPessoa,
+				textItemEndereco, textItemCnpjf, textItemNumero);
 
 		toolBar = new ToolBar();
 		painel.addMember(toolBar);
@@ -88,14 +101,13 @@ public class ClientInformationView extends
 		toolBar.addButton(ToolBar.SAVE_BUTTON, ArteFinoOrderManager
 				.getConstants().salvar(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				//if (validateTabs()) {
-					if (getUiHandlers() != null) {
-						//Log.debug("onSaveClicked()");
+				// if (validateTabs()) {
+				if (getUiHandlers() != null) {
+					// Log.debug("onSaveClicked()");
 
-						getUiHandlers()
-								.onButtonSalvarClicked(getCliente());
-					}
-				//}
+					getUiHandlers().onButtonSalvarClicked(getCliente());
+				}
+				// }
 			}
 		});
 
@@ -106,9 +118,10 @@ public class ClientInformationView extends
 			clienteVo = new ClienteVo();
 		}
 		clienteVo.setNome(textItemNome.getValueAsString());
-		clienteVo.setTipoPessoa(Integer.valueOf(selectItemTipoPessoa.getValueAsString()));
+		clienteVo.setTipoPessoa(Integer.valueOf(selectItemTipoPessoa
+				.getValueAsString()));
 		clienteVo.setEndereco(textItemEndereco.getValueAsString());
-		
+
 		return clienteVo;
 	}
 }

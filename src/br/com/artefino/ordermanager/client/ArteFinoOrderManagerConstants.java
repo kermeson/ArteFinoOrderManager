@@ -334,4 +334,10 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Endereço")
 	String endereco();
 
+	@DefaultStringValue("CPF/CNPJ")
+	String cnpjf();
+
+	@DefaultStringValue("Nº")
+	String numeroEndereco();
+
 }
