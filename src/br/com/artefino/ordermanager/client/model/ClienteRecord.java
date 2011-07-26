@@ -22,7 +22,7 @@ public class ClienteRecord extends ListGridRecord {
 	}
 
 	public void setId(Long attribute) {
-		setAttribute(ID, attribute);
+		setAttribute(ID, attribute.longValue());
 	}
 
 	public void setNome(String attribute) {
