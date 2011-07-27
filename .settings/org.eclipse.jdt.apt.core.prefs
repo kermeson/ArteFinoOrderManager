@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+#Mon Jul 25 15:53:45 BRT 2011
+=======
 #Mon Jul 25 21:54:49 UTC 2011
+>>>>>>> 31506cc73474970075fa3bf3733d877fb38db016
 eclipse.preferences.version=1
 org.eclipse.jdt.apt.aptEnabled=true
 org.eclipse.jdt.apt.genSrcDir=.apt_generated

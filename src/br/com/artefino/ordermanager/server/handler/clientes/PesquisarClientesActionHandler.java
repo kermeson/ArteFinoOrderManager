@@ -51,6 +51,7 @@ public class PesquisarClientesActionHandler implements
 
 				for (Cliente cliente : clientes) {
 					clienteVos.add(cliente.converterParaVo());
+
 				}
 
 				result = new PesquisarClientesResult(clienteVos);

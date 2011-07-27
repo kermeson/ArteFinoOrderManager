@@ -32,7 +32,6 @@ public class MainPagePresenter extends
 	public interface MyView extends View, HasUiHandlers<MainUIHandlers> {
 
 		NavigationPaneHeader getNavigationPaneHeader();
-
 		NavigationPane getNavigationPane();
 	}
 
