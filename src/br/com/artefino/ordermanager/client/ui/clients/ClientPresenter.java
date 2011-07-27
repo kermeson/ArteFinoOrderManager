@@ -3,12 +3,13 @@ package br.com.artefino.ordermanager.client.ui.clients;
 import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
-import br.com.artefino.ordermanager.client.ArteFinoOrderManagerConstants;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesResult;
+import br.com.artefino.ordermanager.shared.action.clientes.RemoverClienteAction;
+import br.com.artefino.ordermanager.shared.action.clientes.RemoverClienteResult;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -33,6 +34,8 @@ public class ClientPresenter extends
 	public interface MyView extends View, HasUiHandlers<ClientUIHandlers>  {
 
 		void setResultSet(List<ClienteVo> clientes);
+
+		void removerClienteSelecionado();
 
 	}
 
@@ -63,7 +66,7 @@ public class ClientPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
-		
+
 	}
 
 	@Override
@@ -77,7 +80,7 @@ public class ClientPresenter extends
 		PlaceRequest placeRequest = new PlaceRequest(NameTokens.clientinformation);
 		placeManager.revealPlace(placeRequest);
 	}
-	
+
 	private void pesquisarClientes() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
 		dispatcher.execute(new PesquisarClientesAction(10, 1),
@@ -91,8 +94,44 @@ public class ClientPresenter extends
 	      @Override
 	      public void onSuccess(PesquisarClientesResult result) {
 	    	  SC.clearPrompt();
-	    	  getView().setResultSet(result.getClientes());	        
+	    	  getView().setResultSet(result.getClientes());
 	      }
 	    });
 	  }
+
+	@Override
+	public void onRecordDoubleClicked(String idCliente) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onDeleteButtonClicked(String idCliente) {
+		Long id = -1L;
+
+	    try {
+	      id = Long.valueOf(idCliente);
+	    }
+	    catch (NumberFormatException nfe) {
+	      Log.debug("NumberFormatException: " + nfe.getLocalizedMessage());
+	      return;
+	    }
+
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		dispatcher.execute(new RemoverClienteAction(id),
+	        new AsyncCallback<RemoverClienteResult>() {
+	      @Override
+	      public void onFailure(Throwable caught) {
+	    	SC.clearPrompt();
+	        Log.debug("onFailure() - " + caught.getLocalizedMessage());
+	      }
+
+	      @Override
+	      public void onSuccess(RemoverClienteResult result) {
+	    	  SC.clearPrompt();
+	    	  getView().removerClienteSelecionado();
+	      }
+	    });
+
+	}
 }

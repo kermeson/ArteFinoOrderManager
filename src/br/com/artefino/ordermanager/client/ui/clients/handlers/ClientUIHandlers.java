@@ -4,4 +4,8 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface ClientUIHandlers extends UiHandlers {
 	void onButtonNewClientClicked();
+
+	void onRecordDoubleClicked(String idCliente);
+
+	void onDeleteButtonClicked(String idCliente);
 }

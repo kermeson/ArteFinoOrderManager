@@ -11,11 +11,15 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.events.ChangedEvent;
+import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class ClientInformationView extends
@@ -37,7 +41,6 @@ public class ClientInformationView extends
 	@Inject
 	public ClientInformationView() {
 		clienteVo = null;
-		;
 
 		painel = new VLayout();
 
@@ -54,6 +57,8 @@ public class ClientInformationView extends
 
 		textItemCnpjf = new TextItem();
 		textItemCnpjf.setTitle(ArteFinoOrderManager.getConstants().cnpjf());
+		textItemCnpjf.setRequired(true);
+		textItemCnpjf.setMask("###.###.###-##");
 
 		textItemEndereco = new TextItem();
 		textItemEndereco.setTitle(ArteFinoOrderManager.getConstants()
@@ -65,12 +70,15 @@ public class ClientInformationView extends
 		textItemNumero.setLength(5);
 
 		dynamicForm = new DynamicForm();
-		dynamicForm.setFields(textItemNome, selectItemTipoPessoa,
-				textItemEndereco, textItemCnpjf, textItemNumero);
+		dynamicForm.setTitleOrientation(TitleOrientation.TOP);
+		dynamicForm.setNumCols(3);
+		dynamicForm.setFields(textItemNome, selectItemTipoPessoa, textItemCnpjf,
+				textItemEndereco, textItemNumero);
 
 		toolBar = new ToolBar();
 		painel.addMember(toolBar);
 		painel.addMember(dynamicForm);
+
 		bindCustomUiHandlers();
 	}
 
@@ -78,6 +86,17 @@ public class ClientInformationView extends
 
 		// initialise the ToolBar and register its handlers
 		initToolBar();
+
+		selectItemTipoPessoa.addChangedHandler(new ChangedHandler() {
+			@Override
+			public void onChanged(ChangedEvent event) {
+				if (event.getValue().equals("2")) {
+					textItemCnpjf.setMask("##.###.###/####-##");
+				} else if (event.getValue().equals("1")) {
+					textItemCnpjf.setMask("###.###.###-##");
+				}
+			}
+		});
 	}
 
 	@Override
@@ -101,16 +120,22 @@ public class ClientInformationView extends
 		toolBar.addButton(ToolBar.SAVE_BUTTON, ArteFinoOrderManager
 				.getConstants().salvar(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				// if (validateTabs()) {
-				if (getUiHandlers() != null) {
-					// Log.debug("onSaveClicked()");
-
-					getUiHandlers().onButtonSalvarClicked(getCliente());
+				if (validarCadastroCliente()) {
+					if (getUiHandlers() != null) {
+						getUiHandlers().onButtonSalvarClicked(getCliente());
+					}
 				}
-				// }
 			}
 		});
 
+	}
+
+	protected boolean validarCadastroCliente() {
+		if (dynamicForm.validate()) {
+			return true;
+		}
+		SC.warn(ArteFinoOrderManager.getMessages().preenchaCamposObrigatorios());
+		return false;
 	}
 
 	protected ClienteVo getCliente() {
@@ -121,6 +146,7 @@ public class ClientInformationView extends
 		clienteVo.setTipoPessoa(Integer.valueOf(selectItemTipoPessoa
 				.getValueAsString()));
 		clienteVo.setEndereco(textItemEndereco.getValueAsString());
+		clienteVo.setCnpjf(Long.parseLong(textItemCnpjf.getValueAsString()));
 
 		return clienteVo;
 	}

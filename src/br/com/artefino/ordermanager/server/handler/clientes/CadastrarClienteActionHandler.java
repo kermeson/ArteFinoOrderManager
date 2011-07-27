@@ -1,4 +1,4 @@
-package br.com.artefino.ordermanager.server.handler;
+package br.com.artefino.ordermanager.server.handler.clientes;
 
 import br.com.artefino.ordermanager.server.entities.Cliente;
 import br.com.artefino.ordermanager.server.util.JPAUtil;

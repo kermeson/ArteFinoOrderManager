@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module rename-to='artefinoordermanager'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.google.gwt.inject.Inject' />
+	<inherits name='com.google.gwt.resources.Resources' />
+
+	<!-- Inherit the default GWT style sheet. You can change -->
+	<!-- the theme of your GWT application by uncommenting -->
+	<!-- any one of the following lines. -->
+	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+	<!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+	<!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
+
+	<!-- Other module inherits -->
+	<inherits name='com.gwtplatform.mvp.Mvp' />
+	<inherits name='com.gwtplatform.dispatch.Dispatch' />
+
+	<inherits name="com.smartgwt.SmartGwtNoTheme" />
+	<inherits name="com.smartclient.theme.enterpriseblue.EnterpriseBlue" />
+	<inherits
+		name="com.smartclient.theme.enterpriseblue.EnterpriseBlueResources" />
+	<!-- For development a default of `DEBUG` is recommended -->
+	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+	<!-- For production most teams prefer to set the default log level to `OFF` -->
+	<!-- <inherits name="com.allen_sauer.gwt.log.gwt-log-OFF" /> -->
+
+	<!-- Specify the app entry point class. -->
+	<entry-point class='br.com.artefino.ordermanager.client.ArteFinoOrderManager' />
+
+	<!-- Specify the paths for translatable code -->
+	<source path='client' />
+	<source path='shared' />
+
+	<define-configuration-property name='gin.ginjector'
+		is-multi-valued='false' />
+	<set-configuration-property name='gin.ginjector'
+		value='br.com.artefino.ordermanager.client.gin.ClientGinjector' />
+
+
+
+	<!-- Loggers Enabled by default -->
+	<set-property name="log_GWTLogger" value="ENABLED" />
+
+	<!-- Loggers Disabled by default -->
+	<set-property name="log_WindowLogger" value="DISABLED" />
+	<set-property name="log_ConsoleLogger" value="DISABLED" />
+	<set-property name="log_DivLogger" value="DISABLED" />
+	<set-property name="log_FirebugLogger" value="DISABLED" />
+	<set-property name="log_SystemLogger" value="DISABLED" />
+
+	<!-- Inspired by Apache log4j PatternLayout: http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html -->
+	<set-configuration-property name="log_pattern"
+		value="(%F:%L) %d [%-5p] %m%n" />
+
+</module>
