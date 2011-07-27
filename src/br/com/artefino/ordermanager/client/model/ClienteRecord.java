@@ -9,20 +9,22 @@ public class ClienteRecord extends ListGridRecord {
 	public static final String NOME = "nome";
 	public static final String ENDERECO = "endereco";
 	public static final String TIPO_PESSOA = "tipoPessoa";
+	public static final String CNPJF = "cnpjf";
 
 	public ClienteRecord() {
 	}
 
-	public ClienteRecord(Long id, String nome, String endereco,
-			Integer tipoPessoa) {
+	public ClienteRecord(int id, String nome, String endereco,
+			int tipoPessoa,  long cnpjf) {
 		setId(id);
 		setNome(nome);
 		setEndereco(endereco);
 		setTipoPessoa(tipoPessoa);
+		setCnpjf(cnpjf);
 	}
 
-	public void setId(Long attribute) {
-		setAttribute(ID, attribute.longValue());
+	public void setId(int attribute) {
+		setAttribute(ID, attribute);
 	}
 
 	public void setNome(String attribute) {
@@ -33,12 +35,16 @@ public class ClienteRecord extends ListGridRecord {
 		setAttribute(ENDERECO, attribute);
 	}
 
-	public void setTipoPessoa(Integer attribute) {
+	public void setTipoPessoa(int attribute) {
 		setAttribute(TIPO_PESSOA, attribute);
 	}
+	
+	public void setCnpjf(long attribute) {
+		setAttribute(CNPJF, attribute);
+	}
 
-	public Long getId() {
-		return (Long) getAttributeAsObject(ID);
+	public int getId() {
+		return getAttributeAsInt(ID);
 	}
 
 	public String getNome() {
@@ -49,8 +55,12 @@ public class ClienteRecord extends ListGridRecord {
 		return getAttributeAsString(ENDERECO);
 	}
 
-	public Integer getTipoPessoa() {
-		return (Integer) getAttributeAsObject(TIPO_PESSOA);
+	public int getTipoPessoa() {
+		return getAttributeAsInt(TIPO_PESSOA);
+	}
+	
+	public long getCnpjf() {
+		return (Long)getAttributeAsObject(CNPJF);
 	}
 
 }

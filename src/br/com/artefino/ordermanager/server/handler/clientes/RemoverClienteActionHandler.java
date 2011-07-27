@@ -23,23 +23,16 @@ public class RemoverClienteActionHandler implements
 			ExecutionContext context) throws ActionException {
 
 		RemoverClienteResult result = null;
-
-		// DOMConfigurator.configure("log4j.xml");
-
 		Log.info("Cadastrando o cliente");
 
 		try {
-
 			JPAUtil.remove(Cliente.class, action.getIdCliente());
-
-			Log.info("Cliente removido" + action.getIdCliente());
-
+			Log.info("Cliente removido: " + action.getIdCliente());
 			result = new RemoverClienteResult();
 		} catch (Exception e) {
 			Log.error("Erro ao salvar cliente", e);
 			throw new ActionException(e);
 		}
-
 		return result;
 	}
 

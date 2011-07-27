@@ -33,12 +33,12 @@ public class Cliente {
 	}
 
 	public Cliente(ClienteVo clienteVo) {
+		this.id = clienteVo.getId();
 		this.nome = clienteVo.getNome();
 		this.endereco = clienteVo.getEndereco();
 		this.telefone = clienteVo.getTelefone();
 		this.cnpjf = clienteVo.getCnpjf();
 		this.tipoPessoa = clienteVo.getTipoPessoa();
-
 	}
 
 	@Id
@@ -104,6 +104,17 @@ public class Cliente {
 
 	public void setTipoPessoa(Integer tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
+	}
+	
+	public ClienteVo getClienteVo() {
+		ClienteVo clienteVo = new ClienteVo();
+		clienteVo.setId(this.getId());
+		clienteVo.setNome(this.getNome());
+		clienteVo.setEndereco(this.getEndereco());
+		clienteVo.setTelefone(this.getTelefone());
+		clienteVo.setCnpjf(this.getCnpjf());
+		clienteVo.setTipoPessoa(this.getTipoPessoa());
+		return clienteVo;
 	}
 
 

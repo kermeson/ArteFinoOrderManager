@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientInformationUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
+import br.com.artefino.ordermanager.client.util.FormatadorUtil;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -149,5 +150,33 @@ public class ClientInformationView extends
 		clienteVo.setCnpjf(Long.parseLong(textItemCnpjf.getValueAsString()));
 
 		return clienteVo;
+	}
+
+	@Override
+	public void setCliente(ClienteVo clienteVo) {
+		if (clienteVo != null) {
+			this.clienteVo = clienteVo;
+			preencherFormularioCliente(clienteVo);
+		}
+	}
+
+	private void preencherFormularioCliente(ClienteVo clienteVo) {
+		textItemNome.setValue(clienteVo.getNome());	
+		selectItemTipoPessoa.setValue(clienteVo.getTipoPessoa());
+		textItemEndereco.setValue(clienteVo.getEndereco());
+		
+		if (clienteVo.getTipoPessoa() == 1) {
+			textItemCnpjf.setMask("###.###.###-##");
+			textItemCnpjf.setValue(FormatadorUtil.formatarCPF(clienteVo.getCnpjf()));
+		} else {
+			textItemCnpjf.setMask("##.###.###/####-##");
+			textItemCnpjf.setValue(FormatadorUtil.formatarCNPJ(clienteVo.getCnpjf()));
+		}
+	}
+
+	@Override
+	public void limparFormulario() {
+		dynamicForm.clearValues();
+		clienteVo = null;
 	}
 }

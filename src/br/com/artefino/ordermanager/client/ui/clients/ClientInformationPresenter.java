@@ -1,12 +1,18 @@
 package br.com.artefino.ordermanager.client.ui.clients;
 
+import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientInformationUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
-import br.com.artefino.ordermanager.shared.action.clientes.CadastrarCliente;
+import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteAction;
+import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteResult;
+import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteResult;
+import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteAction;
+import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteResult;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
@@ -27,9 +33,20 @@ public class ClientInformationPresenter
 		Presenter<ClientInformationPresenter.MyView, ClientInformationPresenter.MyProxy>
 		implements ClientInformationUIHandlers {
 
+	private static final String ACAO = "acao";
+	private static final String ID = "id";
+	private static final String EDITAR = "editar";
+	private static final String NOVO = "novo";
+	private DispatchAsync dispatcher;
+	private PlaceManager placeManager;
+	private String idCliente;
+	private String acao;
+
 	public interface MyView extends View,
 			HasUiHandlers<ClientInformationUIHandlers> {
-		// TODO Put your view methods here
+		void setCliente(ClienteVo clienteVo);
+
+		void limparFormulario();
 	}
 
 	@ProxyStandard
@@ -37,12 +54,10 @@ public class ClientInformationPresenter
 	public interface MyProxy extends ProxyPlace<ClientInformationPresenter> {
 	}
 
-	private DispatchAsync dispatcher;
-	private PlaceManager placeManager;
-
 	@Inject
 	public ClientInformationPresenter(final EventBus eventBus,
-			final MyView view, final MyProxy proxy, DispatchAsync dispatcher, PlaceManager placeManager) {
+			final MyView view, final MyProxy proxy, DispatchAsync dispatcher,
+			PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.dispatcher = dispatcher;
 		this.placeManager = placeManager;
@@ -59,6 +74,59 @@ public class ClientInformationPresenter
 	@Override
 	protected void onBind() {
 		super.onBind();
+
+	}
+
+	@Override
+	protected void onReveal() {
+		super.onReveal();
+		
+		MainPagePresenter.getNavigationPaneHeader()
+		.setContextAreaHeaderLabelContents(
+				ArteFinoOrderManager.getConstants().tituloInformacoesCliente());
+		
+		
+		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();	
+		acao = placeRequest.getParameter(ACAO, NOVO);
+		idCliente = placeRequest.getParameter(ID, null);
+		if (EDITAR.equals(acao)) {
+			Long id = -1L;
+
+			try {
+				id = Long.valueOf(idCliente);
+			} catch (NumberFormatException nfe) {
+				Log
+						.debug("NumberFormatException: "
+								+ nfe.getLocalizedMessage());
+				return;
+			}
+			recuperarCliente(id);
+		} else if (NOVO.equals(acao)) {
+			getView().limparFormulario();
+		}
+		
+		
+	}
+	
+	private void recuperarCliente(Long id) {
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		dispatcher.execute(new RecuperarClienteAction(id),
+				new AsyncCallback<RecuperarClienteResult>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.clearPrompt();
+						Log.debug("onFailure() - "
+								+ caught.getLocalizedMessage());
+					}
+
+					@Override
+					public void onSuccess(RecuperarClienteResult result) {
+						SC.clearPrompt();
+						Log.debug("onSuccess()");
+						getView().setCliente(result.getClienteVo());
+					}
+				});
+
 	}
 
 	@Override
@@ -71,30 +139,50 @@ public class ClientInformationPresenter
 	}
 
 	private void cadastrarCliente(ClienteVo cliente) {
-		dispatcher.execute(new CadastrarCliente(cliente),
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		dispatcher.execute(new CadastrarClienteAction(cliente),
 				new AsyncCallback<CadastrarClienteResult>() {
 					@Override
 					public void onFailure(Throwable caught) {
+						SC.clearPrompt();
 						SC.warn(caught.getMessage());
 					}
 
 					@Override
 					public void onSuccess(CadastrarClienteResult result) {
-						SC.say("IdCliente" + result.getId());
+						SC.clearPrompt();
+						SC.say(ArteFinoOrderManager.getMessages()
+								.operacaoRealizadoComSucesso());
+						getView().limparFormulario();
 					}
 				});
 
 	}
 
-	private void atualizarCliente(ClienteVo cliente) {
-		// TODO Auto-generated method stub
+	private void atualizarCliente(final ClienteVo cliente) {
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		dispatcher.execute(new AtualizarClienteAction(cliente),
+				new AsyncCallback<AtualizarClienteResult>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.clearPrompt();
+						SC.warn(caught.getMessage());
+					}
+
+					@Override
+					public void onSuccess(AtualizarClienteResult result) {
+						SC.clearPrompt();
+						SC.say(ArteFinoOrderManager.getMessages()
+								.clienteAtualizado(cliente.getNome()));
+					}
+				});
 
 	}
 
 	@Override
 	public void onButtonVoltarClicked() {
 		PlaceRequest placeRequest = new PlaceRequest(NameTokens.clientes);
-		placeManager.revealPlace(placeRequest);		
+		placeManager.revealPlace(placeRequest);
 	}
 
 }

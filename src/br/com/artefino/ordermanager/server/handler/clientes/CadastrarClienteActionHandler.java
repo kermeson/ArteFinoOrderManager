@@ -2,7 +2,7 @@ package br.com.artefino.ordermanager.server.handler.clientes;
 
 import br.com.artefino.ordermanager.server.entities.Cliente;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
-import br.com.artefino.ordermanager.shared.action.clientes.CadastrarCliente;
+import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteResult;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -12,14 +12,14 @@ import com.gwtplatform.dispatch.server.actionhandler.ActionHandler;
 import com.gwtplatform.dispatch.shared.ActionException;
 
 public class CadastrarClienteActionHandler implements
-		ActionHandler<CadastrarCliente, CadastrarClienteResult> {
+		ActionHandler<CadastrarClienteAction, CadastrarClienteResult> {
 
 	@Inject
 	public CadastrarClienteActionHandler() {
 	}
 
 	@Override
-	public CadastrarClienteResult execute(CadastrarCliente action,
+	public CadastrarClienteResult execute(CadastrarClienteAction action,
 			ExecutionContext context) throws ActionException {
 
 		CadastrarClienteResult result = null;
@@ -46,12 +46,12 @@ public class CadastrarClienteActionHandler implements
 	}
 
 	@Override
-	public void undo(CadastrarCliente action, CadastrarClienteResult result,
+	public void undo(CadastrarClienteAction action, CadastrarClienteResult result,
 			ExecutionContext context) throws ActionException {
 	}
 
 	@Override
-	public Class<CadastrarCliente> getActionType() {
-		return CadastrarCliente.class;
+	public Class<CadastrarClienteAction> getActionType() {
+		return CadastrarClienteAction.class;
 	}
 }

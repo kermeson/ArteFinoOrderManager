@@ -1,27 +1,34 @@
 package br.com.artefino.ordermanager.client.ui.main;
 
+import br.com.artefino.ordermanager.client.place.NameTokens;
+import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
+import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
-import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.annotations.NameToken;
-import br.com.artefino.ordermanager.client.place.NameTokens;
-
+import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
-import com.google.inject.Inject;
-import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.GwtEvent.Type;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 
 public class MainPagePresenter extends
 		Presenter<MainPagePresenter.MyView, MainPagePresenter.MyProxy> {
 	private final PlaceManager placeManager;
+	
+	private static NavigationPaneHeader navigationPaneHeader;
+	private static NavigationPane navigationPane;
 
 	public interface MyView extends View {
-		// TODO Put your view methods here
+
+		NavigationPaneHeader getNavigationPaneHeader();
+		NavigationPane getNavigationPane();
 	}
 
 	@ProxyStandard
@@ -40,6 +47,9 @@ public class MainPagePresenter extends
 			final MyProxy proxy, PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
+		
+		MainPagePresenter.navigationPaneHeader = getView().getNavigationPaneHeader();
+	    MainPagePresenter.navigationPane = getView().getNavigationPane();
 	}
 
 	@Override
@@ -51,13 +61,23 @@ public class MainPagePresenter extends
 	protected void onBind() {
 		super.onBind();
 
-	    // reveal the first nested Presenter
-	    PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);
-	    placeManager.revealPlace(placRequest);
+		// reveal the first nested Presenter
+		PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);
+		placeManager.revealPlace(placRequest);
 	}
 
 	@Override
 	protected void onReveal() {
 		super.onReveal();
 	}
+
+	public static NavigationPaneHeader getNavigationPaneHeader() {
+		return navigationPaneHeader;
+	}
+
+	public static NavigationPane getNavigationPane() {
+		return navigationPane;
+	}
+	
+	
 }

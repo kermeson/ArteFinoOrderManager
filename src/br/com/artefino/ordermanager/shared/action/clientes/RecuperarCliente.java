@@ -8,7 +8,9 @@ import com.gwtplatform.dispatch.annotation.Out;
 import com.gwtplatform.dispatch.shared.ActionImpl;
 
 @GenDispatch(isSecure = true, serviceName = ActionImpl.DEFAULT_SERVICE_NAME)
-public class CadastrarCliente {
-	@In(1) ClienteVo clienteVo;
-	@Out(1) Long id;
+public class RecuperarCliente {
+	@In(1)
+	Long idCliente;
+	@Out(1)
+	ClienteVo ClienteVo;
 }
