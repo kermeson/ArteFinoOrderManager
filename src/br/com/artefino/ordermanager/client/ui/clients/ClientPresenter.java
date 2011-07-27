@@ -3,6 +3,7 @@ package br.com.artefino.ordermanager.client.ui.clients;
 import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
+import br.com.artefino.ordermanager.client.ArteFinoOrderManagerConstants;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
@@ -66,7 +67,6 @@ public class ClientPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
-
 	}
 
 	@Override

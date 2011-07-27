@@ -346,4 +346,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Aguarde...")
 	String mensagemAguarde();
 
+	@DefaultStringValue("Carregando...")
+	String mensagemCarregando();
+
 }
