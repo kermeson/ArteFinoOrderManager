@@ -12,6 +12,8 @@ public class ArteFinoOrderManager implements EntryPoint {
 
 	private final ClientGinjector ginjector = GWT.create(ClientGinjector.class);
 
+	private static ArteFinoOrderManagerMessages messages;
+
 	@Override
 	public void onModuleLoad() {
 		// This is required for Gwt-Platform proxy's generator
@@ -19,6 +21,7 @@ public class ArteFinoOrderManager implements EntryPoint {
 
 		// load constants
 	    constants = (ArteFinoOrderManagerConstants) GWT.create(ArteFinoOrderManagerConstants.class);
+	    messages = (ArteFinoOrderManagerMessages) GWT.create(ArteFinoOrderManagerMessages.class);
 
 		ginjector.getPlaceManager().revealCurrentPlace();
 
@@ -29,5 +32,7 @@ public class ArteFinoOrderManager implements EntryPoint {
 		return constants;
 	}
 
-
+	public static ArteFinoOrderManagerMessages getMessages() {
+		return messages;
+	}
 }

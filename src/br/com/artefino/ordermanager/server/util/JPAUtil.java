@@ -30,7 +30,7 @@ public class JPAUtil {
     public static EntityManagerFactory getEntityManagerFactory() {
         return factory;
     }
-    
+
     public static EntityManager getEntityManager() {
         return JPAUtil.getEntityManagerFactory().createEntityManager();
     }
@@ -89,8 +89,7 @@ public class JPAUtil {
         }
     }
 
-    @SuppressWarnings("unchecked")
-	public static void remove(Class type, long id) {
+    public static void remove(Class<?> type, long id) {
         EntityManager em = null;
 
         try {
@@ -109,8 +108,7 @@ public class JPAUtil {
         }
     }
 
-    @SuppressWarnings("unchecked")
-	public static Object findByID(Class type, long id) {
+    public static Object findByID(Class<?> type, long id) {
         EntityManager em = null;
 
         try {

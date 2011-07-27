@@ -32,6 +32,7 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 	private HLayout northLayout;
 	private HLayout southLayout;
 	private VLayout westLayout;
+	private VLayout content;
 
 	private static final ArteFinoOrderManagerConstants constants = ArteFinoOrderManager
 			.getConstants();
@@ -78,6 +79,13 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 		// add the North and South layout containers to the main layout
 		// container
 		panel.addMember(northLayout);
+
+		content = new VLayout();
+		content.setStyleName("contextArea");
+
+		southLayout.setMembers(westLayout, content);
+
+
 		panel.addMember(southLayout);
 
 		bindCustomUiHandlers();
@@ -197,7 +205,7 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 
 	    if (slot == MainPagePresenter.TYPE_SetContextAreaContent) {
 	      if (content != null) {
-	        southLayout.setMembers(westLayout, (VLayout) content);
+	    	  this.content.setMembers((VLayout) content);
 	      }
 	    } else {
 	      super.setInSlot(slot, content);

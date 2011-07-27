@@ -7,6 +7,7 @@ import br.com.artefino.ordermanager.client.model.ClienteRecord;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.smartgwt.client.types.ListGridFieldType;
+import com.smartgwt.client.types.SelectionStyle;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
 
@@ -14,9 +15,12 @@ public class ClientesListGrid extends ListGrid {
 	public ClientesListGrid() {
 		super();
 
+		setSelectionType(SelectionStyle.SINGLE);
+
 		ListGridField listGridFieldId = new ListGridField(ClienteRecord.ID, ClienteRecord.ID_NAME);
 		listGridFieldId.setType(ListGridFieldType.INTEGER);
-		
+		listGridFieldId.setWidth(25);
+
 		ListGridField listGridFieldNome = new ListGridField(ClienteRecord.NOME,
 				ArteFinoOrderManager.getConstants().nome());
 		ListGridField listGridFieldTipoPessoa = new ListGridField(

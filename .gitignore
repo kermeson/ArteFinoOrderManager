@@ -1,0 +1,7 @@
+*.class
+*.log
+war/WEB-INF/deploy/
+Thumbs.db
+.gwt/
+.apt_generated/
+war/artefinoordermanager/*
