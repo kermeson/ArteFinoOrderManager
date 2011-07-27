@@ -50,7 +50,7 @@ public class PesquisarClientesActionHandler implements
 						.size());
 
 				for (Cliente cliente : clientes) {
-					clienteVos.add(createClienteVo(cliente));
+					clienteVos.add(cliente.getClienteVo());
 				}
 
 				result = new PesquisarClientesResult(clienteVos);
@@ -75,14 +75,4 @@ public class PesquisarClientesActionHandler implements
 		return PesquisarClientesAction.class;
 	}
 
-	private ClienteVo createClienteVo(Cliente cliente) {
-		ClienteVo clienteVo = new ClienteVo();
-		clienteVo.setId(cliente.getId());
-		clienteVo.setNome(cliente.getNome());
-		clienteVo.setEndereco(cliente.getEndereco());
-		clienteVo.setCnpjf(cliente.getCnpjf());
-		clienteVo.setTipoPessoa(cliente.getTipoPessoa());
-		return clienteVo;
-		
-	}
 }

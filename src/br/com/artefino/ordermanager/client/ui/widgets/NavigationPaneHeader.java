@@ -26,14 +26,14 @@ public class NavigationPaneHeader extends HLayout {
     navigationPaneHeaderLabel = new Label();
     navigationPaneHeaderLabel.setStyleName("navigationPaneHeaderLabel");
     navigationPaneHeaderLabel.setWidth(WEST_WIDTH);
-    navigationPaneHeaderLabel.setContents("Workplace");
+    navigationPaneHeaderLabel.setContents("Menu");
     navigationPaneHeaderLabel.setAlign(Alignment.LEFT);
     navigationPaneHeaderLabel.setOverflow(Overflow.HIDDEN);
 
     // initialise the Context Area Header Label
     contextAreaHeaderLabel = new Label();
     contextAreaHeaderLabel.setStyleName("navigationPaneHeaderLabel");
-    contextAreaHeaderLabel.setContents("actividades");
+    contextAreaHeaderLabel.setContents("");
     contextAreaHeaderLabel.setAlign(Alignment.LEFT);
     contextAreaHeaderLabel.setOverflow(Overflow.HIDDEN);
 

@@ -8,4 +8,6 @@ public interface ClientUIHandlers extends UiHandlers {
 	void onRecordDoubleClicked(String idCliente);
 
 	void onDeleteButtonClicked(String idCliente);
+
+	void onEditarButtonClicked(String idCliente);
 }

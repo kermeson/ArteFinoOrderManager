@@ -212,4 +212,14 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 	    }
 	  }
 
+	@Override
+	public NavigationPane getNavigationPane() {
+		return navigationPane;
+	}
+
+	@Override
+	public NavigationPaneHeader getNavigationPaneHeader() {
+		return navigationPaneHeader;
+	}
+
 }

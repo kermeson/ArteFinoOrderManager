@@ -40,7 +40,7 @@
 
 	  <!-- Drop and re-create the database schema on startup -->
 	  <!-- This property should not be set in PRODUCTION environments -->
-<!--	  <property name="hibernate.hbm2ddl.auto" value="create" />-->
+	  <property name="hibernate.hbm2ddl.auto" value="create" />
 
 	  <property name="hibernate.c3p0.min_size" value="5" />
 	  <property name="hibernate.c3p0.max_size" value="20" />

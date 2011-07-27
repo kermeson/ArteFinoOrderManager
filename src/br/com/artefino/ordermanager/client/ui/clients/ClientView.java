@@ -50,17 +50,19 @@ public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
 		initToolBar();
 
 		// register the ListGird handlers
-	    clientesListGrid.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
-	      @Override
-	      public void onRecordDoubleClick(RecordDoubleClickEvent event) {
-	        Record record = event.getRecord();
-	        idCliente = record.getAttributeAsString(ClienteRecord.ID);
+		clientesListGrid
+				.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
+					@Override
+					public void onRecordDoubleClick(RecordDoubleClickEvent event) {
+						Record record = event.getRecord();
+						idCliente = record
+								.getAttributeAsString(ClienteRecord.ID);
 
-	        if (getUiHandlers() != null) {
-	          getUiHandlers().onRecordDoubleClicked(idCliente);
-	        }
-	      }
-	    });
+						if (getUiHandlers() != null) {
+							getUiHandlers().onRecordDoubleClicked(idCliente);
+						}
+					}
+				});
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
 
 		Log.debug("initToolBar()");
 
-		toolBar.addButton(ToolBar.NEW_BUTTON, ArteFinoOrderManager
+		toolBar.addButton(ToolBar.ADD_CLIENT, ArteFinoOrderManager
 				.getConstants().newButton(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				if (getUiHandlers() != null) {
@@ -86,58 +88,62 @@ public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
 			public void onClick(ClickEvent event) {
 				if (getUiHandlers() != null) {
 
-			          ListGridRecord record = clientesListGrid.getSelectedRecord();
+					ListGridRecord record = clientesListGrid
+							.getSelectedRecord();
 
-			          if (record != null) {
+					if (record != null) {
 
-			            idCliente = record.getAttributeAsString(ClienteRecord.ID);
+						idCliente = record
+								.getAttributeAsString(ClienteRecord.ID);
 
-			            event.cancel();
-			            SC.ask("Deseja remover este cliente?", new BooleanCallback()
-			            {
-			              @Override
-			              public void execute(Boolean value) {
-			                if (value != null && value) { // Yes
-			                  getUiHandlers().onDeleteButtonClicked(idCliente);
-			                }
-			              }
-			            });
-			          } else {
-			        	  clientesListGrid.deselectAllRecords();
-			          }
-			            }
+						event.cancel();
+						SC.ask("Deseja remover este cliente?",
+								new BooleanCallback() {
+									@Override
+									public void execute(Boolean value) {
+										if (value != null && value) { // Yes
+											getUiHandlers()
+													.onDeleteButtonClicked(
+															idCliente);
+										}
+									}
+								});
+					} else {
+						clientesListGrid.deselectAllRecords();
+					}
+				}
 
 			}
 		});
 
-		toolBar.addButton(ToolBar.PRINT_PREVIEW_BUTTON, ArteFinoOrderManager
-				.getConstants().printPreviewButtonTooltip(),
+		toolBar.addButton(ToolBar.EDIT_CLIENT, ArteFinoOrderManager
+				.getConstants().editar(),
 				new ClickHandler() {
 					public void onClick(ClickEvent event) {
-						// if (getUiHandlers() != null) {
-						// // getUiHandlers().onPrintPreviewClicked();
-						// }
+						if (getUiHandlers() != null) {
+							ListGridRecord record = clientesListGrid
+									.getSelectedRecord();
+
+							if (record != null) {
+								idCliente = record
+										.getAttributeAsString(ClienteRecord.ID);
+								event.cancel();
+								getUiHandlers()
+										.onEditarButtonClicked(idCliente);
+							} else {
+								clientesListGrid.deselectAllRecords();
+							}
+						}
 					}
 				});
-
-		toolBar.addSeparator();
-
-		toolBar.addButton(ToolBar.EMAIL_BUTTON, ArteFinoOrderManager
-				.getConstants().emailButtonTooltip(), new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				// if (getUiHandlers() != null) {
-				// // getUiHandlers().onEmailButtonClicked();
-				// }
-			}
-		});
 
 	}
 
 	@Override
 	public void setResultSet(List<ClienteVo> clientes) {
 		if (clientes != null) {
-		      clientesListGrid.setResultSet(clientes);
-		    }
+			clientesListGrid.setResultSet(clientes);
+		}
 	}
 
 	@Override
