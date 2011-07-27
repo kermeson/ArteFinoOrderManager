@@ -355,4 +355,10 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Informações do cliente")
 	String tituloInformacoesCliente();
 
+	@DefaultStringValue("Menu Principal")
+	String tituloMenuPricipal();
+
+	@DefaultStringValue("Menu Principal")
+	String menuPrincipalStackSectionName();
+
 }

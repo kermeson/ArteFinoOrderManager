@@ -105,8 +105,8 @@ public class Cliente {
 	public void setTipoPessoa(Integer tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
-	
-	public ClienteVo getClienteVo() {
+
+	public ClienteVo converterParaVo() {
 		ClienteVo clienteVo = new ClienteVo();
 		clienteVo.setId(this.getId());
 		clienteVo.setNome(this.getNome());

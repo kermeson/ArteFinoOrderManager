@@ -50,7 +50,7 @@ public class PesquisarClientesActionHandler implements
 						.size());
 
 				for (Cliente cliente : clientes) {
-					clienteVos.add(cliente.getClienteVo());
+					clienteVos.add(cliente.converterParaVo());
 				}
 
 				result = new PesquisarClientesResult(clienteVos);

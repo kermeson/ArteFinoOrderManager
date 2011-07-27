@@ -26,7 +26,7 @@ public class RecuperarClienteActionHandler implements
 			Log.info("Recuperando o cliente: " + action.getIdCliente());
 			Cliente cliente = (Cliente) JPAUtil.findByID(Cliente.class, action
 					.getIdCliente());
-			result = new RecuperarClienteResult(cliente.getClienteVo());
+			result = new RecuperarClienteResult(cliente.converterParaVo());
 		} catch (Exception e) {
 			Log.error("Erro ao recuperar cliente: " + action.getIdCliente(), e);
 			throw new ActionException(e);

@@ -2,6 +2,8 @@ package br.com.artefino.ordermanager.client.ui.main;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManagerConstants;
+import br.com.artefino.ordermanager.client.data.MenuPrincipalDataSource;
+import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ApplicationMenu;
 import br.com.artefino.ordermanager.client.ui.widgets.Masthead;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
@@ -11,11 +13,14 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.gwtplatform.mvp.client.ViewImpl;
+import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.smartgwt.client.data.Record;
+import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
+import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
+public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements MainPagePresenter.MyView {
 
 	// NORTH_HEIGHT = MASTHEAD_HEIGHT + APPLICATION_MENU_HEIGHT +
 	// NAVIGATION_PANE_HEADER_HEIGHT
@@ -36,6 +41,7 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 
 	private static final ArteFinoOrderManagerConstants constants = ArteFinoOrderManager
 			.getConstants();
+	private static final String NAME = "name";
 
 	@Inject
 	public MainPageView(Masthead masthead, ApplicationMenu applicationMenu,
@@ -63,12 +69,11 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 		// initialise the nested layout container
 		VLayout vLayout = new VLayout();
 		vLayout.addMember(this.masthead);
-		vLayout.addMember(this.applicationMenu);
+		//vLayout.addMember(this.applicationMenu);
 		vLayout.addMember(this.navigationPaneHeader);
 
 		// add the nested layout container to the North layout container
 		northLayout.addMember(vLayout);
-
 
 		// initialise the West layout container
 		westLayout = this.navigationPane;
@@ -84,7 +89,6 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 		content.setStyleName("contextArea");
 
 		southLayout.setMembers(westLayout, content);
-
 
 		panel.addMember(southLayout);
 
@@ -137,80 +141,34 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 	}
 
 	private void initNavigationPane() {
+		navigationPane.addSection(ArteFinoOrderManager.getConstants()
+				.menuPrincipalStackSectionName(), MenuPrincipalDataSource
+				.getInstance());
 
-		//navigationPane.addSection(constants.salesStackSectionName());
-		// navigationPane.addSection(Serendipity.getConstants().settingsStackSectionName(),
-		// SettingsNpsDataSource.getInstance());
-		// navigationPane.addSection(Serendipity.getConstants().resourceCentreStackSectionName(),
-		// ResourceCentreNpsDataSource.getInstance());
+		navigationPane.addRecordClickHandler(ArteFinoOrderManager
+				.getConstants().menuPrincipalStackSectionName(),
+				new RecordClickHandler() {
+					@Override
+					public void onRecordClick(RecordClickEvent event) {
+						onRecordClicked(event);
+					}
+				});
 
-		// navigationPane.addSectionHeaderClickHandler(new
-		// SectionHeaderClickHandler() {
-		// @Override
-		// public void onSectionHeaderClick(SectionHeaderClickEvent event) {
-		// SectionStackSection section = event.getSection();
-		// String name = ((NavigationPaneSection) section).getSelectedRecord();
-		//
-		// // If there is no selected record (e.g. the data hasn't finished
-		// loading)
-		// // then getSelectedRecord() will return an empty string.
-		// if (name.isEmpty()) {
-		// if
-		// (section.getTitle().equals(Serendipity.getConstants().settingsStackSectionName()))
-		// {
-		// // default to the first item e.g. "Administration" in Settings
-		// name = SettingsNpsDataSource.DEFAULT_RECORD_NAME;
-		// } else if
-		// (section.getTitle().equals(Serendipity.getConstants().resourceCentreStackSectionName()))
-		// {
-		// // default to the first item e.g. "Highlights" in Resource Centre
-		// name = ResourceCentreNpsDataSource.DEFAULT_RECORD_NAME;
-		// }
-		// }
-		//
-		// if (getUiHandlers() != null) {
-		// getUiHandlers().onNavigationPaneSectionHeaderClicked(name);
-		// }
-		// }
-		// });
-		//
-		// navigationPane.addRecordClickHandler(Serendipity.getConstants().salesStackSectionName(),
-		// new RecordClickHandler() {
-		// @Override
-		// public void onRecordClick(RecordClickEvent event) {
-		// onRecordClicked(event);
-		// }
-		// });
-		//
-		// navigationPane.addRecordClickHandler(Serendipity.getConstants().settingsStackSectionName(),
-		// new RecordClickHandler() {
-		// @Override
-		// public void onRecordClick(RecordClickEvent event) {
-		// onRecordClicked(event);
-		// }
-		// });
-		//
-		// navigationPane.addRecordClickHandler(Serendipity.getConstants().resourceCentreStackSectionName(),
-		// new RecordClickHandler() {
-		// @Override
-		// public void onRecordClick(RecordClickEvent event) {
-		// onRecordClicked(event);
-		// }
-		// });
 	}
 
 	@Override
-	  public void setInSlot(Object slot, Widget content) {
-	    Log.debug("setInSlot()");
+	public void setInSlot(Object slot, Widget content) {
+		Log.debug("setInSlot()");
 
-	    if (slot == MainPagePresenter.TYPE_SetContextAreaContent) {
-	      if (content != null) {
-	    	  this.content.setMembers((VLayout) content);
-	      }
-	    } else {
-	      super.setInSlot(slot, content);
-	    }
-	  }
+		if (slot == MainPagePresenter.TYPE_SetContextAreaContent) {
+			if (content != null) {
+				this.content.setMembers((VLayout) content);
+				// southLayout.setMembers(westLayout, (VLayout) content);
+			}
+		} else {
+			super.setInSlot(slot, content);
+		}
+	}
 
 	@Override
 	public NavigationPane getNavigationPane() {
@@ -220,6 +178,15 @@ public class MainPageView extends ViewImpl implements MainPagePresenter.MyView {
 	@Override
 	public NavigationPaneHeader getNavigationPaneHeader() {
 		return navigationPaneHeader;
+	}
+
+	private void onRecordClicked(RecordClickEvent event) {
+		Record record = event.getRecord();
+		String place = record.getAttributeAsString(NAME);
+
+		if (getUiHandlers() != null) {
+			getUiHandlers().onNavigationPaneSectionClicked(place);
+		}
 	}
 
 }

@@ -1,0 +1,11 @@
+<DataSource
+    ID="SalesNps"
+    serverType="sql"
+>
+    <fields>
+		<field name="pk"            type="sequence"   hidden="true"         primaryKey="true" />
+        <field name="icon"  		type="text"       title="Icon"          required="true"   />
+        <field name="name"   		type="text"       title="Name"          required="true"   />
+        <field name="displayName"  	type="text"       title="Display Name"  required="true"   />
+    </fields>
+</DataSource>

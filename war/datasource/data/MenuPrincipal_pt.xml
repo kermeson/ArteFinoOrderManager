@@ -1,0 +1,17 @@
+<list>
+<record>
+    <icon>clients</icon>
+    <name>clientes</name>
+    <displayName>Clientes</displayName>
+</record>
+<record>
+    <icon>task</icon>
+    <name>pedidos</name>
+    <displayName>Pedidos</displayName>
+</record>
+<record>
+    <icon>report</icon>
+    <name>relatorios</name>
+    <displayName>Relatórios</displayName>
+</record>
+</list>

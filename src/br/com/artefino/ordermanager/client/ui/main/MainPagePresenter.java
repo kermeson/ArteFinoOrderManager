@@ -1,12 +1,15 @@
 package br.com.artefino.ordermanager.client.ui.main;
 
+import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.place.NameTokens;
+import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.inject.Inject;
+import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
@@ -19,15 +22,17 @@ import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 
 public class MainPagePresenter extends
-		Presenter<MainPagePresenter.MyView, MainPagePresenter.MyProxy> {
+		Presenter<MainPagePresenter.MyView, MainPagePresenter.MyProxy>
+		implements MainUIHandlers {
 	private final PlaceManager placeManager;
-	
+
 	private static NavigationPaneHeader navigationPaneHeader;
 	private static NavigationPane navigationPane;
 
-	public interface MyView extends View {
+	public interface MyView extends View, HasUiHandlers<MainUIHandlers> {
 
 		NavigationPaneHeader getNavigationPaneHeader();
+
 		NavigationPane getNavigationPane();
 	}
 
@@ -47,9 +52,10 @@ public class MainPagePresenter extends
 			final MyProxy proxy, PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
-		
-		MainPagePresenter.navigationPaneHeader = getView().getNavigationPaneHeader();
-	    MainPagePresenter.navigationPane = getView().getNavigationPane();
+
+		MainPagePresenter.navigationPaneHeader = getView()
+				.getNavigationPaneHeader();
+		MainPagePresenter.navigationPane = getView().getNavigationPane();
 	}
 
 	@Override
@@ -60,6 +66,11 @@ public class MainPagePresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
+
+		// expand the first Navigation Pane section
+		getView().getNavigationPane().expandSection(
+				ArteFinoOrderManager.getConstants()
+						.menuPrincipalStackSectionName());
 
 		// reveal the first nested Presenter
 		PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);
@@ -78,6 +89,14 @@ public class MainPagePresenter extends
 	public static NavigationPane getNavigationPane() {
 		return navigationPane;
 	}
-	
-	
+
+	@Override
+	public void onNavigationPaneSectionClicked(String place) {
+		if (place.length() != 0) {
+			PlaceRequest placeRequest = new PlaceRequest(place);
+			placeManager.revealPlace(placeRequest);
+		}
+
+	}
+
 }
