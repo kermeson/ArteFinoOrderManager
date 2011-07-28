@@ -9,6 +9,7 @@ import com.google.inject.Provider;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.clients.ClientPresenter;
 import br.com.artefino.ordermanager.client.ui.clients.ClientInformationPresenter;
+import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
 
 @GinModules({ DispatchAsyncModule.class, ClientModule.class })
 public interface ClientGinjector extends Ginjector {
@@ -22,4 +23,6 @@ public interface ClientGinjector extends Ginjector {
 	Provider<ClientPresenter> getClientPresenter();
 
 	Provider<ClientInformationPresenter> getClientInformationPresenter();
+
+	Provider<PedidosPresenter> getPedidosPresenter();
 }

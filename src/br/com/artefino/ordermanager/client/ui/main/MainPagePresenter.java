@@ -46,11 +46,15 @@ public class MainPagePresenter extends
 	@ContentSlot
 	public static final Type<RevealContentHandler<?>> TYPE_SetContextAreaContent = new Type<RevealContentHandler<?>>();
 
+	private static final String TOKEN = "!";
+
 	@Inject
 	public MainPagePresenter(final EventBus eventBus, final MyView view,
 			final MyProxy proxy, PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
+
+		getView().setUiHandlers(this);
 
 		MainPagePresenter.navigationPaneHeader = getView()
 				.getNavigationPaneHeader();
@@ -92,7 +96,7 @@ public class MainPagePresenter extends
 	@Override
 	public void onNavigationPaneSectionClicked(String place) {
 		if (place.length() != 0) {
-			PlaceRequest placeRequest = new PlaceRequest(place);
+			PlaceRequest placeRequest = new PlaceRequest(TOKEN + place);
 			placeManager.revealPlace(placeRequest);
 		}
 

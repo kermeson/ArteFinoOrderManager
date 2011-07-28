@@ -41,7 +41,7 @@
 
 	<!-- In any real-world application, you will define at least -->
 	<!-- one locale in addition to the default locale. -->
-	<extend-property name="locale" values="pt" />
+	<extend-property name="locale" values="pt_BR" />
 
 	<!-- Add German language support, so remember to inherit "i18n" -->
 	<extend-property name="locale" values="en" />

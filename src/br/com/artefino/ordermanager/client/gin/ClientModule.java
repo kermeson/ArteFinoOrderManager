@@ -13,15 +13,17 @@ import br.com.artefino.ordermanager.client.ui.clients.ClientPresenter;
 import br.com.artefino.ordermanager.client.ui.clients.ClientView;
 import br.com.artefino.ordermanager.client.ui.clients.ClientInformationPresenter;
 import br.com.artefino.ordermanager.client.ui.clients.ClientInformationView;
+import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
+import br.com.artefino.ordermanager.client.ui.pedidos.PedidosView;
 
 public class ClientModule extends AbstractPresenterModule {
 
 	@Override
 	protected void configure() {
-		
+
 		// Protect against XSRF attacks
-	    bindConstant().annotatedWith(SecurityCookie.class).to("gwtSessionId");
-		
+		bindConstant().annotatedWith(SecurityCookie.class).to("gwtSessionId");
+
 		install(new DefaultModule(ClientPlaceManager.class));
 
 		bindPresenter(MainPagePresenter.class, MainPagePresenter.MyView.class,
@@ -36,5 +38,8 @@ public class ClientModule extends AbstractPresenterModule {
 				ClientInformationPresenter.MyView.class,
 				ClientInformationView.class,
 				ClientInformationPresenter.MyProxy.class);
+
+		bindPresenter(PedidosPresenter.class, PedidosPresenter.MyView.class,
+				PedidosView.class, PedidosPresenter.MyProxy.class);
 	}
 }

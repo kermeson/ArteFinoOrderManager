@@ -38,23 +38,32 @@ public class ClientInformationView extends
 	private SelectItem selectItemTipoPessoa;
 	private TextItem textItemCnpjf;
 	private TextItem textItemNumero;
+	private TextItem textItemBairro;
 
 	@Inject
 	public ClientInformationView() {
 		clienteVo = null;
 
-		painel = new VLayout();
+		painel = new VLayout(5);
+
+		VLayout vLayoutContainer = new VLayout();
+		vLayoutContainer.setStyleName("containerPadrao");
 
 		textItemNome = new TextItem();
 		textItemNome.setTitle(ArteFinoOrderManager.getConstants().nome());
+		textItemNome.setWidth(500);
+		textItemNome.setLength(100);
+		textItemNome.setRequired(true);
 
 		selectItemTipoPessoa = new SelectItem();
 		selectItemTipoPessoa.setTitle(ArteFinoOrderManager.getConstants()
 				.tipoPessoa());
+		selectItemTipoPessoa.setWidth(100);
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		map.put("1", ArteFinoOrderManager.getConstants().fisica());
 		map.put("2", ArteFinoOrderManager.getConstants().juridica());
 		selectItemTipoPessoa.setValueMap(map);
+		selectItemTipoPessoa.setDefaultValue(1);
 
 		textItemCnpjf = new TextItem();
 		textItemCnpjf.setTitle(ArteFinoOrderManager.getConstants().cnpjf());
@@ -64,21 +73,30 @@ public class ClientInformationView extends
 		textItemEndereco = new TextItem();
 		textItemEndereco.setTitle(ArteFinoOrderManager.getConstants()
 				.endereco());
+		textItemEndereco.setWidth(500);
+
+		textItemBairro = new TextItem();
+		textItemBairro.setTitle(ArteFinoOrderManager.getConstants()
+				.bairro());
+		textItemBairro.setWidth(500);
 
 		textItemNumero = new TextItem();
 		textItemNumero.setTitle(ArteFinoOrderManager.getConstants()
 				.numeroEndereco());
 		textItemNumero.setLength(5);
+		textItemNumero.setWidth(60);
 
 		dynamicForm = new DynamicForm();
 		dynamicForm.setTitleOrientation(TitleOrientation.TOP);
 		dynamicForm.setNumCols(3);
+		dynamicForm.setWidth(650);
 		dynamicForm.setFields(textItemNome, selectItemTipoPessoa, textItemCnpjf,
 				textItemEndereco, textItemNumero);
+		vLayoutContainer.addMember(dynamicForm);
 
 		toolBar = new ToolBar();
 		painel.addMember(toolBar);
-		painel.addMember(dynamicForm);
+		painel.addMember(vLayoutContainer);
 
 		bindCustomUiHandlers();
 	}
@@ -161,10 +179,10 @@ public class ClientInformationView extends
 	}
 
 	private void preencherFormularioCliente(ClienteVo clienteVo) {
-		textItemNome.setValue(clienteVo.getNome());	
+		textItemNome.setValue(clienteVo.getNome());
 		selectItemTipoPessoa.setValue(clienteVo.getTipoPessoa());
 		textItemEndereco.setValue(clienteVo.getEndereco());
-		
+
 		if (clienteVo.getTipoPessoa() == 1) {
 			textItemCnpjf.setMask("###.###.###-##");
 			textItemCnpjf.setValue(FormatadorUtil.formatarCPF(clienteVo.getCnpjf()));

@@ -32,7 +32,7 @@ public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
 
 	@Inject
 	public ClientView(ClientesListGrid clientesListGrid) {
-		panel = new VLayout();
+		panel = new VLayout(5);
 
 		toolBar = new ToolBar();
 		panel.addMember(toolBar);

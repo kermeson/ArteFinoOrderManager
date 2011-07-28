@@ -143,9 +143,10 @@ body,table td,select {
 	padding-left: 8px;
 }
 
-.containerFormulario {
+.containerPadrao {
 	padding: 10px;
-	background-color: #eaeaea;
+	background: #D9E4F4 url(images/navigation_pane_header.png) 0 bottom repeat-x;
+	border: 1px solid #9CBFEF;
 }
 
 .contextArea {
@@ -156,4 +157,107 @@ body,table td,select {
   padding-left: 4px;
   padding-bottom: 4px;
   padding-right: 4px;
+}
+
+/*
+ * Navigation Pane SectionStack headers - image based
+ */
+
+.imgSectionHeaderclosed,
+.imgSectionHeaderopened,
+.imgSectionHeaderDisabledclosed,
+.imgSectionHeaderDisabledopened {
+  color: #15428b;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.imgSectionHeaderTitleclosed,
+.imgSectionHeaderTitleopened {
+  color: #15428b;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.imgSectionHeaderTitleOverclosed,
+.imgSectionHeaderTitleOveropened {
+  color: #15428b;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.imgSectionHeaderTitleDisabledopened,
+.imgSectionHeaderTitleDisabledclosed {
+  color: #15428b;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+
+/*
+ * Navigation Pane ListGrid cells
+ */
+
+ .crm-NavigationPaneGridCell {
+  color: black;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+}
+
+.crm-NavigationPaneGridCellDark {
+  color: black;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+}
+
+.crm-NavigationPaneGridCellOver,
+.crm-NavigationPaneGridCellOverDark {
+  background: url(images/navigation_pane_gridcell_over.png) repeat-x bottom left scroll;
+  border-top: 1px solid #ffb74c;
+  border-bottom:1px solid #ffb74c;
+  color: black;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+}
+
+.crm-NavigationPaneGridCellSelected,
+.crm-NavigationPaneGridCellSelectedDark {
+  border-top: 1px solid #ffb74c;
+  border-bottom: 1px solid #ffb74c;
+  background-color: #ffe6a0;
+  color: black;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
+}
+
+.crm-NavigationPaneGridCellSelectedOver,
+.crm-NavigationPaneGridCellSelectedOverDark {
+  border-top: 1px solid #ffb74c;
+  border-bottom: 1px solid #ffb74c;
+  background-color: #ffe6a0;
+  color: black;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Tahoma, Verdana, sans-serif;
+  font-size: 11px;
 }

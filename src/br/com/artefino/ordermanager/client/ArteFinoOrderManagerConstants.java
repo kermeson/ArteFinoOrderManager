@@ -359,4 +359,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Menu Principal")
 	String menuPrincipalStackSectionName();
 
+	@DefaultStringValue("Bairro")
+	String bairro();
+
 }
