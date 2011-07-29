@@ -16,26 +16,26 @@ import com.google.inject.Inject;
 import com.google.gwt.event.shared.EventBus;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
-import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
+import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
 
-public class PedidosPresenter extends
-		Presenter<PedidosPresenter.MyView, PedidosPresenter.MyProxy> implements PedidosUIHandlers {
+public class PedidoPresenter extends
+		Presenter<PedidoPresenter.MyView, PedidoPresenter.MyProxy> implements PedidoUIHandlers {
 
 	private PlaceManager placeManager;
 	
-	public interface MyView extends View, HasUiHandlers<PedidosUIHandlers> {
+	public interface MyView extends View, HasUiHandlers<PedidoUIHandlers> {
 		// TODO Put your view methods here
 	}
 
 	@ProxyStandard
-	@NameToken(NameTokens.pedidos)
-	public interface MyProxy extends ProxyPlace<PedidosPresenter> {
+	@NameToken(NameTokens.pedido)
+	public interface MyProxy extends ProxyPlace<PedidoPresenter> {
 	}
 
 	
 
 	@Inject
-	public PedidosPresenter(final EventBus eventBus, final MyView view,
+	public PedidoPresenter(final EventBus eventBus, final MyView view,
 			final MyProxy proxy, PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
@@ -60,14 +60,18 @@ public class PedidosPresenter extends
 		
 		MainPagePresenter.getNavigationPaneHeader()
 		.setContextAreaHeaderLabelContents(
-				ArteFinoOrderManager.getConstants().tituloPedidos());
+				ArteFinoOrderManager.getConstants().tituloDetalhesPedido());
 	}
 
 	@Override
 	public void onButtonAdicionarPedidoClicked() {
-		PlaceRequest placeRequest = new PlaceRequest(
-				NameTokens.pedido).with("acao", "novo");
-		placeManager.revealPlace(placeRequest);
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onButtonVoltarClicked() {
+		PlaceRequest placeRequest = new PlaceRequest(NameTokens.pedidos);
+		placeManager.revealPlace(placeRequest);		
 	}
 }

@@ -1,7 +1,7 @@
 package br.com.artefino.ordermanager.client.ui.pedidos;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
-import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
+import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -12,22 +12,22 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers> implements PedidosPresenter.MyView {
+public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
+		PedidoPresenter.MyView {
 
 	private VLayout panel;
 	private ToolBar toolBar;
 	private String idPedido;
 
 	@Inject
-	public PedidosView(ToolBar toolBar) {
+	public PedidoView(ToolBar toolBar) {
 		panel = new VLayout();
 		this.toolBar = toolBar;
-		panel.addMember(this.toolBar);
+		panel.addMember(toolBar);
 		bindCustomUiHandlers();
 	}
 
 	protected void bindCustomUiHandlers() {
-
 		// initialise the ToolBar and register its handlers
 		initToolBar();
 	}
@@ -39,12 +39,25 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers> implement
 
 	protected void initToolBar() {
 
-		toolBar.addButton(ToolBar.ADD_CLIENT, ArteFinoOrderManager
-				.getConstants().newButton(), new ClickHandler() {
+		Log.debug("initToolBar()");
+
+		toolBar.addButton(ToolBar.BACK_BUTTON, ArteFinoOrderManager
+				.getConstants().voltar(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				if (getUiHandlers() != null) {
-					getUiHandlers().onButtonAdicionarPedidoClicked();
+					getUiHandlers().onButtonVoltarClicked();
 				}
+			}
+		});
+
+		toolBar.addButton(ToolBar.SAVE_BUTTON, ArteFinoOrderManager
+				.getConstants().salvar(), new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				// if (validarCadastroCliente()) {
+				if (getUiHandlers() != null) {
+					// getUiHandlers().onButtonSalvarClicked(getCliente());
+				}
+				// }
 			}
 		});
 

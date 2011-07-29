@@ -1,20 +1,22 @@
 package br.com.artefino.ordermanager.client.gin;
 
 import br.com.artefino.ordermanager.client.place.ClientPlaceManager;
+import br.com.artefino.ordermanager.client.place.DefaultPlace;
+import br.com.artefino.ordermanager.client.place.NameTokens;
+import br.com.artefino.ordermanager.client.ui.clients.ClientInformationPresenter;
+import br.com.artefino.ordermanager.client.ui.clients.ClientInformationView;
+import br.com.artefino.ordermanager.client.ui.clients.ClientPresenter;
+import br.com.artefino.ordermanager.client.ui.clients.ClientView;
+import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
+import br.com.artefino.ordermanager.client.ui.main.MainPageView;
+import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
+import br.com.artefino.ordermanager.client.ui.pedidos.PedidoView;
+import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
+import br.com.artefino.ordermanager.client.ui.pedidos.PedidosView;
 
 import com.gwtplatform.dispatch.shared.SecurityCookie;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
-import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
-import br.com.artefino.ordermanager.client.ui.main.MainPageView;
-import br.com.artefino.ordermanager.client.place.DefaultPlace;
-import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clients.ClientPresenter;
-import br.com.artefino.ordermanager.client.ui.clients.ClientView;
-import br.com.artefino.ordermanager.client.ui.clients.ClientInformationPresenter;
-import br.com.artefino.ordermanager.client.ui.clients.ClientInformationView;
-import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
-import br.com.artefino.ordermanager.client.ui.pedidos.PedidosView;
 
 public class ClientModule extends AbstractPresenterModule {
 
@@ -41,5 +43,8 @@ public class ClientModule extends AbstractPresenterModule {
 
 		bindPresenter(PedidosPresenter.class, PedidosPresenter.MyView.class,
 				PedidosView.class, PedidosPresenter.MyProxy.class);
+		
+		bindPresenter(PedidoPresenter.class, PedidoPresenter.MyView.class,
+				PedidoView.class, PedidoPresenter.MyProxy.class);
 	}
 }

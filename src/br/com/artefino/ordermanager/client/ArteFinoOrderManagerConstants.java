@@ -362,4 +362,10 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Bairro")
 	String bairro();
 
+	@DefaultStringValue("Pedidos")
+	String tituloPedidos();
+
+	@DefaultStringValue("Detalhes do pedido")
+	String tituloDetalhesPedido();
+
 }
