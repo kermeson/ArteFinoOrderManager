@@ -1,7 +1,7 @@
 package br.com.artefino.ordermanager.client.gin;
 
-import br.com.artefino.ordermanager.client.ui.clients.ClientInformationPresenter;
-import br.com.artefino.ordermanager.client.ui.clients.ClientPresenter;
+import br.com.artefino.ordermanager.client.ui.clientes.ClientInformationPresenter;
+import br.com.artefino.ordermanager.client.ui.clientes.ClientPresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;

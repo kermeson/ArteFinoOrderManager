@@ -1,9 +1,9 @@
-package br.com.artefino.ordermanager.client.ui.clients;
+package br.com.artefino.ordermanager.client.ui.clientes;
 
 import java.util.LinkedHashMap;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
-import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientInformationUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientInformationUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.client.util.FormatadorUtil;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;

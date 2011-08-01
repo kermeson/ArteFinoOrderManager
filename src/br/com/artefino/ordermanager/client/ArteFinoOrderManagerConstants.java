@@ -368,4 +368,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Detalhes do pedido")
 	String tituloDetalhesPedido();
 
+	@DefaultStringValue("Cliente")
+	String cliente();
+
 }

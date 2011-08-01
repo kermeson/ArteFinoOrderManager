@@ -1,4 +1,4 @@
-package br.com.artefino.ordermanager.client.ui.clients.handlers;
+package br.com.artefino.ordermanager.client.ui.clientes.handlers;
 
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 

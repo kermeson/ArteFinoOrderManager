@@ -1,10 +1,10 @@
-package br.com.artefino.ordermanager.client.ui.clients;
+package br.com.artefino.ordermanager.client.ui.clientes;
 
 import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.ClienteRecord;
-import br.com.artefino.ordermanager.client.ui.clients.handlers.ClientUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 

@@ -1,4 +1,4 @@
-package br.com.artefino.ordermanager.client.ui.clients;
+package br.com.artefino.ordermanager.client.ui.clientes;
 
 import java.util.List;
 

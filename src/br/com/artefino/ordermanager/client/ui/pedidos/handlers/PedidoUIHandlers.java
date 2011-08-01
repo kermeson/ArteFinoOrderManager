@@ -6,4 +6,6 @@ public interface PedidoUIHandlers extends UiHandlers {
 	void onButtonAdicionarPedidoClicked();
 
 	void onButtonVoltarClicked();
+
+	void onButtonPesquisarClientesClicked();
 }

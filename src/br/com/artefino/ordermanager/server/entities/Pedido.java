@@ -20,7 +20,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 
-import br.com.artefino.ordermanager.shared.vo.ClienteVo;
+import br.com.artefino.ordermanager.shared.vo.ItemPedidoVo;
+import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
 @Entity
 @Table(name = "TB_PEDIDO")
@@ -39,8 +40,16 @@ public class Pedido {
 
 	}
 
-	public Pedido(ClienteVo clienteVo) {
-		this.id = clienteVo.getId();
+	public Pedido(PedidoVo pedidoVo) {
+		this.id = pedidoVo.getId();
+		this.dataCadastro = pedidoVo.getDataCadastro();
+		this.cliente = new Cliente(pedidoVo.getCliente());
+
+		if (pedidoVo.getItens() != null) {
+			for (ItemPedidoVo itemPedidoVo : pedidoVo.getItens()) {
+				this.getItens().add(new ItemPedido(itemPedidoVo));
+			}
+		}
 	}
 
 	@Id
@@ -86,10 +95,10 @@ public class Pedido {
 		this.itens = itens;
 	}
 
-	public ClienteVo converterParaVo() {
-		ClienteVo clienteVo = new ClienteVo();
-		clienteVo.setId(this.getId());
-		return clienteVo;
+	public PedidoVo converterParaVo() {
+		PedidoVo pedidoVo = new PedidoVo();
+		pedidoVo.setId(this.getId());
+		return pedidoVo;
 	}
 
 }
