@@ -4,7 +4,6 @@ import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;

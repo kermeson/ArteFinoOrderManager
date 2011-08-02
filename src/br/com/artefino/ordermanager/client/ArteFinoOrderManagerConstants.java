@@ -1,5 +1,7 @@
 package br.com.artefino.ordermanager.client;
 
+import com.google.gwt.core.client.JavaScriptObject;
+
 public interface ArteFinoOrderManagerConstants extends
 		com.google.gwt.i18n.client.Constants {
 
@@ -370,5 +372,26 @@ public interface ArteFinoOrderManagerConstants extends
 
 	@DefaultStringValue("Cliente")
 	String cliente();
+
+	@DefaultStringValue("Pesquisar Clientes")
+	String pesquisarClientes();
+
+	@DefaultStringValue("Pesquisar")
+	String pesquisar();
+
+	@DefaultStringValue("Referência")
+	String referencia();
+
+	@DefaultStringValue("Qtd. Itens")
+	String quantidadeItens();
+
+	@DefaultStringValue("Valor Unitário")
+	String valorUnitario();
+
+	@DefaultStringValue("Adicionar Item")
+	String adicionarItem();
+
+	@DefaultStringValue("Itens do Pedido")
+	String tituloItensPedido();
 
 }

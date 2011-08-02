@@ -1,17 +1,18 @@
 package br.com.artefino.ordermanager.client.ui.pedidos;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
+import br.com.artefino.ordermanager.client.model.ClienteRecord;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
+import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
-import com.gwtplatform.mvp.client.PopupViewCloseHandler;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -20,18 +21,17 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
-import com.smartgwt.client.util.SC;
-import com.smartgwt.client.widgets.Canvas;
-import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 
 public class PedidoPresenter extends
 		Presenter<PedidoPresenter.MyView, PedidoPresenter.MyProxy> implements PedidoUIHandlers {
 
 	private PlaceManager placeManager;
 	private final PesquisarClientesDialogPresenterWidget dialogBox;
+	private DispatchAsync dispatcher;
 
 	public interface MyView extends View, HasUiHandlers<PedidoUIHandlers> {
-		// TODO Put your view methods here
+		void setCliente(ClienteVo clienteVo);
 	}
 
 	@ProxyStandard
@@ -43,19 +43,25 @@ public class PedidoPresenter extends
 
 	@Inject
 	public PedidoPresenter(final EventBus eventBus, final MyView view,
-			final MyProxy proxy, final PlaceManager placeManager) {
+			final MyProxy proxy, final PlaceManager placeManager, final DispatchAsync dispatcher) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
-		this.dialogBox = new PesquisarClientesDialogPresenterWidget(eventBus, new PesquisarClientesDialogView()) {
-			@Override
-			public void onTestButtonCliked(ClickEvent event) {		
-				super.onTestButtonCliked(event);
-				SC.say("teste");
-			}			
-		}; 
-		
-		
-		
+		this.dispatcher = dispatcher;
+
+		this.dialogBox = new PesquisarClientesDialogPresenterWidget(eventBus, new PesquisarClientesDialogView(), dispatcher) {
+			public void onRecordSelecionarClicked(RecordClickEvent event) {
+				ClienteRecord clienteRecord = (ClienteRecord) event.getRecord();
+				if (clienteRecord != null) {
+					ClienteVo clienteVo = new ClienteVo();
+					clienteVo.setId(Long.valueOf(clienteRecord.getId()));
+					clienteVo.setNome(clienteRecord.getNome());
+					PedidoPresenter.this.getView().setCliente(clienteVo);
+				}
+				destroy();
+			}
+
+		};
+
 		getView().setUiHandlers(this);
 	}
 
@@ -92,7 +98,7 @@ public class PedidoPresenter extends
 	}
 
 	@Override
-	public void onButtonPesquisarClientesClicked() {		
+	public void onButtonPesquisarClientesClicked() {
 		dialogBox.show();
 	}
 }

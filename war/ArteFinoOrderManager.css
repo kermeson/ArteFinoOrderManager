@@ -262,8 +262,3 @@ body,table td,select {
   font-size: 11px;
 }
 
-.gwt-PopupPanel, .gwt-DialogBox {
-	z-index: 999999;
-}
-
-
