@@ -3,12 +3,15 @@ package br.com.artefino.ordermanager.client.ui.pedidos;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
+import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.HasUiHandlers;
+import com.gwtplatform.mvp.client.PopupViewCloseHandler;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
@@ -17,12 +20,15 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
+import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.Canvas;
+import com.smartgwt.client.widgets.events.ClickEvent;
 
 public class PedidoPresenter extends
 		Presenter<PedidoPresenter.MyView, PedidoPresenter.MyProxy> implements PedidoUIHandlers {
 
 	private PlaceManager placeManager;
-	private PesquisarClientesDialogPresenterWidget dialogBox;
+	private final PesquisarClientesDialogPresenterWidget dialogBox;
 
 	public interface MyView extends View, HasUiHandlers<PedidoUIHandlers> {
 		// TODO Put your view methods here
@@ -37,10 +43,19 @@ public class PedidoPresenter extends
 
 	@Inject
 	public PedidoPresenter(final EventBus eventBus, final MyView view,
-			final MyProxy proxy, final PlaceManager placeManager, final PesquisarClientesDialogPresenterWidget dialogBox) {
+			final MyProxy proxy, final PlaceManager placeManager) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
-		this.dialogBox = dialogBox;
+		this.dialogBox = new PesquisarClientesDialogPresenterWidget(eventBus, new PesquisarClientesDialogView()) {
+			@Override
+			public void onTestButtonCliked(ClickEvent event) {		
+				super.onTestButtonCliked(event);
+				SC.say("teste");
+			}			
+		}; 
+		
+		
+		
 		getView().setUiHandlers(this);
 	}
 
@@ -77,7 +92,7 @@ public class PedidoPresenter extends
 	}
 
 	@Override
-	public void onButtonPesquisarClientesClicked() {
-		addToPopupSlot(dialogBox);
+	public void onButtonPesquisarClientesClicked() {		
+		dialogBox.show();
 	}
 }

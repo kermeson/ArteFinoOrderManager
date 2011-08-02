@@ -50,7 +50,7 @@ public class ClientModule extends AbstractPresenterModule {
 				PedidoView.class, PedidoPresenter.MyProxy.class);
 
 
-		bindPresenterWidget(PesquisarClientesDialogPresenterWidget.class,
+		bindSingletonPresenterWidget(PesquisarClientesDialogPresenterWidget.class,
 				PesquisarClientesDialogPresenterWidget.MyView.class,
 				PesquisarClientesDialogView.class);
 	}
