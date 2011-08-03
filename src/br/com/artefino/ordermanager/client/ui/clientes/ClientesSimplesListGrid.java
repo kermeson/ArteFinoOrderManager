@@ -23,15 +23,17 @@ public class ClientesSimplesListGrid extends ListGrid {
 		super();
 
 		setSelectionType(SelectionStyle.SINGLE);
-
+		setCanAutoFitFields(false);
+		setCanResizeFields(false);
+		setCanFreezeFields(false);
 
 		ListGridField listGridFieldNome = new ListGridField(ClienteRecord.NOME,
 				ArteFinoOrderManager.getConstants().nome());
-		listGridFieldNome.setWidth(350);
 
 		ListGridField listGridFieldCNPJF = new ListGridField(
 				ClienteRecord.CNPJF, ArteFinoOrderManager.getConstants()
 						.cnpjf());
+		listGridFieldCNPJF.setWidth(120);
 		listGridFieldCNPJF.setCellFormatter(new CellFormatter() {
 			@Override
 			public String format(Object value, ListGridRecord record,
@@ -51,14 +53,15 @@ public class ClientesSimplesListGrid extends ListGrid {
 			}
 		});
 
-		listGridFieldSelecionar = new ListGridField();
+		listGridFieldSelecionar = new ListGridField("btSelecionar");
 		listGridFieldSelecionar.setType(ListGridFieldType.ICON);
 		listGridFieldSelecionar.setCanFilter(false);
 		listGridFieldSelecionar.setCanSort(false);
 		listGridFieldSelecionar.setAlign(Alignment.CENTER);
 		listGridFieldSelecionar.setCanHide(false);
-		listGridFieldSelecionar.setCellIcon("icons/16/ok.png");
-		listGridFieldSelecionar.setWidth(30);
+		listGridFieldSelecionar.setIcon("icons/16/ok.png");
+		listGridFieldSelecionar.setWidth(25);
+		
 
 		this.setFields(new ListGridField[] { listGridFieldNome, listGridFieldCNPJF, listGridFieldSelecionar });
 	}

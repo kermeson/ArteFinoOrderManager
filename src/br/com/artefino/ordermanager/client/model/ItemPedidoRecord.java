@@ -1,19 +1,23 @@
 package br.com.artefino.ordermanager.client.model;
 
+import br.com.artefino.ordermanager.client.util.FormatadorUtil;
+
+import com.google.gwt.core.client.JavaScriptObject;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 public class ItemPedidoRecord extends ListGridRecord {
 
-	public static final String ID_NAME = "#";
 	public static final String ID = "id";
 	public static final String REFERENCIA = "referencia";
 	public static final String QUANTIDADE = "quantidade";
 	public static final String VALOR_UNITARIO = "valorUnitario";
 
-	public ItemPedidoRecord() {
+	public ItemPedidoRecord(JavaScriptObject javaScriptObject) {
+		super(javaScriptObject);
 	}
 
-	public ItemPedidoRecord(int id, String referencia, int quantidade, double valorUnitario) {
+	public ItemPedidoRecord(int id, String referencia, int quantidade,
+			double valorUnitario) {
 		setId(id);
 		setReferencia(referencia);
 		setQuantidade(quantidade);
@@ -45,10 +49,10 @@ public class ItemPedidoRecord extends ListGridRecord {
 	}
 
 	public int getQuantidade() {
-		return getAttributeAsInt(QUANTIDADE);
+		return Integer.valueOf(getAttributeAsString(QUANTIDADE));
 	}
 
-	public double getTipoPessoa() {
-		return getAttributeAsDouble(VALOR_UNITARIO);
+	public double getValorUnitario() {
+		return FormatadorUtil.getFormatDouble(getAttributeAsString(VALOR_UNITARIO));
 	}
 }

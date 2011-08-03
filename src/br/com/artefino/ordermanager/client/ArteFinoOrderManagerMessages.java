@@ -12,4 +12,13 @@ public interface ArteFinoOrderManagerMessages extends
 	@DefaultMessage("Operação realizada com sucesso.")
 	String operacaoRealizadoComSucesso();
 
+	@DefaultMessage("Selecione o cliente do pedido.")
+	String selecioneClientePedido();
+
+	@DefaultMessage("Informe os itens do pedido.")
+	String preenchaItensPedido();
+
+	@DefaultMessage("Preencha as informações obrigatórias dos itens do pedido.")
+	String preenchaCamposObrigatoriosItensPedido();
+
 }

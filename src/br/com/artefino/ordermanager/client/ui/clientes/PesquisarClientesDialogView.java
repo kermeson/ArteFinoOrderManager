@@ -150,7 +150,7 @@ public class PesquisarClientesDialogView extends
 	}
 
 	@Override
-	public void show() {
+	public void exibirDialogo() {
 		panel.show();
 	}
 
@@ -160,15 +160,8 @@ public class PesquisarClientesDialogView extends
 	}
 
 	@Override
-	public void hide() {
-		panel.hide();
-
-	}
-
-	@Override
-	public void destroy() {
+	public void fecharDialogo() {
 		panel.destroy();
-
 	}
 
 

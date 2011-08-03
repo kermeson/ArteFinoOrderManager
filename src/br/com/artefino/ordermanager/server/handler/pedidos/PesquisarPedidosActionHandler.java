@@ -9,11 +9,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.com.artefino.ordermanager.server.entities.Cliente;
+import br.com.artefino.ordermanager.server.entities.Pedido;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
-import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
-import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesResult;
-import br.com.artefino.ordermanager.shared.vo.ClienteVo;
+import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosAction;
+import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosResult;
+import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.inject.Inject;
@@ -22,42 +22,42 @@ import com.gwtplatform.dispatch.server.actionhandler.ActionHandler;
 import com.gwtplatform.dispatch.shared.ActionException;
 
 public class PesquisarPedidosActionHandler implements
-		ActionHandler<PesquisarClientesAction, PesquisarClientesResult> {
+		ActionHandler<PesquisarPedidosAction, PesquisarPedidosResult> {
 
 	@Inject
 	public PesquisarPedidosActionHandler() {
 	}
 
 	@Override
-	public PesquisarClientesResult execute(PesquisarClientesAction action,
+	public PesquisarPedidosResult execute(PesquisarPedidosAction action,
 			ExecutionContext context) throws ActionException {
 
-		PesquisarClientesResult result = null;
+		PesquisarPedidosResult result = null;
 
 		try {
 
 			EntityManager em = JPAUtil.getEntityManager();
 			CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-			CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder
-					.createQuery(Cliente.class);
-			Root<Cliente> root = criteriaQuery.from(Cliente.class);
+			CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder
+					.createQuery(Pedido.class);
+			Root<Pedido> root = criteriaQuery.from(Pedido.class);
 			criteriaQuery.select(root);
-			TypedQuery<Cliente> typedQuery = em.createQuery(criteriaQuery);
-			List<Cliente> clientes = typedQuery.getResultList();
+			TypedQuery<Pedido> typedQuery = em.createQuery(criteriaQuery);
+			List<Pedido> pedidos = typedQuery.getResultList();
 
-			if (clientes != null) {
-				List<ClienteVo> clienteVos = new ArrayList<ClienteVo>(clientes
+			if (pedidos != null) {
+				List<PedidoVo> pedidoVos = new ArrayList<PedidoVo>(pedidos
 						.size());
 
-				for (Cliente cliente : clientes) {
-					clienteVos.add(cliente.converterParaVo());
+				for (Pedido pedido : pedidos) {
+					pedidoVos.add(pedido.converterParaVo());
 
 				}
 
-				result = new PesquisarClientesResult(clienteVos);
+				result = new PesquisarPedidosResult(pedidoVos);
 			}
 		} catch (Exception e) {
-			Log.warn("Erro ao pesquisar clientes", e);
+			Log.warn("Erro ao pesquisar pedidos", e);
 
 			throw new ActionException(e);
 		}
@@ -66,14 +66,14 @@ public class PesquisarPedidosActionHandler implements
 	}
 
 	@Override
-	public void undo(PesquisarClientesAction action,
-			PesquisarClientesResult result, ExecutionContext context)
+	public void undo(PesquisarPedidosAction action,
+			PesquisarPedidosResult result, ExecutionContext context)
 			throws ActionException {
 	}
 
 	@Override
-	public Class<PesquisarClientesAction> getActionType() {
-		return PesquisarClientesAction.class;
+	public Class<PesquisarPedidosAction> getActionType() {
+		return PesquisarPedidosAction.class;
 	}
 
 }

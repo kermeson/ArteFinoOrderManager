@@ -1,8 +1,11 @@
 package br.com.artefino.ordermanager.client.ui.pedidos;
 
+import java.util.List;
+
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
+import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
@@ -11,17 +14,23 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers> implements PedidosPresenter.MyView {
+public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
+		implements PedidosPresenter.MyView {
 
 	private VLayout panel;
 	private ToolBar toolBar;
 	private String idPedido;
+	private PedidosListGrid pedidosListGrid;
 
 	@Inject
-	public PedidosView(ToolBar toolBar) {
-		panel = new VLayout();
+	public PedidosView(ToolBar toolBar, PedidosListGrid pedidosListGrid) {
+		panel = new VLayout(5);
+		
 		this.toolBar = toolBar;
 		panel.addMember(this.toolBar);
+
+		this.pedidosListGrid = pedidosListGrid;
+		panel.addMember(pedidosListGrid);
 		bindCustomUiHandlers();
 	}
 
@@ -47,5 +56,10 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers> implement
 			}
 		});
 
+	}
+
+	@Override
+	public void setResultSet(List<PedidoVo> pedidosVo) {
+		pedidosListGrid.setResultSet(pedidosVo);
 	}
 }

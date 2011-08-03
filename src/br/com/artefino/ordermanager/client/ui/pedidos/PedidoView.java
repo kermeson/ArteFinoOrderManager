@@ -4,12 +4,16 @@ import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
+import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.smartgwt.client.data.Record;
 import com.smartgwt.client.types.TitleOrientation;
+import com.smartgwt.client.util.BooleanCallback;
+import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -19,6 +23,8 @@ import com.smartgwt.client.widgets.form.fields.PickerIcon;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.FormItemClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.FormItemIconClickEvent;
+import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
+import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
@@ -33,6 +39,7 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 	private ItemPedidoListGrid listGridItens;
 	private Button buttonAdicionarItem;
 	private Label labelItens;
+	private PedidoVo pedidoVo;
 
 	@Inject
 	public PedidoView(ToolBar toolBar, ItemPedidoListGrid listGridItens) {
@@ -94,14 +101,33 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 					}
 				});
 
-		buttonAdicionarItem
-				.addClickHandler(new ClickHandler() {
+		buttonAdicionarItem.addClickHandler(new ClickHandler() {
 
-					@Override
-					public void onClick(ClickEvent event) {
-						listGridItens.startEditingNew();
+			@Override
+			public void onClick(ClickEvent event) {
+				listGridItens.startEditingNew();
+			}
+		});
+
+		listGridItens.addRecordExcluirClickHandler(new RecordClickHandler() {
+			@Override
+			public void onRecordClick(final RecordClickEvent event) {
+				final Record record = event.getRecord();
+				if (record == null) {
+					return;
+				}
+				SC.confirm("Deseja remover o item?", new BooleanCallback() {
+					public void execute(Boolean value) {
+						if (value) {
+							listGridItens.removeData(record);
+						} else {
+							listGridItens.discardEdits(event.getRecordNum(), 1);
+						}
+
 					}
 				});
+			}
+		});
 
 		// initialise the ToolBar and register its handlers
 		initToolBar();
@@ -128,14 +154,45 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 		toolBar.addButton(ToolBar.SAVE_BUTTON, ArteFinoOrderManager
 				.getConstants().salvar(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				// if (validarCadastroCliente()) {
-				if (getUiHandlers() != null) {
-					// getUiHandlers().onButtonSalvarClicked(getCliente());
+				if (validarCadastroPedido()) {
+					if (getUiHandlers() != null) {
+						getUiHandlers().onButtonSalvarPedido(getPedido());
+					}
 				}
-				// }
 			}
 		});
 
+	}
+
+	protected PedidoVo getPedido() {
+		if (pedidoVo == null) {
+			pedidoVo = new PedidoVo();
+		}
+		pedidoVo.setCliente(clienteVo);
+		pedidoVo.setItens(listGridItens.getItens());
+		
+		return pedidoVo;
+	}
+
+	protected boolean validarCadastroPedido() {
+		if (clienteVo == null) {
+			SC
+					.warn(ArteFinoOrderManager.getMessages()
+							.selecioneClientePedido());
+			return false;
+		}
+		if (listGridItens.getRecords() == null
+				|| listGridItens.getRecords().length < 1) {
+			SC.warn(ArteFinoOrderManager.getMessages().preenchaItensPedido());
+			return false;
+		} else {
+			if (listGridItens.hasErrors()) {
+				SC.warn(ArteFinoOrderManager.getMessages()
+						.preenchaCamposObrigatoriosItensPedido());
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -147,5 +204,13 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 
 	private void preencherDadosCliente(ClienteVo clienteVo) {
 		textItemCliente.setValue(clienteVo.getNome());
+	}
+
+	@Override
+	public void limparTelaCadastro() {
+		dynamicForm.clearValues();
+		listGridItens.removerItens();
+		clienteVo = null;
+		pedidoVo = null;
 	}
 }

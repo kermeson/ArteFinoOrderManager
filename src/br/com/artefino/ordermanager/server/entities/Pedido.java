@@ -97,7 +97,14 @@ public class Pedido {
 
 	public PedidoVo converterParaVo() {
 		PedidoVo pedidoVo = new PedidoVo();
-		pedidoVo.setId(this.getId());
+		pedidoVo.setId(getId());
+		pedidoVo.setCliente(getCliente().converterParaVo());	
+		pedidoVo.setDataCadastro(getDataCadastro());
+		if (getItens() != null) {
+			for (ItemPedido itemPedido : getItens()) {
+				pedidoVo.getItens().add(itemPedido.converterParaVo());
+			}
+		}		
 		return pedidoVo;
 	}
 

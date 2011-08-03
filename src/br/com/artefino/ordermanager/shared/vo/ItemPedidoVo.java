@@ -58,4 +58,8 @@ public class ItemPedidoVo implements Serializable {
 		this.valorUnitario = valorUnitario;
 	}
 
+	public double getValorTotal() {
+		return getValorUnitario()*getQuantidadeItens();
+	}
+
 }

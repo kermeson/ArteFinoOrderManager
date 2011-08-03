@@ -57,4 +57,12 @@ public class PedidoVo implements Serializable {
 		this.itens = itens;
 	}
 
+	public double getValorTotalItens() {
+		double valorTotal = 0;
+		for (ItemPedidoVo itemPedido : itens) {
+			valorTotal += itemPedido.getValorTotal();
+		}
+		return valorTotal;
+	}
+
 }

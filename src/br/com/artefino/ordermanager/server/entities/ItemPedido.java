@@ -73,7 +73,10 @@ public class ItemPedido {
 
 	public ItemPedidoVo converterParaVo() {
 		ItemPedidoVo itemPedidoVo = new ItemPedidoVo();
-		itemPedidoVo.setId(this.getId());
+		itemPedidoVo.setId(getId());
+		itemPedidoVo.setReferencia(getReferencia());
+		itemPedidoVo.setQuantidadeItens(getQuantidadeItens());
+		itemPedidoVo.setValorUnitario(getValorUnitario());
 		return itemPedidoVo;
 	}
 

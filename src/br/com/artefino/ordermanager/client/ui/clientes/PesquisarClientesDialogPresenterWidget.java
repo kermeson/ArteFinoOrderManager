@@ -26,13 +26,11 @@ public class PesquisarClientesDialogPresenterWidget extends
 	private DispatchAsync dispatcher;
 
 	public interface MyView extends View, HasUiHandlers<PesquisarClientesDialogUIHandlers> {
-		void show();
+		void exibirDialogo();
 
 		void setResultSet(List<ClienteVo> clientes);
 
-		void hide();
-
-		void destroy();
+		void fecharDialogo();
 	}
 
 	@Inject
@@ -47,7 +45,7 @@ public class PesquisarClientesDialogPresenterWidget extends
 
 
 	public void show() {
-		getView().show();
+		getView().exibirDialogo();
 	}
 
 	@Override
@@ -89,8 +87,8 @@ public class PesquisarClientesDialogPresenterWidget extends
 
 	}
 
-	public void destroy() {
-		getView().destroy();
+	public void fecharDialogo() {
+		getView().fecharDialogo();
 	}
 
 
