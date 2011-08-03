@@ -402,4 +402,10 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Valor Total")
 	String valorTotal();
 
+	@DefaultStringValue("Data de Cadastro")
+	String dataCadastro();
+
+	@DefaultStringValue("Situação")
+	String situacao();
+
 }

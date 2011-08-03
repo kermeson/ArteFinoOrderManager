@@ -14,7 +14,7 @@ public class PesquisarClientes {
 	  @In(1) int maxResults;
 	  @In(2) int firstResult;
 
-	  @Out(1) List<ClienteVo> clientes;	
+	  @Out(1) List<ClienteVo> clientes;
 }
 
 

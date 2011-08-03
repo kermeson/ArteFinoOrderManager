@@ -1,5 +1,6 @@
 package br.com.artefino.ordermanager.client.util;
 
+import java.util.Date;
 import java.util.Map;
 
 import com.google.gwt.i18n.client.NumberFormat;
@@ -9,7 +10,7 @@ import com.smartgwt.client.widgets.grid.ListGridRecord;
 
 /**
  * Classe utilitária para trabalhar com formatações.
- * 
+ *
  * @author Kermeson
  */
 public class FormatadorUtil {
@@ -18,7 +19,7 @@ public class FormatadorUtil {
 		NumberFormat numberFormat = NumberFormat.getFormat("00000000000");
 		return numberFormat.format(cpf);
 	}
-	
+
 	public static String formatarMascaraCPF(Long cpf) {
 		NumberFormat numberFormat = NumberFormat.getFormat("00000000000");
 		return numberFormat.format(cpf).replaceFirst(
@@ -29,7 +30,7 @@ public class FormatadorUtil {
 		NumberFormat numberFormat = NumberFormat.getFormat("00000000000000");
 		return numberFormat.format(cnpj);
 	}
-	
+
 	public static String formatarMascaraCNPJ(Long cnpj) {
 		NumberFormat numberFormat = NumberFormat.getFormat("00000000000000");
 		return numberFormat.format(cnpj).replaceFirst(
@@ -68,7 +69,7 @@ public class FormatadorUtil {
 					int rowNum, int colNum) {
 				String valueFormated = null;
 				if (value != null) {
-					valueFormated = DataUtil.formataData(value.toString());
+					valueFormated = DataUtil.formataData((Date)value);
 				}
 				return valueFormated;
 			}

@@ -1,5 +1,7 @@
 package br.com.artefino.ordermanager.client.model;
 
+import java.util.Date;
+
 import br.com.artefino.ordermanager.client.util.FormatadorUtil;
 
 import com.smartgwt.client.widgets.grid.ListGridRecord;
@@ -11,15 +13,17 @@ public class PedidoRecord extends ListGridRecord {
 	public static final String NOME_CLIENTE = "nomeCliente";
 	public static final String QTD_ITENS = "qtdItens";
 	public static final String VALOR_TOTAL = "valorTotal";
+	public static final String DATA_CADASTRO = "dataCadastro";
 
 	public PedidoRecord() {
 	}
 
-	public PedidoRecord(int id, String nomeCliente, int qtdItens, double valorTotal) {
+	public PedidoRecord(int id, String nomeCliente, int qtdItens, double valorTotal, Date dataCadastro) {
 		setId(id);
 		setNomeCliente(nomeCliente);
 		setQuantidadeItens(qtdItens);
 		setValorTotal(valorTotal);
+		setDataCadastro(dataCadastro);
 	}
 
 	public void setId(int attribute) {
@@ -38,6 +42,10 @@ public class PedidoRecord extends ListGridRecord {
 		setAttribute(VALOR_TOTAL, attribute);
 	}
 
+	public void setDataCadastro(Date attribute) {
+		setAttribute(DATA_CADASTRO, attribute);
+	}
+
 	public int getId() {
 		return getAttributeAsInt(ID);
 	}
@@ -53,6 +61,10 @@ public class PedidoRecord extends ListGridRecord {
 	public double getValorTotal() {
 		return FormatadorUtil
 				.getFormatDouble(getAttributeAsString(VALOR_TOTAL));
+	}
+
+	public Date getDataCadastro() {
+		return getAttributeAsDate(DATA_CADASTRO);
 	}
 
 }

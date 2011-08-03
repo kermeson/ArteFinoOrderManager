@@ -1,5 +1,7 @@
 package br.com.artefino.ordermanager.server.handler.pedidos;
 
+import java.util.Date;
+
 import br.com.artefino.ordermanager.server.entities.Pedido;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
 import br.com.artefino.ordermanager.shared.action.pedidos.CadastrarPedidoAction;
@@ -29,6 +31,7 @@ public class CadastrarPedidoActionHandler implements
 		try {
 
 			Pedido pedido = new Pedido(action.getPedidoVo());
+			pedido.setDataCadastro(new Date());
 
 			JPAUtil.save(pedido);
 

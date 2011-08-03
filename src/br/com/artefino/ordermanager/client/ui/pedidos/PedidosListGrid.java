@@ -4,6 +4,9 @@ import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.PedidoRecord;
+import br.com.artefino.ordermanager.client.ui.widgets.ListGridFieldDecimal;
+import br.com.artefino.ordermanager.client.ui.widgets.ListGridFieldInteger;
+import br.com.artefino.ordermanager.client.util.FormatadorUtil;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
 import com.smartgwt.client.types.ListGridFieldType;
@@ -16,6 +19,9 @@ public class PedidosListGrid extends ListGrid {
 		super();
 
 		setSelectionType(SelectionStyle.SINGLE);
+		setCanAutoFitFields(false);
+		setCanResizeFields(false);
+		setCanFreezeFields(false);
 
 		ListGridField listGridFieldId = new ListGridField(PedidoRecord.ID,
 				PedidoRecord.ID_NAME);
@@ -26,35 +32,27 @@ public class PedidosListGrid extends ListGrid {
 				PedidoRecord.NOME_CLIENTE, ArteFinoOrderManager.getConstants()
 						.cliente());
 
-		ListGridField listGridFieldQtdItens = new ListGridField(
+		ListGridField listGridFieldDataCadastro = new ListGridField(
+				PedidoRecord.DATA_CADASTRO, ArteFinoOrderManager.getConstants()
+						.dataCadastro());
+		listGridFieldDataCadastro.setWidth(110);
+		listGridFieldDataCadastro.setCellFormatter(FormatadorUtil.getCellFormatterData());
+
+		ListGridField listGridFieldQtdItens = new ListGridFieldInteger(
 				PedidoRecord.QTD_ITENS, ArteFinoOrderManager.getConstants()
 						.quantidadeItens());
+		listGridFieldQtdItens.setWidth(80);
 
-		ListGridField listGridFieldValorTotal = new ListGridField(
+		ListGridField listGridFieldValorTotal = new ListGridFieldDecimal(
 				PedidoRecord.VALOR_TOTAL, ArteFinoOrderManager.getConstants()
 						.valorTotal());
-		// listGridFieldValorTotal.setCellFormatter(new CellFormatter() {
-		// @Override
-		// public String format(Object value, ListGridRecord record,
-		// int rowNum, int colNum) {
-		// String valueFormated = "";
-		// if (value != null) {
-		// String tipoPessoa = record.getAttribute("tipoPessoa");
-		// if (tipoPessoa.equals("1")) {
-		// valueFormated = FormatadorUtil.formatarMascaraCPF(Long
-		// .parseLong(value.toString()));
-		// } else if (tipoPessoa.equals("2")) {
-		// valueFormated = FormatadorUtil.formatarMascaraCNPJ(Long
-		// .parseLong(value.toString()));
-		// }
-		// }
-		// return valueFormated;
-		// }
-		// });
+		listGridFieldValorTotal.setCellFormatter(FormatadorUtil
+				.getCellFormatterMoeda());
+		listGridFieldValorTotal.setWidth(180);
 
 		this.setFields(new ListGridField[] { listGridFieldId,
-				listGridFieldNomeCliente, listGridFieldQtdItens,
-				listGridFieldValorTotal });
+				listGridFieldNomeCliente, listGridFieldDataCadastro,
+				listGridFieldQtdItens, listGridFieldValorTotal });
 	}
 
 	public void setResultSet(List<PedidoVo> pedidos) {
@@ -71,7 +69,7 @@ public class PedidosListGrid extends ListGrid {
 
 	private PedidoRecord createPedidoRecord(PedidoVo pedidoVo) {
 		return new PedidoRecord(pedidoVo.getId().intValue(), pedidoVo
-				.getCliente().getNome(), pedidoVo.getItens().size(), pedidoVo
-				.getValorTotalItens());
+				.getCliente().getNome(), pedidoVo.getItens().size(),
+				pedidoVo.getValorTotalItens(), pedidoVo.getDataCadastro());
 	}
 }

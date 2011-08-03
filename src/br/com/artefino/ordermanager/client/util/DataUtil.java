@@ -60,4 +60,10 @@ public final class DataUtil {
         double diff = end.getTime() - start.getTime();
         return String.valueOf((diff / 1000) / 60 / 60 / 24).split("\\.")[0];
     }
+
+	public static String formataData(Date value) {
+		DateTimeFormat dtf = DateTimeFormat
+        .getFormat("dd/MM/yyyy");
+		return dtf.format(value);
+	}
 }
