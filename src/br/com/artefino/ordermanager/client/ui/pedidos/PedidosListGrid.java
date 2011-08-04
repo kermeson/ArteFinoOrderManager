@@ -20,7 +20,6 @@ public class PedidosListGrid extends ListGrid {
 
 		setSelectionType(SelectionStyle.SINGLE);
 		setCanAutoFitFields(false);
-		setCanResizeFields(false);
 		setCanFreezeFields(false);
 
 		ListGridField listGridFieldId = new ListGridField(PedidoRecord.ID,
@@ -32,11 +31,17 @@ public class PedidosListGrid extends ListGrid {
 				PedidoRecord.NOME_CLIENTE, ArteFinoOrderManager.getConstants()
 						.cliente());
 
+		ListGridField listGridFieldSituacao = new ListGridField(
+				PedidoRecord.SITUACAO, ArteFinoOrderManager.getConstants()
+						.situacao());
+		listGridFieldSituacao.setWidth(150);
+
 		ListGridField listGridFieldDataCadastro = new ListGridField(
 				PedidoRecord.DATA_CADASTRO, ArteFinoOrderManager.getConstants()
 						.dataCadastro());
 		listGridFieldDataCadastro.setWidth(110);
-		listGridFieldDataCadastro.setCellFormatter(FormatadorUtil.getCellFormatterData());
+		listGridFieldDataCadastro.setCellFormatter(FormatadorUtil
+				.getCellFormatterData());
 
 		ListGridField listGridFieldQtdItens = new ListGridFieldInteger(
 				PedidoRecord.QTD_ITENS, ArteFinoOrderManager.getConstants()
@@ -51,7 +56,7 @@ public class PedidosListGrid extends ListGrid {
 		listGridFieldValorTotal.setWidth(180);
 
 		this.setFields(new ListGridField[] { listGridFieldId,
-				listGridFieldNomeCliente, listGridFieldDataCadastro,
+				listGridFieldNomeCliente, listGridFieldSituacao, listGridFieldDataCadastro,
 				listGridFieldQtdItens, listGridFieldValorTotal });
 	}
 
@@ -70,6 +75,7 @@ public class PedidosListGrid extends ListGrid {
 	private PedidoRecord createPedidoRecord(PedidoVo pedidoVo) {
 		return new PedidoRecord(pedidoVo.getId().intValue(), pedidoVo
 				.getCliente().getNome(), pedidoVo.getItens().size(),
-				pedidoVo.getValorTotalItens(), pedidoVo.getDataCadastro());
+				pedidoVo.getValorTotalItens(), pedidoVo.getDataCadastro(),
+				pedidoVo.getSituacao().getNome());
 	}
 }

@@ -35,6 +35,8 @@ public class Pedido {
 
 	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
 
+	private SituacaoPedido situacaoPedido;
+
 	// JPA requires a no-argument constructor
 	public Pedido() {
 
@@ -44,6 +46,7 @@ public class Pedido {
 		this.id = pedidoVo.getId();
 		this.dataCadastro = pedidoVo.getDataCadastro();
 		this.cliente = new Cliente(pedidoVo.getCliente());
+		this.situacaoPedido = new SituacaoPedido(pedidoVo.getSituacao());
 
 		if (pedidoVo.getItens() != null) {
 			for (ItemPedidoVo itemPedidoVo : pedidoVo.getItens()) {
@@ -63,8 +66,8 @@ public class Pedido {
 		this.id = id;
 	}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false, name = "PID_CLIENTE")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false, name = "PID_CLIENTE")
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -73,8 +76,8 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DT_CADASTRO")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DT_CADASTRO")
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -95,16 +98,27 @@ public class Pedido {
 		this.itens = itens;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PID_SITUACAO", nullable = false)
+	public SituacaoPedido getSituacaoPedido() {
+		return situacaoPedido;
+	}
+
+	public void setSituacaoPedido(SituacaoPedido situacaoPedido) {
+		this.situacaoPedido = situacaoPedido;
+	}
+
 	public PedidoVo converterParaVo() {
 		PedidoVo pedidoVo = new PedidoVo();
 		pedidoVo.setId(getId());
-		pedidoVo.setCliente(getCliente().converterParaVo());	
+		pedidoVo.setCliente(getCliente().converterParaVo());
 		pedidoVo.setDataCadastro(getDataCadastro());
+		pedidoVo.setSituacao(getSituacaoPedido().converterParaVo());
 		if (getItens() != null) {
 			for (ItemPedido itemPedido : getItens()) {
 				pedidoVo.getItens().add(itemPedido.converterParaVo());
 			}
-		}		
+		}
 		return pedidoVo;
 	}
 

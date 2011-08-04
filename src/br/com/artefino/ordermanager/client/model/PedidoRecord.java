@@ -14,16 +14,19 @@ public class PedidoRecord extends ListGridRecord {
 	public static final String QTD_ITENS = "qtdItens";
 	public static final String VALOR_TOTAL = "valorTotal";
 	public static final String DATA_CADASTRO = "dataCadastro";
+	public static final String SITUACAO = "situacao";
+
 
 	public PedidoRecord() {
 	}
 
-	public PedidoRecord(int id, String nomeCliente, int qtdItens, double valorTotal, Date dataCadastro) {
+	public PedidoRecord(int id, String nomeCliente, int qtdItens, double valorTotal, Date dataCadastro, String situacao) {
 		setId(id);
 		setNomeCliente(nomeCliente);
 		setQuantidadeItens(qtdItens);
 		setValorTotal(valorTotal);
 		setDataCadastro(dataCadastro);
+		setSituacao(situacao);
 	}
 
 	public void setId(int attribute) {
@@ -46,6 +49,10 @@ public class PedidoRecord extends ListGridRecord {
 		setAttribute(DATA_CADASTRO, attribute);
 	}
 
+	public void setSituacao(String attribute) {
+		setAttribute(SITUACAO, attribute);
+	}
+
 	public int getId() {
 		return getAttributeAsInt(ID);
 	}
@@ -65,6 +72,10 @@ public class PedidoRecord extends ListGridRecord {
 
 	public Date getDataCadastro() {
 		return getAttributeAsDate(DATA_CADASTRO);
+	}
+
+	public String getSituacao() {
+		return getAttributeAsString(SITUACAO);
 	}
 
 }

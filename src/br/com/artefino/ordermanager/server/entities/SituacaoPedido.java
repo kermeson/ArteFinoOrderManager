@@ -23,6 +23,12 @@ public class SituacaoPedido {
 	}
 
 
+	public SituacaoPedido(SituacaoPedidoVo situacao) {
+		this.id = situacao.getId();
+		this.nome = situacao.getNome();
+	}
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")

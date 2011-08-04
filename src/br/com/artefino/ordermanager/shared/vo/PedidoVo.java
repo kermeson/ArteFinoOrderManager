@@ -8,7 +8,7 @@ import java.util.List;
 public class PedidoVo implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -19,6 +19,8 @@ public class PedidoVo implements Serializable {
 	private Date dataCadastro;
 
 	private List<ItemPedidoVo> itens = new ArrayList<ItemPedidoVo>();
+
+	private SituacaoPedidoVo situacao;
 
 	// JPA requires a no-argument constructor
 	public PedidoVo() {
@@ -55,6 +57,14 @@ public class PedidoVo implements Serializable {
 
 	public void setItens(List<ItemPedidoVo> itens) {
 		this.itens = itens;
+	}
+
+	public void setSituacao(SituacaoPedidoVo situacao) {
+		this.situacao = situacao;
+	}
+
+	public SituacaoPedidoVo getSituacao() {
+		return situacao;
 	}
 
 	public double getValorTotalItens() {

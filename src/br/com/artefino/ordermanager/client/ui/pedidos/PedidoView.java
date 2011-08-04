@@ -73,7 +73,8 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 		selectItemSituacao = new SelectItem();
 		selectItemSituacao.setRequired(true);
 		selectItemSituacao.setAllowEmptyValue(false);
-		selectItemSituacao.setTitle(ArteFinoOrderManager.getConstants().situacao());
+		selectItemSituacao.setTitle(ArteFinoOrderManager.getConstants()
+				.situacao());
 
 		dynamicForm = new DynamicForm();
 		dynamicForm.setTitleOrientation(TitleOrientation.TOP);
@@ -183,6 +184,12 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 			pedidoVo = new PedidoVo();
 		}
 		pedidoVo.setCliente(clienteVo);
+		SituacaoPedidoVo situacao = null;
+		if (selectItemSituacao.getValue() != null) {
+			situacao = new SituacaoPedidoVo();
+			situacao.setId(Long.valueOf(selectItemSituacao.getValueAsString()));
+		}
+		pedidoVo.setSituacao(situacao);
 		pedidoVo.setItens(listGridItens.getItens());
 
 		return pedidoVo;
@@ -190,9 +197,7 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 
 	protected boolean validarCadastroPedido() {
 		if (clienteVo == null) {
-			SC
-					.warn(ArteFinoOrderManager.getMessages()
-							.selecioneClientePedido());
+			SC.warn(ArteFinoOrderManager.getMessages().selecioneClientePedido());
 			return false;
 		}
 		if (listGridItens.getRecords() == null
@@ -233,7 +238,8 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 		if (situacaoPedidoVos != null) {
 			LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 			for (SituacaoPedidoVo situacaoPedidoVo : situacaoPedidoVos) {
-				map.put(situacaoPedidoVo.getId().toString(), situacaoPedidoVo.getNome());
+				map.put(situacaoPedidoVo.getId().toString(),
+						situacaoPedidoVo.getNome());
 			}
 			selectItemSituacao.setValueMap(map);
 		}
