@@ -12,6 +12,7 @@ import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
@@ -31,7 +32,7 @@ public class PedidosPresenter extends
 
 	private PlaceManager placeManager;
 	private DispatchAsync dispatcher;
-	
+
 	public interface MyView extends View, HasUiHandlers<PedidosUIHandlers> {
 
 		void setResultSet(List<PedidoVo> pedidosVo);
@@ -43,7 +44,7 @@ public class PedidosPresenter extends
 	public interface MyProxy extends ProxyPlace<PedidosPresenter> {
 	}
 
-	
+
 
 	@Inject
 	public PedidosPresenter(final EventBus eventBus, final MyView view,
@@ -51,7 +52,7 @@ public class PedidosPresenter extends
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
 		this.dispatcher=dispatcher;
-		
+
 		getView().setUiHandlers(this);
 	}
 
@@ -69,11 +70,11 @@ public class PedidosPresenter extends
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		
+
 		MainPagePresenter.getNavigationPaneHeader()
 		.setContextAreaHeaderLabelContents(
 				ArteFinoOrderManager.getConstants().tituloPedidos());
-		
+
 		pesquisarPedidos();
 	}
 
@@ -82,9 +83,9 @@ public class PedidosPresenter extends
 		PlaceRequest placeRequest = new PlaceRequest(
 				NameTokens.pedido).with("acao", "novo");
 		placeManager.revealPlace(placeRequest);
-		
+
 	}
-	
+
 	private void pesquisarPedidos() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
 		dispatcher.execute(new PesquisarPedidosAction(10, 1),
@@ -102,5 +103,12 @@ public class PedidosPresenter extends
 						getView().setResultSet(result.getPedidosVo());
 					}
 				});
+	}
+
+	@Override
+	public void onButtonImprimirPedido(String idPedido) {
+		StringBuilder url = new StringBuilder();
+	    url.append("/reports/?report=pedido&id=" + idPedido);
+	    Window.open(url.toString(), "_blank", "");
 	}
 }

@@ -12,4 +12,6 @@ public interface PedidoUIHandlers extends UiHandlers {
 	void onButtonPesquisarClientesClicked();
 
 	void onButtonSalvarPedido(PedidoVo pedido);
+
+	void onButtonImprimirPedido(Long idPedido);
 }

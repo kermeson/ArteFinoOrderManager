@@ -408,4 +408,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Situação")
 	String situacao();
 
+	@DefaultStringValue("Imprimir")
+	String imprimir();
+
 }

@@ -177,6 +177,18 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 			}
 		});
 
+		toolBar.addButton(ToolBar.PRINT_PREVIEW_BUTTON, ArteFinoOrderManager
+				.getConstants().imprimir(), new ClickHandler() {
+			public void onClick(ClickEvent event) {
+
+				if (getUiHandlers() != null && getPedido() != null
+						&& getPedido().getId() != null) {
+					getUiHandlers().onButtonImprimirPedido(getPedido().getId());
+				}
+
+			}
+		});
+
 	}
 
 	protected PedidoVo getPedido() {
@@ -244,5 +256,10 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 			selectItemSituacao.setValueMap(map);
 		}
 
+	}
+
+	@Override
+	public void setIdPedido(Long id) {
+		pedidoVo.setId(id);
 	}
 }

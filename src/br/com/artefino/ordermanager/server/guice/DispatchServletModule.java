@@ -1,5 +1,7 @@
 package br.com.artefino.ordermanager.server.guice;
 
+import br.com.artefino.ordermanager.server.servlet.ReportServlet;
+
 import com.google.inject.servlet.ServletModule;
 import com.gwtplatform.dispatch.shared.ActionImpl;
 import com.gwtplatform.dispatch.shared.SecurityCookie;
@@ -30,5 +32,10 @@ public class DispatchServletModule extends ServletModule {
 	protected void bindServlets() {
 		serve(DEFAULT_SERVICE_PATH + ActionImpl.DEFAULT_SERVICE_NAME).with(
 				DispatchServiceImpl.class);
+
+
+	    // This registers a servlet (subclass of HttpServlet) called ReportServlet
+	    // to serve any web requests using a path-style syntax (as you would in web.xml).
+	    serve(DEFAULT_REPORTS_SERVICE_PATH).with(ReportServlet.class);
 	}
 }

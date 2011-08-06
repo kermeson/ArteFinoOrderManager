@@ -66,7 +66,7 @@ public class Pedido {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false, name = "PID_CLIENTE")
 	public Cliente getCliente() {
 		return cliente;
@@ -87,7 +87,7 @@ public class Pedido {
 	}
 
 	@SuppressWarnings("deprecation")
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PID_PEDIDO", nullable = false)
 	@Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
 	public List<ItemPedido> getItens() {
@@ -98,7 +98,7 @@ public class Pedido {
 		this.itens = itens;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PID_SITUACAO", nullable = false)
 	public SituacaoPedido getSituacaoPedido() {
 		return situacaoPedido;

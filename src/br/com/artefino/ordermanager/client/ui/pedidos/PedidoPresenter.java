@@ -18,6 +18,7 @@ import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
@@ -44,6 +45,7 @@ public class PedidoPresenter extends
 		void setCliente(ClienteVo clienteVo);
 		void limparTelaCadastro();
 		void setSituacoes(List<SituacaoPedidoVo> situacaoPedidoVos);
+		void setIdPedido(Long id);
 	}
 
 	@ProxyStandard
@@ -159,7 +161,7 @@ public class PedidoPresenter extends
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadoComSucesso());
-						getView().limparTelaCadastro();
+						getView().setIdPedido(result.getId());
 					}
 				});
 
@@ -167,6 +169,14 @@ public class PedidoPresenter extends
 
 	private void atualizarPedido(PedidoVo pedido) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onButtonImprimirPedido(Long idPedido) {
+		StringBuilder url = new StringBuilder();
+	    url.append("/reports/?report=pedido&id=" + idPedido);
+	    Window.open(url.toString(), "_blank", "");
 
 	}
 }
