@@ -122,4 +122,15 @@ public class Pedido {
 		return pedidoVo;
 	}
 
+	public Double calcularVolarTotalItens() {
+		double valorTotal = 0;
+		if (getItens() != null) {
+			for (ItemPedido itemPedido : getItens()) {
+				valorTotal += itemPedido.calcularValorTotal();
+			}
+		}
+		return valorTotal;
+
+	}
+
 }

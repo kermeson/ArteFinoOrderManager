@@ -17,6 +17,7 @@ import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -40,6 +41,13 @@ public class PedidoPresenter extends
 	private PlaceManager placeManager;
 	private DispatchAsync dispatcher;
 	private EventBus eventBus;
+
+	private static final String ACAO = "acao";
+	private static final String ID = "id";
+	private static final String EDITAR = "editar";
+	private static final String NOVO = "novo";
+	private String idCliente;
+	private String acao;
 
 	public interface MyView extends View, HasUiHandlers<PedidoUIHandlers> {
 		void setCliente(ClienteVo clienteVo);
@@ -105,6 +113,25 @@ public class PedidoPresenter extends
 
 
 		recuperarSituacoesPedidos();
+
+		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();
+		acao = placeRequest.getParameter(ACAO, NOVO);
+		idCliente = placeRequest.getParameter(ID, null);
+		if (EDITAR.equals(acao)) {
+//			Long id = -1L;
+//
+//			try {
+//				id = Long.valueOf(idCliente);
+//			} catch (NumberFormatException nfe) {
+//				Log
+//						.debug("NumberFormatException: "
+//								+ nfe.getLocalizedMessage());
+//				return;
+//			}
+//			recuperarCliente(id);
+		} else if (NOVO.equals(acao)) {
+			getView().limparTelaCadastro();
+		}
 	}
 
 	@Override

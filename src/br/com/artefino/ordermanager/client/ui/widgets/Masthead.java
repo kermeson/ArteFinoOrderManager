@@ -7,8 +7,7 @@ import com.smartgwt.client.widgets.layout.HLayout;
 
 public class Masthead extends HLayout {
 
-  private static final int MASTHEAD_HEIGHT = 58;
-  private static final int IMAGE_SIZE = 48;
+  private static final int MASTHEAD_HEIGHT = 75;
 
   private static final String WEST_WIDTH = "50%";
   private static final String EAST_WIDTH = "50%";
@@ -26,7 +25,7 @@ public class Masthead extends HLayout {
     this.setHeight(MASTHEAD_HEIGHT);
 
     // initialise the Logo image
-    Img logo = new Img(LOGO, IMAGE_SIZE, IMAGE_SIZE);
+    Img logo = new Img(LOGO, 64, 69);
     logo.setStyleName("mastheadLogo");
 
     // initialise the Name label

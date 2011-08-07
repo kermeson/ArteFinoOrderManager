@@ -49,7 +49,7 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
 
 	protected void initToolBar() {
 
-		toolBar.addButton(ToolBar.ADD_CLIENT, ArteFinoOrderManager
+		toolBar.addButton(ToolBar.ADD_ORDER, ArteFinoOrderManager
 				.getConstants().newButton(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				if (getUiHandlers() != null) {

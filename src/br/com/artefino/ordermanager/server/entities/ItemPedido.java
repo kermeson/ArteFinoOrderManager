@@ -80,4 +80,8 @@ public class ItemPedido {
 		return itemPedidoVo;
 	}
 
+	public Double calcularValorTotal() {
+		return getValorUnitario() * getQuantidadeItens();
+	}
+
 }

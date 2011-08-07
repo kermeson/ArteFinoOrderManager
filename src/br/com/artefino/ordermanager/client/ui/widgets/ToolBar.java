@@ -34,10 +34,12 @@ public class ToolBar extends HLayout {
 
 	public static final String TOOLBAR_HEIGHT = "25px";
 	public static final String TOOLSTRIP_WIDTH = "*";
-	
+
 	public static final String EDIT_CLIENT = "toolbar/edit_user.gif";
 	public static final String ADD_CLIENT = "toolbar/add_user.png";
-	
+
+	public static final String ADD_ORDER = "toolbar/new.png";
+
 
 	protected final ToolStrip toolStrip;
 
