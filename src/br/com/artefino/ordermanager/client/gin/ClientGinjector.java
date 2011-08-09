@@ -1,7 +1,7 @@
 package br.com.artefino.ordermanager.client.gin;
 
-import br.com.artefino.ordermanager.client.ui.clientes.ClientInformationPresenter;
-import br.com.artefino.ordermanager.client.ui.clientes.ClientPresenter;
+import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
+import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
@@ -22,9 +22,9 @@ public interface ClientGinjector extends Ginjector {
 
 	Provider<MainPagePresenter> getMainPagePresenter();
 
-	Provider<ClientPresenter> getClientPresenter();
+	Provider<ClientesPresenter> getClientPresenter();
 
-	Provider<ClientInformationPresenter> getClientInformationPresenter();
+	Provider<ClientePresenter> getClientInformationPresenter();
 
 	Provider<PedidosPresenter> getPedidosPresenter();
 	

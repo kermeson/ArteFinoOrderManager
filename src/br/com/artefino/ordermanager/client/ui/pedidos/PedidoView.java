@@ -4,8 +4,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
+import br.com.artefino.ordermanager.client.model.ItemPedidoRecord;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
+import br.com.artefino.ordermanager.client.util.FormatadorUtil;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
@@ -28,6 +30,9 @@ import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.form.fields.events.FormItemClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.FormItemIconClickEvent;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
+import com.smartgwt.client.widgets.grid.events.EditCompleteEvent;
+import com.smartgwt.client.widgets.grid.events.EditCompleteHandler;
 import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -73,8 +78,10 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 		selectItemSituacao = new SelectItem();
 		selectItemSituacao.setRequired(true);
 		selectItemSituacao.setAllowEmptyValue(false);
+		selectItemSituacao.setDefaultToFirstOption(true);
 		selectItemSituacao.setTitle(ArteFinoOrderManager.getConstants()
 				.situacao());
+		selectItemSituacao.setDisabled(true);
 
 		dynamicForm = new DynamicForm();
 		dynamicForm.setTitleOrientation(TitleOrientation.TOP);
@@ -141,6 +148,31 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 
 					}
 				});
+			}
+		});
+
+		listGridItens.addEditCompleteHandler(new EditCompleteHandler() {
+
+			@Override
+			public void onEditComplete(EditCompleteEvent event) {
+				ListGridRecord record = listGridItens.getRecord(event
+						.getRowNum());
+
+				double valorUnitario = 0;
+				if ( record
+						.getAttributeAsString(ItemPedidoRecord.VALOR_UNITARIO) != null) {
+					valorUnitario = FormatadorUtil.getFormatDouble(record
+					.getAttributeAsString(ItemPedidoRecord.VALOR_UNITARIO));
+				}
+
+				long qtdItens = 0;
+				if (record
+				.getAttributeAsString(ItemPedidoRecord.QUANTIDADE) != null) {
+					qtdItens = Long.valueOf(record
+				.getAttributeAsString(ItemPedidoRecord.QUANTIDADE));
+				}
+
+				record.setAttribute(ItemPedidoRecord.VALOR_TOTAL, "R$ " + FormatadorUtil.formatarDecimal(qtdItens * valorUnitario));
 			}
 		});
 

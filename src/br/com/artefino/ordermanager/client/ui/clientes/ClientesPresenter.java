@@ -28,8 +28,8 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
 
-public class ClientPresenter extends
-		Presenter<ClientPresenter.MyView, ClientPresenter.MyProxy> implements
+public class ClientesPresenter extends
+		Presenter<ClientesPresenter.MyView, ClientesPresenter.MyProxy> implements
 		ClientUIHandlers {
 
 	public interface MyView extends View, HasUiHandlers<ClientUIHandlers> {
@@ -42,7 +42,7 @@ public class ClientPresenter extends
 
 	@ProxyStandard
 	@NameToken(NameTokens.clientes)
-	public interface MyProxy extends ProxyPlace<ClientPresenter> {
+	public interface MyProxy extends ProxyPlace<ClientesPresenter> {
 	}
 
 	private static final String ACAO = "acao";
@@ -58,7 +58,7 @@ public class ClientPresenter extends
 	private DispatchAsync dispatcher;
 
 	@Inject
-	public ClientPresenter(final EventBus eventBus, final MyView view,
+	public ClientesPresenter(final EventBus eventBus, final MyView view,
 			final MyProxy proxy, PlaceManager placeManager,
 			DispatchAsync dispatcher) {
 		super(eventBus, view, proxy);

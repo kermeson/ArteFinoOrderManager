@@ -10,8 +10,10 @@ import br.com.artefino.ordermanager.client.ui.widgets.ListGridFieldInteger;
 import br.com.artefino.ordermanager.shared.vo.ItemPedidoVo;
 
 import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.CharacterCasing;
 import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.SelectionStyle;
+import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.grid.HoverCustomizer;
 import com.smartgwt.client.widgets.grid.ListGrid;
 import com.smartgwt.client.widgets.grid.ListGridField;
@@ -23,6 +25,7 @@ public class ItemPedidoListGrid extends ListGrid {
 	private ListGridFieldInteger listGridFieldQuantidade;
 	private ListGridFieldDecimal listGridFieldValorUnitario;
 	private ListGridField listGridFieldRemover;
+	private ListGridFieldDecimal listGridFieldValorTotal;
 
 	public ItemPedidoListGrid() {
 		super();
@@ -35,6 +38,10 @@ public class ItemPedidoListGrid extends ListGrid {
 		listGridFieldReferencia = new ListGridField(
 				ItemPedidoRecord.REFERENCIA, ArteFinoOrderManager
 						.getConstants().referencia());
+		TextItem textItemRef = new TextItem();
+		textItemRef.setCharacterCasing(CharacterCasing.UPPER);
+		listGridFieldReferencia.setEditorType(textItemRef);
+
 
 		listGridFieldQuantidade = new ListGridFieldInteger(
 				ItemPedidoRecord.QUANTIDADE, ArteFinoOrderManager
@@ -47,10 +54,20 @@ public class ItemPedidoListGrid extends ListGrid {
 				ItemPedidoRecord.VALOR_UNITARIO, ArteFinoOrderManager
 						.getConstants().valorUnitario());
 		listGridFieldValorUnitario.setWidth(150);
-		listGridFieldValorUnitario.setLimit(10);
+		listGridFieldValorUnitario.setLimit(5);
 		listGridFieldValorUnitario.setPrefix(ArteFinoOrderManager
 				.getConstants().prefixoMoeda());
 		listGridFieldValorUnitario.setRequired(true);
+
+		listGridFieldValorTotal = new ListGridFieldDecimal(
+				ItemPedidoRecord.VALOR_TOTAL, ArteFinoOrderManager
+						.getConstants().valorTotal());
+		listGridFieldValorTotal.setWidth(150);
+		listGridFieldValorTotal.setLimit(10);
+		listGridFieldValorTotal.setPrefix(ArteFinoOrderManager
+				.getConstants().prefixoMoeda());
+		listGridFieldValorTotal.setRequired(true);
+		listGridFieldValorTotal.setCanEdit(false);
 
 		// Icone Remover
 		listGridFieldRemover = new ListGridField("btnRemover", 25);
@@ -73,7 +90,7 @@ public class ItemPedidoListGrid extends ListGrid {
 		});
 
 		this.setFields(new ListGridField[] { listGridFieldReferencia,
-				listGridFieldQuantidade, listGridFieldValorUnitario,
+				listGridFieldQuantidade, listGridFieldValorUnitario, listGridFieldValorTotal,
 				listGridFieldRemover });
 	}
 
@@ -81,11 +98,11 @@ public class ItemPedidoListGrid extends ListGrid {
 
 		ItemPedidoRecord[] clienteRecords = new
 		ItemPedidoRecord[itens.size()];
-		
+
 		 for (int i = 0; i < itens.size(); i++) {
 		 clienteRecords[i] = createItemPedidoRecord(itens.get(i));
 		 }
-		
+
 		 // populate the List Grid
 		 this.setData(clienteRecords);
 	}
@@ -123,6 +140,6 @@ public class ItemPedidoListGrid extends ListGrid {
 	}
 
 	public void removerItens() {
-		setData(new ListGridRecord[0]);		
+		setData(new ListGridRecord[0]);
 	}
 }

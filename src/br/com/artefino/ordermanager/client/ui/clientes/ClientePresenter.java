@@ -28,9 +28,9 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
 
-public class ClientInformationPresenter
+public class ClientePresenter
 		extends
-		Presenter<ClientInformationPresenter.MyView, ClientInformationPresenter.MyProxy>
+		Presenter<ClientePresenter.MyView, ClientePresenter.MyProxy>
 		implements ClientInformationUIHandlers {
 
 	private static final String ACAO = "acao";
@@ -47,15 +47,17 @@ public class ClientInformationPresenter
 		void setCliente(ClienteVo clienteVo);
 
 		void limparFormulario();
+
+		void setIdCliente(Long id);
 	}
 
 	@ProxyStandard
 	@NameToken(NameTokens.clientinformation)
-	public interface MyProxy extends ProxyPlace<ClientInformationPresenter> {
+	public interface MyProxy extends ProxyPlace<ClientePresenter> {
 	}
 
 	@Inject
-	public ClientInformationPresenter(final EventBus eventBus,
+	public ClientePresenter(final EventBus eventBus,
 			final MyView view, final MyProxy proxy, DispatchAsync dispatcher,
 			PlaceManager placeManager) {
 		super(eventBus, view, proxy);
@@ -80,13 +82,13 @@ public class ClientInformationPresenter
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		
+
 		MainPagePresenter.getNavigationPaneHeader()
 		.setContextAreaHeaderLabelContents(
 				ArteFinoOrderManager.getConstants().tituloInformacoesCliente());
-		
-		
-		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();	
+
+
+		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();
 		acao = placeRequest.getParameter(ACAO, NOVO);
 		idCliente = placeRequest.getParameter(ID, null);
 		if (EDITAR.equals(acao)) {
@@ -104,10 +106,10 @@ public class ClientInformationPresenter
 		} else if (NOVO.equals(acao)) {
 			getView().limparFormulario();
 		}
-		
-		
+
+
 	}
-	
+
 	private void recuperarCliente(Long id) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new RecuperarClienteAction(id),
@@ -153,7 +155,7 @@ public class ClientInformationPresenter
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadoComSucesso());
-						getView().limparFormulario();
+						getView().setIdCliente(result.getId());
 					}
 				});
 

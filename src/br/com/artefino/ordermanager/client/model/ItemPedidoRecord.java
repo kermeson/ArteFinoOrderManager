@@ -11,6 +11,7 @@ public class ItemPedidoRecord extends ListGridRecord {
 	public static final String REFERENCIA = "referencia";
 	public static final String QUANTIDADE = "quantidade";
 	public static final String VALOR_UNITARIO = "valorUnitario";
+	public static final String VALOR_TOTAL = "valorTotal";
 
 	public ItemPedidoRecord(JavaScriptObject javaScriptObject) {
 		super(javaScriptObject);

@@ -3,10 +3,10 @@ package br.com.artefino.ordermanager.client.gin;
 import br.com.artefino.ordermanager.client.place.ClientPlaceManager;
 import br.com.artefino.ordermanager.client.place.DefaultPlace;
 import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clientes.ClientInformationPresenter;
-import br.com.artefino.ordermanager.client.ui.clientes.ClientInformationView;
-import br.com.artefino.ordermanager.client.ui.clientes.ClientPresenter;
-import br.com.artefino.ordermanager.client.ui.clientes.ClientView;
+import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
+import br.com.artefino.ordermanager.client.ui.clientes.ClienteView;
+import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
+import br.com.artefino.ordermanager.client.ui.clientes.ClientesView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPageView;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
@@ -35,13 +35,13 @@ public class ClientModule extends AbstractPresenterModule {
 
 		bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.main);
 
-		bindPresenter(ClientPresenter.class, ClientPresenter.MyView.class,
-				ClientView.class, ClientPresenter.MyProxy.class);
+		bindPresenter(ClientesPresenter.class, ClientesPresenter.MyView.class,
+				ClientesView.class, ClientesPresenter.MyProxy.class);
 
-		bindPresenter(ClientInformationPresenter.class,
-				ClientInformationPresenter.MyView.class,
-				ClientInformationView.class,
-				ClientInformationPresenter.MyProxy.class);
+		bindPresenter(ClientePresenter.class,
+				ClientePresenter.MyView.class,
+				ClienteView.class,
+				ClientePresenter.MyProxy.class);
 
 		bindPresenter(PedidosPresenter.class, PedidosPresenter.MyView.class,
 				PedidosView.class, PedidosPresenter.MyProxy.class);

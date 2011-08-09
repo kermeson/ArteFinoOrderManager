@@ -11,6 +11,7 @@ import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.smartgwt.client.types.CharacterCasing;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.widgets.Button;
 import com.smartgwt.client.widgets.Window;
@@ -59,6 +60,7 @@ public class PesquisarClientesDialogView extends
 		textItemNome.setWidth(360);
 		textItemNome.setLength(200);
 		textItemNome.setColSpan(3);
+		textItemNome.setCharacterCasing(CharacterCasing.UPPER);
 
 		textItemCNPJF = new TextItem();
 		textItemCNPJF.setTitle("CPF/CNPJ");
@@ -82,7 +84,8 @@ public class PesquisarClientesDialogView extends
 		btnPesquisar.setTitle(ArteFinoOrderManager.getConstants().pesquisar());
 
 		CanvasItem canvasItem = new CanvasItem();
-		canvasItem.setShowTitle(false);
+		canvasItem.setShowTitle(true);
+		canvasItem.setTitle("");
 		canvasItem.setCanvas(btnPesquisar);
 		canvasItem.setWidth(150);
 
@@ -97,7 +100,7 @@ public class PesquisarClientesDialogView extends
 				textItemCNPJF, canvasItem);
 		dynamicForm.setNumCols(3);
 
-		VLayout vLayout = new VLayout();
+		VLayout vLayout = new VLayout(10);
 		vLayout.setPadding(5);
 		vLayout.setStyleName("containerPadrao");
 		vLayout.addMember(dynamicForm);

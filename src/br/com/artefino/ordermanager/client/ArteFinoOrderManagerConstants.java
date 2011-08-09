@@ -411,4 +411,16 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Imprimir")
 	String imprimir();
 
+	@DefaultStringValue("Telefone Fixo")
+	String telefoneFixo();
+
+	@DefaultStringValue("Telefone Celular")
+	String telefoneCel();
+
+	@DefaultStringValue("UF")
+	String uf();
+
+	@DefaultStringValue("Cidade")
+	String cidade();
+
 }

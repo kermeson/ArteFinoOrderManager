@@ -21,11 +21,21 @@ public class Cliente {
 
 	private String endereco;
 
-	private String telefone;
-
 	private Long cnpjf;
 
 	private Integer tipoPessoa;
+
+	private String cidade;
+
+	private String bairro;
+
+	private Long numero;
+
+	private String telefoneFixo;
+
+	private String telefoneCelular;
+
+	private String uf;
 
 	// JPA requires a no-argument constructor
 	public Cliente() {
@@ -36,9 +46,14 @@ public class Cliente {
 		this.id = clienteVo.getId();
 		this.nome = clienteVo.getNome();
 		this.endereco = clienteVo.getEndereco();
-		this.telefone = clienteVo.getTelefone();
 		this.cnpjf = clienteVo.getCnpjf();
 		this.tipoPessoa = clienteVo.getTipoPessoa();
+		this.bairro = clienteVo.getBairro();
+		this.cidade = clienteVo.getCidade();
+		this.numero = clienteVo.getNumero();
+		this.telefoneFixo = clienteVo.getTelefoneFixo();
+		this.telefoneCelular = clienteVo.getTelefoneCelular();
+		this.uf = clienteVo.getUf();
 	}
 
 	@Id
@@ -79,15 +94,6 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	@Column(name = "DS_TELEFONE")
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
 	@Column(name = "NU_CNPJF")
 	public Long getCnpjf() {
 		return cnpjf;
@@ -106,14 +112,74 @@ public class Cliente {
 		this.tipoPessoa = tipoPessoa;
 	}
 
+
+	@Column(name = "NM_CIDADE")
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	@Column(name = "NM_BAIRRO")
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	@Column(name = "NU_ENDERECO")
+	public Long getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Long numero) {
+		this.numero = numero;
+	}
+
+	@Column(name = "NU_TELEFONE_FIXO")
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
+
+	@Column(name = "NU_TELEFONE_CELULAR")
+	public String getTelefoneCelular() {
+		return telefoneCelular;
+	}
+
+	public void setTelefoneCelular(String telefoneCelular) {
+		this.telefoneCelular = telefoneCelular;
+	}
+
+
+	@Column(name = "DS_UF")
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
 	public ClienteVo converterParaVo() {
 		ClienteVo clienteVo = new ClienteVo();
-		clienteVo.setId(this.getId());
-		clienteVo.setNome(this.getNome());
-		clienteVo.setEndereco(this.getEndereco());
-		clienteVo.setTelefone(this.getTelefone());
-		clienteVo.setCnpjf(this.getCnpjf());
-		clienteVo.setTipoPessoa(this.getTipoPessoa());
+		clienteVo.setId(getId());
+		clienteVo.setNome(getNome());
+		clienteVo.setEndereco(getEndereco());
+		clienteVo.setCnpjf(getCnpjf());
+		clienteVo.setTipoPessoa(getTipoPessoa());
+		clienteVo.setBairro(getBairro());
+		clienteVo.setCidade(getCidade());
+		clienteVo.setTelefoneFixo(getTelefoneFixo());
+		clienteVo.setTelefoneCelular(getTelefoneCelular());
+		clienteVo.setUf(getUf());
 		return clienteVo;
 	}
 

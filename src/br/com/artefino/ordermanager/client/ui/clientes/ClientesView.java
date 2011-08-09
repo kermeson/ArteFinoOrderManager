@@ -22,8 +22,8 @@ import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
-		ClientPresenter.MyView {
+public class ClientesView extends ViewWithUiHandlers<ClientUIHandlers> implements
+		ClientesPresenter.MyView {
 
 	private VLayout panel;
 	private ToolBar toolBar;
@@ -31,7 +31,7 @@ public class ClientView extends ViewWithUiHandlers<ClientUIHandlers> implements
 	private String idCliente;
 
 	@Inject
-	public ClientView(ClientesListGrid clientesListGrid) {
+	public ClientesView(ClientesListGrid clientesListGrid) {
 		panel = new VLayout(5);
 
 		toolBar = new ToolBar();
