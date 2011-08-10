@@ -1,5 +1,6 @@
 package br.com.artefino.ordermanager.client.ui.widgets;
 
+import com.smartgwt.client.types.SelectionType;
 import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -39,6 +40,7 @@ public class ToolBar extends HLayout {
 	public static final String ADD_CLIENT = "toolbar/add_user.png";
 
 	public static final String ADD_ORDER = "toolbar/new.png";
+	public static final String PESQUISAR = "toolbar/find.png";;
 
 
 	protected final ToolStrip toolStrip;
@@ -77,6 +79,20 @@ public class ToolBar extends HLayout {
 		ToolStripButton button = new ToolStripButton();
 		button.setIcon(icon);
 		button.setTooltip(tooltip);
+		if (clickHandler != null) {
+			button.addClickHandler(clickHandler);
+		}
+		toolStrip.addButton(button);
+
+		return button;
+	}
+
+	public ToolStripButton addButton(String icon, String tooltip, SelectionType selectionType,
+			ClickHandler clickHandler) {
+		ToolStripButton button = new ToolStripButton();
+		button.setIcon(icon);
+		button.setTooltip(tooltip);
+		button.setActionType(selectionType);
 
 		if (clickHandler != null) {
 			button.addClickHandler(clickHandler);
@@ -85,6 +101,8 @@ public class ToolBar extends HLayout {
 
 		return button;
 	}
+
+
 
 	public ToolStripButton addButton(String icon, String title, String tooltip,
 			ClickHandler clickHandler) {

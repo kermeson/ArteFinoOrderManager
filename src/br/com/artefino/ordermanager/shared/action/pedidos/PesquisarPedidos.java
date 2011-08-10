@@ -1,6 +1,7 @@
 package br.com.artefino.ordermanager.shared.action.pedidos;
 
 import java.util.List;
+import java.util.Map;
 
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
@@ -13,8 +14,8 @@ import com.gwtplatform.dispatch.shared.ActionImpl;
 public class PesquisarPedidos {
 	  @In(1) int maxResults;
 	  @In(2) int firstResult;
-
-	  @Out(1) List<PedidoVo> pedidosVo;	
+	  @In(3) Map<String, Object> parametros;
+	  @Out(1) List<PedidoVo> pedidosVo;
 }
 
 

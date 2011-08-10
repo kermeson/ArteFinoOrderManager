@@ -423,4 +423,13 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Cidade")
 	String cidade();
 
+	@DefaultStringValue("Data Inicial")
+	String dataInicial();
+
+	@DefaultStringValue("Data Final")
+	String dataFinal();
+
+	@DefaultStringValue("Período de Cadastro")
+	String periodoCadastro();
+
 }
