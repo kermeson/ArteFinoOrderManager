@@ -13,6 +13,8 @@ import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoView;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidosView;
+import br.com.artefino.ordermanager.client.ui.relatorios.RelatorioPedidosPresenter;
+import br.com.artefino.ordermanager.client.ui.relatorios.RelatorioPedidosView;
 
 import com.gwtplatform.dispatch.shared.SecurityCookie;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
@@ -53,5 +55,8 @@ public class ClientModule extends AbstractPresenterModule {
 		bindSingletonPresenterWidget(PesquisarClientesDialogPresenterWidget.class,
 				PesquisarClientesDialogPresenterWidget.MyView.class,
 				PesquisarClientesDialogView.class);
+
+		bindPresenter(RelatorioPedidosPresenter.class, RelatorioPedidosPresenter.MyView.class,
+				RelatorioPedidosView.class, RelatorioPedidosPresenter.MyProxy.class);
 	}
 }

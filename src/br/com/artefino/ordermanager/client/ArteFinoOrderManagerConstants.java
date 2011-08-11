@@ -435,4 +435,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Limpar")
 	String limpar();
 
+	@DefaultStringValue("Relatório de Pedidos")
+	String relatorioPedidos();
+
 }

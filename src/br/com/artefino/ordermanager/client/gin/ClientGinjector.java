@@ -5,6 +5,7 @@ import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
+import br.com.artefino.ordermanager.client.ui.relatorios.RelatorioPedidosPresenter;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.inject.client.GinModules;
@@ -27,6 +28,8 @@ public interface ClientGinjector extends Ginjector {
 	Provider<ClientePresenter> getClientInformationPresenter();
 
 	Provider<PedidosPresenter> getPedidosPresenter();
-	
+
 	Provider<PedidoPresenter> getPedidoPresenter();
+
+	Provider<RelatorioPedidosPresenter> getRelatorioPedidosPresenter();
 }

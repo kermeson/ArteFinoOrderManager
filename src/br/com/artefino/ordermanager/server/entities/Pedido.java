@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 
@@ -36,6 +37,8 @@ public class Pedido {
 	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
 
 	private SituacaoPedido situacaoPedido;
+
+	private Double valorTotal;
 
 	// JPA requires a no-argument constructor
 	public Pedido() {
@@ -122,8 +125,9 @@ public class Pedido {
 		return pedidoVo;
 	}
 
-	public Double calcularVolarTotalItens() {
-		double valorTotal = 0;
+	@Transient
+	public Double getValorTotal() {
+		valorTotal = 0.0;
 		if (getItens() != null) {
 			for (ItemPedido itemPedido : getItens()) {
 				valorTotal += itemPedido.calcularValorTotal();
@@ -131,6 +135,10 @@ public class Pedido {
 		}
 		return valorTotal;
 
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 }

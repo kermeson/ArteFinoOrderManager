@@ -187,7 +187,7 @@ public class PedidoPresenter extends
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadoComSucesso());
-						getView().setIdPedido(result.getId());
+						getView().limparTelaCadastro();
 					}
 				});
 

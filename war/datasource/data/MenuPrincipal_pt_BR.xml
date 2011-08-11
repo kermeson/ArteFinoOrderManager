@@ -11,7 +11,7 @@
 </record>
 <record>
     <icon>report</icon>
-    <name>relatorios</name>
-    <displayName>Relatórios</displayName>
+    <name>relatoriopedidos</name>
+    <displayName>Relatório de Pedidos</displayName>
 </record>
 </list>
