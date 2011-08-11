@@ -6,6 +6,7 @@ import java.util.Map;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.ClienteRecord;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
+import br.com.artefino.ordermanager.client.ui.widgets.FormularioPesquisarPedidos;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
@@ -28,10 +29,10 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
 	private ToolBar toolBar;
 	private String idPedido;
 	private PedidosListGrid pedidosListGrid;
-	private PesquisarPedidosDynamicForm form;
+	private FormularioPesquisarPedidos form;
 
 	@Inject
-	public PedidosView(ToolBar toolBar, PedidosListGrid pedidosListGrid, PesquisarPedidosDynamicForm form) {
+	public PedidosView(ToolBar toolBar, PedidosListGrid pedidosListGrid, FormularioPesquisarPedidos form) {
 		panel = new VLayout(5);
 
 		this.toolBar = toolBar;

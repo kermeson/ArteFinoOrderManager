@@ -8,6 +8,7 @@ import br.com.artefino.ordermanager.client.ui.widgets.ApplicationMenu;
 import br.com.artefino.ordermanager.client.ui.widgets.Masthead;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
+import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneSectionListGrid;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.Window;
@@ -31,13 +32,14 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 	private final Masthead masthead;
 	private final ApplicationMenu applicationMenu;
 	private final NavigationPaneHeader navigationPaneHeader;
-	private final NavigationPane navigationPane;
+	//private final NavigationPane navigationPane;
 
 	private VLayout panel;
 	private HLayout northLayout;
 	private HLayout southLayout;
 	private VLayout westLayout;
 	private VLayout content;
+	private NavigationPaneSectionListGrid menuListGrid;
 
 	private static final ArteFinoOrderManagerConstants constants = ArteFinoOrderManager
 			.getConstants();
@@ -50,7 +52,10 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 		this.masthead = masthead;
 		this.applicationMenu = applicationMenu;
 		this.navigationPaneHeader = navigationPaneHeader;
-		this.navigationPane = navigationPane;
+		
+		menuListGrid =  new NavigationPaneSectionListGrid(MenuPrincipalDataSource
+				.getInstance());
+		//this.navigationPane = navigationPane;
 
 		// get rid of scroll bars, and clear out the window's built-in margin,
 		// because we want to take advantage of the entire client area
@@ -76,7 +81,9 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 		northLayout.addMember(vLayout);
 
 		// initialise the West layout container
-		westLayout = this.navigationPane;
+		westLayout = new VLayout();
+		westLayout.setWidth("20%");
+		westLayout.addMember(menuListGrid);
 
 		// initialise the South layout container
 		southLayout = new HLayout();
@@ -141,18 +148,27 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 	}
 
 	private void initNavigationPane() {
-		navigationPane.addSection(ArteFinoOrderManager.getConstants()
-				.menuPrincipalStackSectionName(), MenuPrincipalDataSource
-				.getInstance());
+//		navigationPane.addSection(ArteFinoOrderManager.getConstants()
+//				.menuPrincipalStackSectionName(), MenuPrincipalDataSource
+//				.getInstance());
 
-		navigationPane.addRecordClickHandler(ArteFinoOrderManager
-				.getConstants().menuPrincipalStackSectionName(),
+//		navigationPane.addRecordClickHandler(ArteFinoOrderManager
+//				.getConstants().menuPrincipalStackSectionName(),
+//				new RecordClickHandler() {
+//					@Override
+//					public void onRecordClick(RecordClickEvent event) {
+//						onRecordClicked(event);
+//					}
+//				});
+		
+		menuListGrid.addRecordClickHandler(
 				new RecordClickHandler() {
 					@Override
 					public void onRecordClick(RecordClickEvent event) {
 						onRecordClicked(event);
 					}
 				});
+		
 
 	}
 
@@ -170,10 +186,10 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 		}
 	}
 
-	@Override
-	public NavigationPane getNavigationPane() {
-		return navigationPane;
-	}
+//	@Override
+//	public NavigationPane getNavigationPane() {
+//		return navigationPane;
+//	}
 
 	@Override
 	public NavigationPaneHeader getNavigationPaneHeader() {

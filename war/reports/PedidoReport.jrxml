@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pedido" pageWidth="595" pageHeight="421" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.4641000000000213"/>
+	<property name="ireport.zoom" value="1.7715610000000268"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/kermeson/workspace-helios/ArteFinoOrderManager/war/reports/"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="IMAGES_DIR" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -25,7 +26,7 @@
 	<title>
 		<band height="87" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="52"/>
+				<reportElement x="0" y="0" width="555" height="63"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -59,7 +60,7 @@
 				<text><![CDATA[CNPJ: 000000000/0001-0]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="155" y="63" width="245" height="17"/>
+				<reportElement x="155" y="67" width="245" height="17"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -67,7 +68,7 @@
 			</staticText>
 			<image>
 				<reportElement x="11" y="1" width="55" height="51"/>
-				<imageExpression class="java.lang.String"><![CDATA["/home/kermeson/workspace-helios/ArteFinoOrderManager/war/images/logo.png"]]></imageExpression>
+				<imageExpression class="java.lang.String"><![CDATA[$P{IMAGES_DIR} + "/logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -177,7 +178,7 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DETALHES DO PEDIDO]]></text>
 			</staticText>

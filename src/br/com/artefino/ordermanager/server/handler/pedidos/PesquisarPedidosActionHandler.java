@@ -9,7 +9,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -46,17 +45,16 @@ public class PesquisarPedidosActionHandler implements
 			CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder
 					.createQuery(Pedido.class);
 			Root<Pedido> root = criteriaQuery.from(Pedido.class);
-			//Join<Pedido, Cliente> cliJoin = root.join(Pedid.cliente);
 			criteriaQuery.select(root);
 
 			List<Predicate> predicates = new ArrayList<Predicate>();
-
 			if (action.getParametros() != null) {
 				if (action.getParametros().containsKey("idCliente")
 						&& action.getParametros().get("idCliente") != null) {
-					predicates.add(criteriaBuilder.equal(root
-							.get("cliente.id").as(Long.class), (Long) action
-							.getParametros().get("idCliente")));
+					Join<Pedido, Cliente> cliente = root.join("cliente");
+					predicates.add(criteriaBuilder.equal(cliente.get("id").as(
+							Long.class), (Long) action.getParametros().get(
+							"idCliente")));
 				}
 				if (action.getParametros().containsKey("dataInicial")
 						&& action.getParametros().get("dataInicial") != null) {
@@ -67,9 +65,9 @@ public class PesquisarPedidosActionHandler implements
 
 				if (action.getParametros().containsKey("dataFinal")
 						&& action.getParametros().get("dataFinal") != null) {
-					predicates.add(criteriaBuilder.lessThanOrEqualTo(
-							root.get("dataCadastro").as(Date.class),
-							(Date) action.getParametros().get("dataFinal")));
+					predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(
+							"dataCadastro").as(Date.class), (Date) action
+							.getParametros().get("dataFinal")));
 				}
 
 			}
@@ -83,8 +81,8 @@ public class PesquisarPedidosActionHandler implements
 			List<Pedido> pedidos = typedQuery.getResultList();
 
 			if (pedidos != null) {
-				List<PedidoVo> pedidoVos = new ArrayList<PedidoVo>(
-						pedidos.size());
+				List<PedidoVo> pedidoVos = new ArrayList<PedidoVo>(pedidos
+						.size());
 
 				for (Pedido pedido : pedidos) {
 					pedidoVos.add(pedido.converterParaVo());

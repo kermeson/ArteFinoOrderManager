@@ -80,6 +80,9 @@ public class ReportServlet extends HttpServlet {
 		InputStream reportStream = getServletConfig().getServletContext()
 				.getResourceAsStream(resourceName);
 
+		String pathImagens = getServletConfig().getServletContext()
+		.getRealPath("/images");
+		
 		response.setContentType("application/pdf");
 		OutputStream servletOutputStream = response.getOutputStream();
 		try {
@@ -92,6 +95,7 @@ public class ReportServlet extends HttpServlet {
 					pedidos);
 
 			Map<Object, Object> map = new HashMap<Object, Object>();
+			map.put("IMAGES_DIR", pathImagens);
 			map.put("SUBREPORT_DIR", "reports/");
 
 			JasperRunManager.runReportToPdfStream(reportStream,

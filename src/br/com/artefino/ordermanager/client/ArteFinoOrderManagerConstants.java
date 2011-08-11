@@ -432,4 +432,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Período de Cadastro")
 	String periodoCadastro();
 
+	@DefaultStringValue("Limpar")
+	String limpar();
+
 }

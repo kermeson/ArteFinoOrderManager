@@ -1,6 +1,5 @@
 package br.com.artefino.ordermanager.client.ui.main;
 
-import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
@@ -32,7 +31,7 @@ public class MainPagePresenter extends
 	public interface MyView extends View, HasUiHandlers<MainUIHandlers> {
 
 		NavigationPaneHeader getNavigationPaneHeader();
-		NavigationPane getNavigationPane();
+//		NavigationPane getNavigationPane();
 	}
 
 	@ProxyStandard
@@ -58,7 +57,7 @@ public class MainPagePresenter extends
 
 		MainPagePresenter.navigationPaneHeader = getView()
 				.getNavigationPaneHeader();
-		MainPagePresenter.navigationPane = getView().getNavigationPane();
+//		MainPagePresenter.navigationPane = getView().getNavigationPane();
 	}
 
 	@Override
@@ -71,9 +70,9 @@ public class MainPagePresenter extends
 		super.onBind();
 
 		// expand the first Navigation Pane section
-		getView().getNavigationPane().expandSection(
-				ArteFinoOrderManager.getConstants()
-						.menuPrincipalStackSectionName());
+//		getView().getNavigationPane().expandSection(
+//				ArteFinoOrderManager.getConstants()
+//						.menuPrincipalStackSectionName());
 
 		// reveal the first nested Presenter
 		PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);

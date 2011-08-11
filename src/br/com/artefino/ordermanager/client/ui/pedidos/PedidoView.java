@@ -94,6 +94,7 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 		labelItens = new Label(ArteFinoOrderManager.getConstants()
 				.tituloItensPedido());
 		labelItens.setAutoHeight();
+		labelItens.setStyleName("subtitulo");
 		vLayoutItens.addMember(labelItens);
 
 		this.listGridItens = listGridItens;
@@ -102,6 +103,7 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 		buttonAdicionarItem = new Button();
 		buttonAdicionarItem.setTitle(ArteFinoOrderManager.getConstants()
 				.adicionarItem());
+		buttonAdicionarItem.setIcon("icons/16/add.png");
 		vLayoutItens.addMember(buttonAdicionarItem);
 
 		vLayoutContainer.addMember(vLayoutItens);

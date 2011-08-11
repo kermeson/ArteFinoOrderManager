@@ -17,7 +17,6 @@ import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
