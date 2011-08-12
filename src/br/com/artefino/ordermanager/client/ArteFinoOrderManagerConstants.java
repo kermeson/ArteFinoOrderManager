@@ -438,4 +438,7 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Relatório de Pedidos")
 	String relatorioPedidos();
 
+	@DefaultStringValue("Exportar")
+	String exportar();
+
 }

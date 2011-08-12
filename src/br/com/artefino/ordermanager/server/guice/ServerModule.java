@@ -6,16 +6,20 @@ import br.com.artefino.ordermanager.server.handler.clientes.CadastrarClienteActi
 import br.com.artefino.ordermanager.server.handler.clientes.PesquisarClientesActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.RecuperarClienteActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.RemoverClienteActionHandler;
+import br.com.artefino.ordermanager.server.handler.pedidos.AtualizarPedidoActionHandler;
 import br.com.artefino.ordermanager.server.handler.pedidos.CadastrarPedidoActionHandler;
 import br.com.artefino.ordermanager.server.handler.pedidos.PesquisarPedidosActionHandler;
+import br.com.artefino.ordermanager.server.handler.pedidos.RecuperarPedidoActionHandler;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoAction;
 import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
 import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.RemoverClienteAction;
+import br.com.artefino.ordermanager.shared.action.pedidos.AtualizarPedidoAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.CadastrarPedidoAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosAction;
+import br.com.artefino.ordermanager.shared.action.pedidos.RecuperarPedidoAction;
 
 import com.gwtplatform.dispatch.server.guice.HandlerModule;
 
@@ -25,7 +29,6 @@ public class ServerModule extends HandlerModule {
 	protected void configureHandlers() {
 		bindHandler(RecuperarSituacoesPedidoAction.class,
 				RecuperarSituacoesPedidoActionHandler.class);
-
 
 		// Clientes
 		bindHandler(CadastrarClienteAction.class,
@@ -44,5 +47,9 @@ public class ServerModule extends HandlerModule {
 				CadastrarPedidoActionHandler.class);
 		bindHandler(PesquisarPedidosAction.class,
 				PesquisarPedidosActionHandler.class);
+		bindHandler(AtualizarPedidoAction.class,
+				AtualizarPedidoActionHandler.class);
+		bindHandler(RecuperarPedidoAction.class,
+				RecuperarPedidoActionHandler.class);
 	}
 }

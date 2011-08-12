@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import br.com.artefino.ordermanager.server.bussinessobject.PedidoBO;
+import br.com.artefino.ordermanager.server.businessobject.PedidoBO;
 import br.com.artefino.ordermanager.server.entities.Pedido;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
 
@@ -65,18 +65,17 @@ public class ReportServlet extends HttpServlet {
 
 	private void relatorioPedido(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-
-		String resourceName = DEFAULT_REPORTS_SERVICE_PATH
-				+ "PedidoReport.jasper";
-		InputStream reportStream = getServletConfig().getServletContext()
-				.getResourceAsStream(resourceName);
-
-		String pathImagens = getServletConfig().getServletContext()
-		.getRealPath("/images");
-
 		response.setContentType("application/pdf");
 		OutputStream servletOutputStream = response.getOutputStream();
 		try {
+			String resourceName = DEFAULT_REPORTS_SERVICE_PATH
+					+ "PedidoReport.jasper";
+			InputStream reportStream = getServletConfig().getServletContext()
+					.getResourceAsStream(resourceName);
+
+			String pathImagens = getServletConfig().getServletContext()
+					.getRealPath("/images");
+
 			Long idPedido = Long.parseLong(request.getParameter("id"));
 			Pedido pedido = (Pedido) JPAUtil.findByID(Pedido.class, idPedido);
 			List<Pedido> pedidos = new ArrayList<Pedido>();
@@ -107,19 +106,38 @@ public class ReportServlet extends HttpServlet {
 
 	private void relatorioPedidos(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-
-		String resourceName = DEFAULT_REPORTS_SERVICE_PATH
-				+ "PedidosReport.jasper";
-		InputStream reportStream = getServletConfig().getServletContext()
-				.getResourceAsStream(resourceName);
-
-		String pathImagens = getServletConfig().getServletContext()
-		.getRealPath("/images");
-
 		response.setContentType("application/pdf");
 		OutputStream servletOutputStream = response.getOutputStream();
 		try {
-			List<Pedido> pedidos = PedidoBO.pesquisarPedido(null);
+			String resourceName = DEFAULT_REPORTS_SERVICE_PATH
+					+ "PedidosReport.jasper";
+			InputStream reportStream = getServletConfig().getServletContext()
+					.getResourceAsStream(resourceName);
+
+			String pathImagens = getServletConfig().getServletContext()
+					.getRealPath("/images");
+
+			Map<String, Object> parametros = new HashMap<String, Object>();
+
+			if (request.getParameter("idCliente") != null) {
+				parametros.put("idCliente", Long.valueOf(request
+						.getParameter("idCliente")));
+			}
+
+			if (request.getParameter("dataInicial") != null) {
+				parametros.put("dataInicial", Long.valueOf(request
+						.getParameter("dataInicial")));
+			}
+			if (request.getParameter("dataFinal") != null) {
+				parametros.put("dataFinal", Long.valueOf(request
+						.getParameter("dataFinal")));
+			}
+			if (request.getParameter("situacao") != null) {
+				parametros.put("situacao", Long.valueOf(request
+						.getParameter("situacao")));
+			}
+
+			List<Pedido> pedidos = PedidoBO.pesquisarPedido(parametros);
 
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
 					pedidos);
@@ -144,4 +162,3 @@ public class ReportServlet extends HttpServlet {
 
 	}
 }
-

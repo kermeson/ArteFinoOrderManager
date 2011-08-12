@@ -75,7 +75,7 @@ public class PedidosListGrid extends ListGrid {
 	private PedidoRecord createPedidoRecord(PedidoVo pedidoVo) {
 		return new PedidoRecord(pedidoVo.getId().intValue(), pedidoVo
 				.getCliente().getNome(), pedidoVo.getItens().size(),
-				pedidoVo.getValorTotalItens(), pedidoVo.getDataCadastro(),
+				pedidoVo.getValorTotal(), pedidoVo.getDataCadastro(),
 				pedidoVo.getSituacao().getNome());
 	}
 }

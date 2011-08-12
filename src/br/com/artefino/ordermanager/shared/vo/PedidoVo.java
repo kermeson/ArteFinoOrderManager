@@ -21,6 +21,8 @@ public class PedidoVo implements Serializable {
 	private List<ItemPedidoVo> itens = new ArrayList<ItemPedidoVo>();
 
 	private SituacaoPedidoVo situacao;
+	
+	private Double valorTotal;
 
 	// JPA requires a no-argument constructor
 	public PedidoVo() {
@@ -67,11 +69,11 @@ public class PedidoVo implements Serializable {
 		return situacao;
 	}
 
-	public double getValorTotalItens() {
-		double valorTotal = 0;
-		for (ItemPedidoVo itemPedido : itens) {
-			valorTotal += itemPedido.getValorTotal();
-		}
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public Double getValorTotal() {
 		return valorTotal;
 	}
 

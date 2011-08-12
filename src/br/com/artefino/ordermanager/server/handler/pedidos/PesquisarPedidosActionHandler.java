@@ -3,7 +3,7 @@ package br.com.artefino.ordermanager.server.handler.pedidos;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.artefino.ordermanager.server.bussinessobject.PedidoBO;
+import br.com.artefino.ordermanager.server.businessobject.PedidoBO;
 import br.com.artefino.ordermanager.server.entities.Pedido;
 import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosResult;

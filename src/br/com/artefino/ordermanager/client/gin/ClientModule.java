@@ -9,6 +9,8 @@ import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPageView;
+import br.com.artefino.ordermanager.client.ui.pedidos.FormularioPesquisarPedidosPresenterWidget;
+import br.com.artefino.ordermanager.client.ui.pedidos.FormularioPesquisarPedidosView;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoView;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidosPresenter;
@@ -40,10 +42,8 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenter(ClientesPresenter.class, ClientesPresenter.MyView.class,
 				ClientesView.class, ClientesPresenter.MyProxy.class);
 
-		bindPresenter(ClientePresenter.class,
-				ClientePresenter.MyView.class,
-				ClienteView.class,
-				ClientePresenter.MyProxy.class);
+		bindPresenter(ClientePresenter.class, ClientePresenter.MyView.class,
+				ClienteView.class, ClientePresenter.MyProxy.class);
 
 		bindPresenter(PedidosPresenter.class, PedidosPresenter.MyView.class,
 				PedidosView.class, PedidosPresenter.MyProxy.class);
@@ -51,12 +51,18 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenter(PedidoPresenter.class, PedidoPresenter.MyView.class,
 				PedidoView.class, PedidoPresenter.MyProxy.class);
 
-
-		bindSingletonPresenterWidget(PesquisarClientesDialogPresenterWidget.class,
+		bindSingletonPresenterWidget(
+				PesquisarClientesDialogPresenterWidget.class,
 				PesquisarClientesDialogPresenterWidget.MyView.class,
 				PesquisarClientesDialogView.class);
 
-		bindPresenter(RelatorioPedidosPresenter.class, RelatorioPedidosPresenter.MyView.class,
-				RelatorioPedidosView.class, RelatorioPedidosPresenter.MyProxy.class);
+		bindPresenter(RelatorioPedidosPresenter.class,
+				RelatorioPedidosPresenter.MyView.class,
+				RelatorioPedidosView.class,
+				RelatorioPedidosPresenter.MyProxy.class);
+
+		bindPresenterWidget(FormularioPesquisarPedidosPresenterWidget.class,
+				FormularioPesquisarPedidosPresenterWidget.MyView.class,
+				FormularioPesquisarPedidosView.class);
 	}
 }

@@ -1,4 +1,4 @@
-package br.com.artefino.ordermanager.server.bussinessobject;
+package br.com.artefino.ordermanager.server.businessobject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 
 import br.com.artefino.ordermanager.server.entities.Cliente;
 import br.com.artefino.ordermanager.server.entities.Pedido;
+import br.com.artefino.ordermanager.server.entities.SituacaoPedido;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
 
 public class PedidoBO {
@@ -33,19 +34,27 @@ public class PedidoBO {
 					&& parametros.get("idCliente") != null) {
 				Join<Pedido, Cliente> cliente = root.join("cliente");
 				predicates.add(criteriaBuilder.equal(cliente.get("id").as(
-						Long.class), (Long) parametros.get(
-						"idCliente")));
+						Long.class), (Long) parametros.get("idCliente")));
 			}
 			if (parametros.containsKey("dataInicial")
 					&& parametros.get("dataInicial") != null) {
-				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root
-						.get("dataCadastro").as(Date.class), (Date) parametros.get("dataInicial")));
+				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(
+						"dataCadastro").as(Date.class), new Date(
+						(Long) parametros.get("dataInicial"))));
 			}
 
 			if (parametros.containsKey("dataFinal")
 					&& parametros.get("dataFinal") != null) {
 				predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(
-						"dataCadastro").as(Date.class), (Date) parametros.get("dataFinal")));
+						"dataCadastro").as(Date.class), new Date(
+						(Long) parametros.get("dataFinal"))));
+			}
+			if (parametros.containsKey("situacao")
+					&& parametros.get("situacao") != null) {
+				Join<Pedido, SituacaoPedido> situacao = root
+						.join("situacaoPedido");
+				predicates.add(criteriaBuilder.equal(situacao.get("id").as(
+						Long.class), (Long) parametros.get("situacao")));
 			}
 
 		}

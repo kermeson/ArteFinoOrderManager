@@ -7,7 +7,5 @@ public interface PedidosUIHandlers extends UiHandlers {
 
 	void onButtonImprimirPedido(String idPedido);
 
-	void onButtonPesquisarClientesClicked();
-
 	void onButtonPesquisarClicked();
 }

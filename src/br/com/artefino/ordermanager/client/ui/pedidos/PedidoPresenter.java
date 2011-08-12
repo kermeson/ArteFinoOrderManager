@@ -11,12 +11,17 @@ import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoAction;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoResult;
+import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteAction;
+import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteResult;
+import br.com.artefino.ordermanager.shared.action.pedidos.AtualizarPedidoAction;
+import br.com.artefino.ordermanager.shared.action.pedidos.AtualizarPedidoResult;
 import br.com.artefino.ordermanager.shared.action.pedidos.CadastrarPedidoAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.CadastrarPedidoResult;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -35,7 +40,8 @@ import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 
 public class PedidoPresenter extends
-		Presenter<PedidoPresenter.MyView, PedidoPresenter.MyProxy> implements PedidoUIHandlers {
+		Presenter<PedidoPresenter.MyView, PedidoPresenter.MyProxy> implements
+		PedidoUIHandlers {
 
 	private PlaceManager placeManager;
 	private DispatchAsync dispatcher;
@@ -45,13 +51,16 @@ public class PedidoPresenter extends
 	private static final String ID = "id";
 	private static final String EDITAR = "editar";
 	private static final String NOVO = "novo";
-	private String idCliente;
+	private String idPedido;
 	private String acao;
 
 	public interface MyView extends View, HasUiHandlers<PedidoUIHandlers> {
 		void setCliente(ClienteVo clienteVo);
+
 		void limparTelaCadastro();
+
 		void setSituacoes(List<SituacaoPedidoVo> situacaoPedidoVos);
+
 		void setIdPedido(Long id);
 	}
 
@@ -60,11 +69,10 @@ public class PedidoPresenter extends
 	public interface MyProxy extends ProxyPlace<PedidoPresenter> {
 	}
 
-
-
 	@Inject
 	public PedidoPresenter(final EventBus eventBus, final MyView view,
-			final MyProxy proxy, final PlaceManager placeManager, final DispatchAsync dispatcher) {
+			final MyProxy proxy, final PlaceManager placeManager,
+			final DispatchAsync dispatcher) {
 		super(eventBus, view, proxy);
 		this.eventBus = eventBus;
 		this.placeManager = placeManager;
@@ -75,8 +83,8 @@ public class PedidoPresenter extends
 
 	@Override
 	protected void revealInParent() {
-		RevealContentEvent.fire(this, MainPagePresenter.TYPE_SetContextAreaContent,
-				this);
+		RevealContentEvent.fire(this,
+				MainPagePresenter.TYPE_SetContextAreaContent, this);
 	}
 
 	@Override
@@ -86,19 +94,19 @@ public class PedidoPresenter extends
 	}
 
 	private void recuperarSituacoesPedidos() {
-		dispatcher.execute(new RecuperarSituacoesPedidoAction(), new AsyncCallback<RecuperarSituacoesPedidoResult>() {
+		dispatcher.execute(new RecuperarSituacoesPedidoAction(),
+				new AsyncCallback<RecuperarSituacoesPedidoResult>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.warn(caught.getMessage());
+					}
 
-			}
-
-			@Override
-			public void onSuccess(RecuperarSituacoesPedidoResult result) {
-				getView().setSituacoes(result.getSituacaoPedidoVos());
-			}
-		});
+					@Override
+					public void onSuccess(RecuperarSituacoesPedidoResult result) {
+						getView().setSituacoes(result.getSituacaoPedidoVos());
+					}
+				});
 
 	}
 
@@ -107,27 +115,27 @@ public class PedidoPresenter extends
 		super.onReveal();
 
 		MainPagePresenter.getNavigationPaneHeader()
-		.setContextAreaHeaderLabelContents(
-				ArteFinoOrderManager.getConstants().tituloDetalhesPedido());
-
+				.setContextAreaHeaderLabelContents(
+						ArteFinoOrderManager.getConstants()
+								.tituloDetalhesPedido());
 
 		recuperarSituacoesPedidos();
 
 		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();
 		acao = placeRequest.getParameter(ACAO, NOVO);
-		idCliente = placeRequest.getParameter(ID, null);
+		idPedido = placeRequest.getParameter(ID, null);
 		if (EDITAR.equals(acao)) {
-//			Long id = -1L;
-//
-//			try {
-//				id = Long.valueOf(idCliente);
-//			} catch (NumberFormatException nfe) {
-//				Log
-//						.debug("NumberFormatException: "
-//								+ nfe.getLocalizedMessage());
-//				return;
-//			}
-//			recuperarCliente(id);
+			Long id = -1L;
+
+			try {
+				id = Long.valueOf(idPedido);
+			} catch (NumberFormatException nfe) {
+				Log
+						.debug("NumberFormatException: "
+								+ nfe.getLocalizedMessage());
+				return;
+			}
+			recuperarPedido(id);
 		} else if (NOVO.equals(acao)) {
 			getView().limparTelaCadastro();
 		}
@@ -147,7 +155,8 @@ public class PedidoPresenter extends
 
 	@Override
 	public void onButtonPesquisarClientesClicked() {
-		PesquisarClientesDialogPresenterWidget dialogBox = new PesquisarClientesDialogPresenterWidget(eventBus, new PesquisarClientesDialogView(), dispatcher) {
+		PesquisarClientesDialogPresenterWidget dialogBox = new PesquisarClientesDialogPresenterWidget(
+				eventBus, new PesquisarClientesDialogView(), dispatcher) {
 			public void onRecordSelecionarClicked(RecordClickEvent event) {
 				ClienteRecord clienteRecord = (ClienteRecord) event.getRecord();
 				if (clienteRecord != null) {
@@ -187,22 +196,58 @@ public class PedidoPresenter extends
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadoComSucesso());
-						getView().limparTelaCadastro();
+						getView().setIdPedido(result.getId());
 					}
 				});
 
 	}
 
 	private void atualizarPedido(PedidoVo pedido) {
-		// TODO Auto-generated method stub
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		dispatcher.execute(new AtualizarPedidoAction(pedido),
+				new AsyncCallback<AtualizarPedidoResult>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.clearPrompt();
+						SC.warn(caught.getMessage());
+					}
+
+					@Override
+					public void onSuccess(AtualizarPedidoResult result) {
+						SC.clearPrompt();
+						SC.say(ArteFinoOrderManager.getMessages()
+								.operacaoRealizadoComSucesso());
+					}
+				});
 
 	}
 
 	@Override
 	public void onButtonImprimirPedido(Long idPedido) {
 		StringBuilder url = new StringBuilder();
-	    url.append("/reports/?report=pedido&id=" + idPedido);
-	    Window.open(url.toString(), "_blank", "");
+		url.append("/reports/?report=pedido&id=" + idPedido);
+		Window.open(url.toString(), "_blank", "");
+
+	}
+	
+	private void recuperarPedido(Long id) {
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		dispatcher.execute(new RecuperarClienteAction(id),
+				new AsyncCallback<RecuperarClienteResult>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.clearPrompt();
+						Log.debug("onFailure() - "
+								+ caught.getLocalizedMessage());
+					}
+
+					@Override
+					public void onSuccess(RecuperarClienteResult result) {
+						SC.clearPrompt();
+						Log.debug("onSuccess()");
+						getView().setCliente(result.getClienteVo());
+					}
+				});
 
 	}
 }

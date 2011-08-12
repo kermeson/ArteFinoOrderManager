@@ -78,7 +78,6 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 		selectItemSituacao = new SelectItem();
 		selectItemSituacao.setRequired(true);
 		selectItemSituacao.setAllowEmptyValue(false);
-		selectItemSituacao.setDefaultToFirstOption(true);
 		selectItemSituacao.setTitle(ArteFinoOrderManager.getConstants()
 				.situacao());
 		selectItemSituacao.setDisabled(true);
@@ -288,6 +287,7 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 						situacaoPedidoVo.getNome());
 			}
 			selectItemSituacao.setValueMap(map);
+			selectItemSituacao.setDefaultValue("1");
 		}
 
 	}

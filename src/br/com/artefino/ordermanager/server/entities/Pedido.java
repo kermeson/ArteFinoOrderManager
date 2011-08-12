@@ -117,7 +117,8 @@ public class Pedido {
 		pedidoVo.setCliente(getCliente().converterParaVo());
 		pedidoVo.setDataCadastro(getDataCadastro());
 		pedidoVo.setSituacao(getSituacaoPedido().converterParaVo());
-		if (getItens() != null) {
+		pedidoVo.setValorTotal(getValorTotal());
+		if (getItens() != null) {			
 			for (ItemPedido itemPedido : getItens()) {
 				pedidoVo.getItens().add(itemPedido.converterParaVo());
 			}
