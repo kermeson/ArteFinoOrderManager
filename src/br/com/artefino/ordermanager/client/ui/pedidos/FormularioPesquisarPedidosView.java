@@ -45,6 +45,7 @@ public class FormularioPesquisarPedidosView extends
 	private VLayout panel;
 
 	private ClienteVo clienteVo;
+	private Button btnPesquisar;
 
 	@Inject
 	public FormularioPesquisarPedidosView() {
@@ -95,6 +96,10 @@ public class FormularioPesquisarPedidosView extends
 				.setDateFormatter(DateDisplayFormat.TOEUROPEANSHORTDATE);
 		dateItemDataFinal.setWidth(90);
 
+		btnPesquisar = new Button();
+		btnPesquisar.setIcon("icons/16/find.png");
+		btnPesquisar.setTitle(ArteFinoOrderManager.getConstants().pesquisar());
+
 		btnExportar = new Button();
 		btnExportar.setIcon("icons/16/pdf.png");
 		btnExportar.setTitle(ArteFinoOrderManager.getConstants().exportar());
@@ -104,7 +109,7 @@ public class FormularioPesquisarPedidosView extends
 		btnLimpar.setTitle(ArteFinoOrderManager.getConstants().limpar());
 
 		HLayout hLayoutBotoes = new HLayout(5);
-		hLayoutBotoes.setMembers(btnExportar, btnLimpar);
+		hLayoutBotoes.setMembers(btnPesquisar, btnExportar, btnLimpar);
 		hLayoutBotoes.setAutoHeight();
 
 		CanvasItem canvasItem = new CanvasItem();
@@ -160,12 +165,17 @@ public class FormularioPesquisarPedidosView extends
 			parametros.put("idCliente", clienteVo.getId());
 		}
 		if (dateItemDataInicial.getValue() != null) {
-			parametros.put("dataInicial", dateItemDataInicial.getValueAsDate().getTime());
+			parametros.put("dataInicial", dateItemDataInicial.getValueAsDate()
+					.getTime());
 		}
 		if (dateItemDataFinal.getValue() != null) {
-			parametros.put("dataFinal", dateItemDataFinal.getValueAsDate().getTime());
+			parametros.put("dataFinal", dateItemDataFinal.getValueAsDate()
+					.getTime());
 		}
-		parametros.put("situacao", selectItemSituacao.getValueAsString());
+		if (selectItemSituacao.getValue() != null) {
+			parametros.put("situacao",
+					Long.valueOf(selectItemSituacao.getValueAsString()));
+		}
 		return parametros;
 	}
 
@@ -179,8 +189,8 @@ public class FormularioPesquisarPedidosView extends
 	public void setItensSituacao(List<SituacaoPedidoVo> situacaoPedidoVos) {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		for (SituacaoPedidoVo situacaoPedidoVo : situacaoPedidoVos) {
-			map.put(situacaoPedidoVo.getId().toString(), situacaoPedidoVo
-					.getNome());
+			map.put(situacaoPedidoVo.getId().toString(),
+					situacaoPedidoVo.getNome());
 		}
 		selectItemSituacao.setValueMap(map);
 	}
@@ -188,6 +198,22 @@ public class FormularioPesquisarPedidosView extends
 	@Override
 	public void addButtonExportarClickHandler(ClickHandler clickHandler) {
 		btnExportar.addClickHandler(clickHandler);
+	}
+
+	@Override
+	public void exibirBotaoExportar(boolean b) {
+		btnExportar.setVisible(b);
+
+	}
+
+	@Override
+	public void mostrarBotaoPesquisar(boolean b) {
+		btnPesquisar.setVisible(b);
+	}
+
+	@Override
+	public void addButtonPesquisarClickHandler(ClickHandler clickHandler) {
+		btnPesquisar.addClickHandler(clickHandler);
 
 	}
 

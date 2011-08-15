@@ -98,6 +98,8 @@ public class RelatorioPedidosPresenter
 				Window.open(url.toString(), "_blank", "");
 			}
 		});
+
+		form.mostrarBotaoPesquisar(false);
 	}
 
 	@Override

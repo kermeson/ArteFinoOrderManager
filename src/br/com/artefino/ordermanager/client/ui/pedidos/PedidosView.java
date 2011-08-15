@@ -85,8 +85,29 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
 			}
 		});
 
+		toolBar.addButton(ToolBar.EDITAR_PEDIDO, ArteFinoOrderManager
+				.getConstants().editar(),
+				new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						if (getUiHandlers() != null) {
+							ListGridRecord record = pedidosListGrid
+									.getSelectedRecord();
+
+							if (record != null) {
+								idPedido = record
+										.getAttributeAsString(ClienteRecord.ID);
+								event.cancel();
+								getUiHandlers()
+										.onEditarButtonClicked(idPedido);
+							} else {
+								pedidosListGrid.deselectAllRecords();
+							}
+						}
+					}
+				});
+
 		toolBar.addButton(ToolBar.PESQUISAR, ArteFinoOrderManager
-				.getConstants().newButton(), SelectionType.CHECKBOX,
+				.getConstants().pesquisar(), SelectionType.CHECKBOX,
 				new ClickHandler() {
 					public void onClick(ClickEvent event) {
 						if (containerFormPesquisa.isVisible()) {

@@ -40,7 +40,8 @@ public class ToolBar extends HLayout {
 	public static final String ADD_CLIENT = "toolbar/add_user.png";
 
 	public static final String ADD_ORDER = "toolbar/new.png";
-	public static final String PESQUISAR = "toolbar/find.png";;
+	public static final String PESQUISAR = "toolbar/find.png";
+	public static final String EDITAR_PEDIDO = "toolbar/edit.png";;
 
 
 	protected final ToolStrip toolStrip;

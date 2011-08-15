@@ -1,5 +1,6 @@
 package br.com.artefino.ordermanager.client.gin;
 
+import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.ClientPlaceManager;
 import br.com.artefino.ordermanager.client.place.DefaultPlace;
 import br.com.artefino.ordermanager.client.place.NameTokens;
@@ -7,6 +8,8 @@ import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClienteView;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesView;
+import br.com.artefino.ordermanager.client.ui.login.SignInPagePresenter;
+import br.com.artefino.ordermanager.client.ui.login.SignInPageView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPageView;
 import br.com.artefino.ordermanager.client.ui.pedidos.FormularioPesquisarPedidosPresenterWidget;
@@ -18,6 +21,7 @@ import br.com.artefino.ordermanager.client.ui.pedidos.PedidosView;
 import br.com.artefino.ordermanager.client.ui.relatorios.RelatorioPedidosPresenter;
 import br.com.artefino.ordermanager.client.ui.relatorios.RelatorioPedidosView;
 
+import com.google.inject.Singleton;
 import com.gwtplatform.dispatch.shared.SecurityCookie;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
@@ -51,6 +55,9 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenter(PedidoPresenter.class, PedidoPresenter.MyView.class,
 				PedidoView.class, PedidoPresenter.MyProxy.class);
 
+		bindPresenter(SignInPagePresenter.class, SignInPagePresenter.MyView.class,
+				SignInPageView.class, SignInPagePresenter.MyProxy.class);
+
 		bindSingletonPresenterWidget(
 				PesquisarClientesDialogPresenterWidget.class,
 				PesquisarClientesDialogPresenterWidget.MyView.class,
@@ -64,5 +71,7 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenterWidget(FormularioPesquisarPedidosPresenterWidget.class,
 				FormularioPesquisarPedidosPresenterWidget.MyView.class,
 				FormularioPesquisarPedidosView.class);
+
+		bind(LoggedInGatekeeper.class).in(Singleton.class);
 	}
 }

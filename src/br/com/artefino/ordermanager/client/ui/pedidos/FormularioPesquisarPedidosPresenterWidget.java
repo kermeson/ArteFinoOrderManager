@@ -39,6 +39,12 @@ public class FormularioPesquisarPedidosPresenterWidget extends
 		void addButtonExportarClickHandler(ClickHandler clickHandler);
 
 		Map<String, Object> getParametrosPesquisa();
+
+		void exibirBotaoExportar(boolean b);
+
+		void mostrarBotaoPesquisar(boolean b);
+
+		void addButtonPesquisarClickHandler(ClickHandler clickHandler);
 	}
 
 	@Inject
@@ -94,8 +100,22 @@ public class FormularioPesquisarPedidosPresenterWidget extends
 		getView().addButtonExportarClickHandler(clickHandler);
 	}
 
+	public void addButtonPesquisarClickHandler(ClickHandler clickHandler) {
+		getView().addButtonPesquisarClickHandler(clickHandler);
+	}
+
 	public Map<String, Object> getParametrosPesquisa() {
 		return getView().getParametrosPesquisa();
+	}
+
+	public void exibirBotaoExportar(boolean b) {
+		getView().exibirBotaoExportar(b);
+
+	}
+
+	public void mostrarBotaoPesquisar(boolean b) {
+		getView().mostrarBotaoPesquisar(b);
+
 	}
 
 }

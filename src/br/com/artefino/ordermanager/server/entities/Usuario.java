@@ -17,6 +17,8 @@ public class Usuario {
 
 	private String senha;
 
+	private String salt;
+
 	// JPA requires a no-argument constructor
 	public Usuario() {
 	}
@@ -48,6 +50,15 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	@Column(name = "DS_SALT")
+	public String getSalt() {
+		return salt;
 	}
 
 }

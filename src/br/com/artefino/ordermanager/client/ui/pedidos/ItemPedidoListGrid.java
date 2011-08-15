@@ -96,22 +96,22 @@ public class ItemPedidoListGrid extends ListGrid {
 
 	public void setResultSet(List<ItemPedidoVo> itens) {
 
-		ItemPedidoRecord[] clienteRecords = new
+		ItemPedidoRecord[] itensRecord = new
 		ItemPedidoRecord[itens.size()];
 
 		 for (int i = 0; i < itens.size(); i++) {
-		 clienteRecords[i] = createItemPedidoRecord(itens.get(i));
+		 itensRecord[i] = createItemPedidoRecord(itens.get(i));
 		 }
 
 		 // populate the List Grid
-		 this.setData(clienteRecords);
+		 this.setData(itensRecord);
 	}
 
 	private ItemPedidoRecord createItemPedidoRecord(ItemPedidoVo itemPedidoVo) {
 		return new ItemPedidoRecord(itemPedidoVo.getId().intValue(),
 				itemPedidoVo.getReferencia(), itemPedidoVo.getQuantidadeItens()
 						.intValue(), itemPedidoVo.getValorUnitario()
-						.doubleValue());
+						.doubleValue(), itemPedidoVo.getValorTotal());
 	}
 
 	public void addRecordExcluirClickHandler(

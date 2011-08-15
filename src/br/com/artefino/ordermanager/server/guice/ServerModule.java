@@ -1,5 +1,6 @@
 package br.com.artefino.ordermanager.server.guice;
 
+import br.com.artefino.ordermanager.server.handler.LoginActionHandler;
 import br.com.artefino.ordermanager.server.handler.RecuperarSituacoesPedidoActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.AtualizarClienteActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.CadastrarClienteActionHandler;
@@ -10,6 +11,8 @@ import br.com.artefino.ordermanager.server.handler.pedidos.AtualizarPedidoAction
 import br.com.artefino.ordermanager.server.handler.pedidos.CadastrarPedidoActionHandler;
 import br.com.artefino.ordermanager.server.handler.pedidos.PesquisarPedidosActionHandler;
 import br.com.artefino.ordermanager.server.handler.pedidos.RecuperarPedidoActionHandler;
+import br.com.artefino.ordermanager.server.handler.validator.LoggedInActionValidator;
+import br.com.artefino.ordermanager.shared.action.LoginAction;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoAction;
 import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteAction;
@@ -32,24 +35,27 @@ public class ServerModule extends HandlerModule {
 
 		// Clientes
 		bindHandler(CadastrarClienteAction.class,
-				CadastrarClienteActionHandler.class);
+				CadastrarClienteActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(PesquisarClientesAction.class,
-				PesquisarClientesActionHandler.class);
+				PesquisarClientesActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(RemoverClienteAction.class,
-				RemoverClienteActionHandler.class);
+				RemoverClienteActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(AtualizarClienteAction.class,
-				AtualizarClienteActionHandler.class);
+				AtualizarClienteActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(RecuperarClienteAction.class,
-				RecuperarClienteActionHandler.class);
+				RecuperarClienteActionHandler.class, LoggedInActionValidator.class);
 
 		// Pedidos
 		bindHandler(CadastrarPedidoAction.class,
-				CadastrarPedidoActionHandler.class);
+				CadastrarPedidoActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(PesquisarPedidosAction.class,
-				PesquisarPedidosActionHandler.class);
+				PesquisarPedidosActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(AtualizarPedidoAction.class,
-				AtualizarPedidoActionHandler.class);
+				AtualizarPedidoActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(RecuperarPedidoAction.class,
-				RecuperarPedidoActionHandler.class);
+				RecuperarPedidoActionHandler.class, LoggedInActionValidator.class);
+
+		// Login
+		bindHandler(LoginAction.class, LoginActionHandler.class);
 	}
 }

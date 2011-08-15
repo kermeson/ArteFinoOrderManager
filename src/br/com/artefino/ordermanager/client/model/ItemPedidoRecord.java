@@ -18,11 +18,12 @@ public class ItemPedidoRecord extends ListGridRecord {
 	}
 
 	public ItemPedidoRecord(int id, String referencia, int quantidade,
-			double valorUnitario) {
+			double valorUnitario, double valorTotal) {
 		setId(id);
 		setReferencia(referencia);
 		setQuantidade(quantidade);
 		setValorUnitario(valorUnitario);
+		setValorTotal(valorTotal);
 	}
 
 	public void setId(int attribute) {
@@ -41,6 +42,10 @@ public class ItemPedidoRecord extends ListGridRecord {
 		setAttribute(VALOR_UNITARIO, attribute);
 	}
 
+	public void setValorTotal(double attribute) {
+		setAttribute(VALOR_TOTAL, attribute);
+	}
+
 	public int getId() {
 		return getAttributeAsInt(ID);
 	}
@@ -55,5 +60,9 @@ public class ItemPedidoRecord extends ListGridRecord {
 
 	public double getValorUnitario() {
 		return FormatadorUtil.getFormatDouble(getAttributeAsString(VALOR_UNITARIO));
+	}
+
+	public double getValorTotal() {
+		return FormatadorUtil.getFormatDouble(getAttributeAsString(VALOR_TOTAL));
 	}
 }

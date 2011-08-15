@@ -1,7 +1,6 @@
 package br.com.artefino.ordermanager.client.ui.pedidos;
 
 import java.util.List;
-import java.util.Map;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.place.NameTokens;
@@ -39,6 +38,7 @@ public class PedidosPresenter extends
 
 	private PlaceManager placeManager;
 	private DispatchAsync dispatcher;
+	@SuppressWarnings("unused")
 	private EventBus eventBus;
 	private FormularioPesquisarPedidosPresenterWidget form;
 
@@ -79,13 +79,15 @@ public class PedidosPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
-		
-		form.addButtonExportarClickHandler(new ClickHandler() {
+
+		form.addButtonPesquisarClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				pesquisarPedidos();
 			}
 		});
+
+		form.exibirBotaoExportar(false);
 	}
 
 	@Override
@@ -135,8 +137,13 @@ public class PedidosPresenter extends
 		Window.open(url.toString(), "_blank", "");
 	}
 
+
 	@Override
-	public void onButtonPesquisarClicked() {
-		//pesquisarPedidos();
+	public void onEditarButtonClicked(String idPedido) {
+		PlaceRequest placeRequest = new PlaceRequest(
+				NameTokens.pedido);
+		placeRequest = placeRequest.with("acao", "editar").with("id", idPedido);
+		placeManager.revealPlace(placeRequest);
+
 	}
 }

@@ -296,4 +296,17 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 	public void setIdPedido(Long id) {
 		pedidoVo.setId(id);
 	}
+
+	@Override
+	public void setPedido(PedidoVo pedido) {
+		pedidoVo = pedido;
+		preencherDadosPedido(pedido);
+	}
+
+	private void preencherDadosPedido(PedidoVo pedido) {
+		setCliente(pedido.getCliente());
+		selectItemSituacao.setValue(pedido.getSituacao().getId());
+		selectItemSituacao.setDisabled(false);
+		listGridItens.setResultSet(pedido.getItens());
+	}
 }

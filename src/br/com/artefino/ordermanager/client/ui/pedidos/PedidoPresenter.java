@@ -11,12 +11,12 @@ import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoAction;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoResult;
-import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteAction;
-import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteResult;
 import br.com.artefino.ordermanager.shared.action.pedidos.AtualizarPedidoAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.AtualizarPedidoResult;
 import br.com.artefino.ordermanager.shared.action.pedidos.CadastrarPedidoAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.CadastrarPedidoResult;
+import br.com.artefino.ordermanager.shared.action.pedidos.RecuperarPedidoAction;
+import br.com.artefino.ordermanager.shared.action.pedidos.RecuperarPedidoResult;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
@@ -62,6 +62,8 @@ public class PedidoPresenter extends
 		void setSituacoes(List<SituacaoPedidoVo> situacaoPedidoVos);
 
 		void setIdPedido(Long id);
+
+		void setPedido(PedidoVo pedido);
 	}
 
 	@ProxyStandard
@@ -229,11 +231,11 @@ public class PedidoPresenter extends
 		Window.open(url.toString(), "_blank", "");
 
 	}
-	
+
 	private void recuperarPedido(Long id) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
-		dispatcher.execute(new RecuperarClienteAction(id),
-				new AsyncCallback<RecuperarClienteResult>() {
+		dispatcher.execute(new RecuperarPedidoAction(id),
+				new AsyncCallback<RecuperarPedidoResult>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						SC.clearPrompt();
@@ -242,10 +244,10 @@ public class PedidoPresenter extends
 					}
 
 					@Override
-					public void onSuccess(RecuperarClienteResult result) {
+					public void onSuccess(RecuperarPedidoResult result) {
 						SC.clearPrompt();
 						Log.debug("onSuccess()");
-						getView().setCliente(result.getClienteVo());
+						getView().setPedido(result.getPedido());
 					}
 				});
 

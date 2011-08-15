@@ -8,6 +8,7 @@ public class NameTokens {
 	public static final String pedidos = "!pedidos";
 	public static final String pedido = "!pedido";
 	public static final String relatoriopedidos = "!relatoriopedidos";
+	public static final String login = "!login";
 
 	public static String getMain() {
 		return main;
@@ -31,6 +32,10 @@ public class NameTokens {
 
 	public static String getRelatoriopedidos() {
 		return relatoriopedidos;
+	}
+
+	public static String getLogin() {
+		return login;
 	}
 
 
