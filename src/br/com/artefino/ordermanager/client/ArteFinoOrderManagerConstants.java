@@ -1,6 +1,7 @@
 package br.com.artefino.ordermanager.client;
 
 
+
 public interface ArteFinoOrderManagerConstants extends
 		com.google.gwt.i18n.client.Constants {
 
@@ -440,5 +441,8 @@ public interface ArteFinoOrderManagerConstants extends
 
 	@DefaultStringValue("Exportar")
 	String exportar();
+
+	@DefaultStringValue("Login")
+	String tituloLogin();
 
 }

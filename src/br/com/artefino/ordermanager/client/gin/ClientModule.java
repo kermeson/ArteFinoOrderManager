@@ -4,6 +4,8 @@ import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.ClientPlaceManager;
 import br.com.artefino.ordermanager.client.place.DefaultPlace;
 import br.com.artefino.ordermanager.client.place.NameTokens;
+import br.com.artefino.ordermanager.client.ui.ErrorPagePresenter;
+import br.com.artefino.ordermanager.client.ui.ErrorPageView;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClienteView;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
@@ -41,7 +43,7 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenter(MainPagePresenter.class, MainPagePresenter.MyView.class,
 				MainPageView.class, MainPagePresenter.MyProxy.class);
 
-		bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.main);
+		bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
 
 		bindPresenter(ClientesPresenter.class, ClientesPresenter.MyView.class,
 				ClientesView.class, ClientesPresenter.MyProxy.class);
@@ -67,6 +69,12 @@ public class ClientModule extends AbstractPresenterModule {
 				RelatorioPedidosPresenter.MyView.class,
 				RelatorioPedidosView.class,
 				RelatorioPedidosPresenter.MyProxy.class);
+		
+		bindPresenter(ErrorPagePresenter.class,
+				ErrorPagePresenter.MyView.class,
+				ErrorPageView.class,
+				ErrorPagePresenter.MyProxy.class);
+		
 
 		bindPresenterWidget(FormularioPesquisarPedidosPresenterWidget.class,
 				FormularioPesquisarPedidosPresenterWidget.MyView.class,

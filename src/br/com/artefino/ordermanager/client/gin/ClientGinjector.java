@@ -1,6 +1,7 @@
 package br.com.artefino.ordermanager.client.gin;
 
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
+import br.com.artefino.ordermanager.client.ui.ErrorPagePresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.login.SignInPagePresenter;
@@ -16,7 +17,7 @@ import com.google.inject.Provider;
 import com.gwtplatform.dispatch.client.gin.DispatchAsyncModule;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 
-@GinModules({ DispatchAsyncModule.class, ClientModule.class })
+@GinModules( { DispatchAsyncModule.class, ClientModule.class })
 public interface ClientGinjector extends Ginjector {
 
 	EventBus getEventBus();
@@ -34,6 +35,8 @@ public interface ClientGinjector extends Ginjector {
 	Provider<PedidoPresenter> getPedidoPresenter();
 
 	Provider<RelatorioPedidosPresenter> getRelatorioPedidosPresenter();
+
+	Provider<ErrorPagePresenter> getErrorPagePresenter();
 
 	LoggedInGatekeeper getLoggedInGatekeeper();
 

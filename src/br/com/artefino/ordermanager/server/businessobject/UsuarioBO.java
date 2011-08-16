@@ -26,7 +26,7 @@ public class UsuarioBO {
 					root.get("login").as(String.class), login));
 
 			TypedQuery<Usuario> typedQuery = em.createQuery(criteriaQuery);
-			return (Usuario) typedQuery.getResultList();
+			return typedQuery.getSingleResult();
 
 		} catch (Exception e) {
 			throw new ActionException(e);

@@ -24,6 +24,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
+import com.smartgwt.client.util.SC;
 
 public class SignInPagePresenter extends
     Presenter<SignInPagePresenter.MyView, SignInPagePresenter.MyProxy> implements
@@ -85,14 +86,7 @@ public class SignInPagePresenter extends
       @Override
       public void onFailure(Throwable caught) {
         String message = "onFailure() - " + caught.getLocalizedMessage();
-
-        if (caught instanceof LoginException) {
-          message = "onFailure() - " + "Invalid User name or Password.";
-        }
-
-        getView().resetAndFocus();
-
-        Log.debug(message);
+        SC.warn(message);
       }
 
       @Override

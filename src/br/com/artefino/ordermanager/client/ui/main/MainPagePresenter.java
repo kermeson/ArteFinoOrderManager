@@ -33,7 +33,6 @@ public class MainPagePresenter extends
 	public interface MyView extends View, HasUiHandlers<MainUIHandlers> {
 
 		NavigationPaneHeader getNavigationPaneHeader();
-//		NavigationPane getNavigationPane();
 	}
 
 	@ProxyStandard
@@ -60,7 +59,6 @@ public class MainPagePresenter extends
 
 		MainPagePresenter.navigationPaneHeader = getView()
 				.getNavigationPaneHeader();
-//		MainPagePresenter.navigationPane = getView().getNavigationPane();
 	}
 
 	@Override
@@ -71,12 +69,6 @@ public class MainPagePresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
-
-		// expand the first Navigation Pane section
-//		getView().getNavigationPane().expandSection(
-//				ArteFinoOrderManager.getConstants()
-//						.menuPrincipalStackSectionName());
-
 		// reveal the first nested Presenter
 		PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);
 		placeManager.revealPlace(placRequest);
