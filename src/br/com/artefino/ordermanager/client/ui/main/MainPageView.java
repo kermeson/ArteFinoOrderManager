@@ -16,6 +16,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.smartgwt.client.data.Record;
+import com.smartgwt.client.widgets.events.ClickEvent;
+import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
@@ -52,7 +54,7 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 		this.masthead = masthead;
 		this.applicationMenu = applicationMenu;
 		this.navigationPaneHeader = navigationPaneHeader;
-		
+
 		menuListGrid =  new NavigationPaneSectionListGrid(MenuPrincipalDataSource
 				.getInstance());
 		//this.navigationPane = navigationPane;
@@ -160,7 +162,7 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 //						onRecordClicked(event);
 //					}
 //				});
-		
+
 		menuListGrid.addRecordClickHandler(
 				new RecordClickHandler() {
 					@Override
@@ -168,7 +170,17 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 						onRecordClicked(event);
 					}
 				});
-		
+		masthead.addLabelSairClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (getUiHandlers() != null) {
+					getUiHandlers().onLabelSairClicked();
+				}
+
+			}
+		});
+
 
 	}
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class ItemPedidoVo implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -16,6 +16,8 @@ public class ItemPedidoVo implements Serializable {
 	private Integer quantidadeItens;
 
 	private Double valorUnitario;
+
+	private String descricao;
 
 	// JPA requires a no-argument constructor
 	public ItemPedidoVo() {
@@ -60,6 +62,14 @@ public class ItemPedidoVo implements Serializable {
 
 	public double getValorTotal() {
 		return getValorUnitario()*getQuantidadeItens();
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getDescricao() {
+		return descricao;
 	}
 
 }

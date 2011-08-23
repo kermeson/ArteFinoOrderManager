@@ -3,6 +3,7 @@ package br.com.artefino.ordermanager.client.ui.pedidos;
 import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
+import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
@@ -23,6 +24,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
@@ -48,6 +50,7 @@ public class PedidosPresenter extends
 
 	@ProxyStandard
 	@NameToken(NameTokens.pedidos)
+	@UseGatekeeper(LoggedInGatekeeper.class)
 	public interface MyProxy extends ProxyPlace<PedidosPresenter> {
 	}
 

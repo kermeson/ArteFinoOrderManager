@@ -21,6 +21,8 @@ public class ItemPedido {
 
 	private Double valorUnitario;
 
+	private String descricao;
+
 	// JPA requires a no-argument constructor
 	public ItemPedido() {
 
@@ -31,6 +33,7 @@ public class ItemPedido {
 		this.referencia = itemPedidoVo.getReferencia();
 		this.quantidadeItens = itemPedidoVo.getQuantidadeItens();
 		this.valorUnitario = itemPedidoVo.getValorUnitario();
+		this.descricao = itemPedidoVo.getDescricao();
 	}
 
 	@Id
@@ -77,11 +80,22 @@ public class ItemPedido {
 		itemPedidoVo.setReferencia(getReferencia());
 		itemPedidoVo.setQuantidadeItens(getQuantidadeItens());
 		itemPedidoVo.setValorUnitario(getValorUnitario());
+		itemPedidoVo.setDescricao(getDescricao());
 		return itemPedidoVo;
 	}
 
 	public Double calcularValorTotal() {
 		return getValorUnitario() * getQuantidadeItens();
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+
+	@Column(name = "DS_DESCRICAO")
+	public String getDescricao() {
+		return descricao;
 	}
 
 }

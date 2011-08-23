@@ -1,8 +1,6 @@
 package br.com.artefino.ordermanager.client.ui.login;
 
-import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.login.handlers.SignInPageUiHandlers;
-import br.com.artefino.ordermanager.shared.FieldVerifier;
 
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.PasswordTextBox;

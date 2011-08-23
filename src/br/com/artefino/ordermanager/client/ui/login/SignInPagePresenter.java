@@ -1,12 +1,11 @@
 package br.com.artefino.ordermanager.client.ui.login;
 
-
+import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.CurrentUser;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.login.handlers.SignInPageUiHandlers;
 import br.com.artefino.ordermanager.shared.action.LoginAction;
 import br.com.artefino.ordermanager.shared.action.LoginResult;
-import br.com.artefino.ordermanager.shared.exception.LoginException;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
@@ -27,87 +26,96 @@ import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 import com.smartgwt.client.util.SC;
 
 public class SignInPagePresenter extends
-    Presenter<SignInPagePresenter.MyView, SignInPagePresenter.MyProxy> implements
-        SignInPageUiHandlers {
+		Presenter<SignInPagePresenter.MyView, SignInPagePresenter.MyProxy>
+		implements SignInPageUiHandlers {
 
-  private final EventBus eventBus;
-  private final DispatchAsync dispatcher;
-  private final PlaceManager placeManager;
+	private final EventBus eventBus;
+	private final DispatchAsync dispatcher;
+	private final PlaceManager placeManager;
 
-  // don't forget to update SerendipityGinjector & ClientModule
-  @ProxyStandard
-  @NameToken(NameTokens.login)
-  @NoGatekeeper
-  public interface MyProxy extends Proxy<SignInPagePresenter>, Place {
-  }
+	// don't forget to update SerendipityGinjector & ClientModule
+	@ProxyStandard
+	@NameToken(NameTokens.login)
+	@NoGatekeeper
+	public interface MyProxy extends Proxy<SignInPagePresenter>, Place {
+	}
 
-  public interface MyView extends View, HasUiHandlers<SignInPageUiHandlers> {
-    String getUserName();
-    String getPassword();
-    void resetAndFocus();
-  }
+	public interface MyView extends View, HasUiHandlers<SignInPageUiHandlers> {
+		String getUserName();
 
-  @Inject
-  public SignInPagePresenter(final EventBus eventBus, MyView view, MyProxy proxy,
-      final DispatchAsync dispatcher, final PlaceManager placeManager) {
-    super(eventBus, view, proxy);
+		String getPassword();
 
-    getView().setUiHandlers(this);
+		void resetAndFocus();
+	}
 
-    this.eventBus = eventBus;
-    this.dispatcher = dispatcher;
-    this.placeManager = placeManager;
-  }
+	@Inject
+	public SignInPagePresenter(final EventBus eventBus, MyView view,
+			MyProxy proxy, final DispatchAsync dispatcher,
+			final PlaceManager placeManager) {
+		super(eventBus, view, proxy);
 
-  @Override
-  protected void onReset() {
-    super.onReset();
+		getView().setUiHandlers(this);
 
-    getView().resetAndFocus();
-  }
+		this.eventBus = eventBus;
+		this.dispatcher = dispatcher;
+		this.placeManager = placeManager;
+	}
 
-  @Override
-  protected void revealInParent() {
-    RevealRootContentEvent.fire(this, this);
- }
+	@Override
+	protected void onReset() {
+		super.onReset();
 
-  @Override
-  public void onOkButtonClicked() {
-    sendCredentialsToServer();
-  }
+		getView().resetAndFocus();
+	}
 
-  private void sendCredentialsToServer() {
-    String login = getView().getUserName();
-    String password = getView().getPassword();
+	@Override
+	protected void revealInParent() {
+		RevealRootContentEvent.fire(this, this);
+	}
 
-    getDispatcher().execute(new LoginAction(login, password),
-        new AsyncCallback<LoginResult>() {
+	@Override
+	public void onOkButtonClicked() {
+		sendCredentialsToServer();
+	}
 
-      @Override
-      public void onFailure(Throwable caught) {
-        String message = "onFailure() - " + caught.getLocalizedMessage();
-        SC.warn(message);
-      }
+	private void sendCredentialsToServer() {
+		String login = getView().getUserName();
+		String password = getView().getPassword();
 
-      @Override
-      public void onSuccess(LoginResult result) {
-        CurrentUser currentUser = new CurrentUser(getView().getUserName());
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		getDispatcher().execute(new LoginAction(login, password),
+				new AsyncCallback<LoginResult>() {
 
-        LoginAuthenticatedEvent.fire(eventBus, currentUser);
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.clearPrompt();
+						String message = "onFailure() - "
+								+ caught.getLocalizedMessage();
+						SC.warn(message);
+					}
 
-        PlaceRequest placeRequest = new PlaceRequest(NameTokens.main);
-        getPlaceManager().revealPlace(placeRequest);
+					@Override
+					public void onSuccess(LoginResult result) {
+						SC.clearPrompt();
+						CurrentUser currentUser = new CurrentUser(getView()
+								.getUserName());
 
-        Log.debug("onSuccess() - " + result.getSessionKey());
-      }
-    });
-  }
+						LoginAuthenticatedEvent.fire(eventBus, currentUser);
 
-  private DispatchAsync getDispatcher() {
-    return dispatcher;
-  }
+						PlaceRequest placeRequest = new PlaceRequest(
+								NameTokens.main);
+						getPlaceManager().revealPlace(placeRequest);
 
-  private PlaceManager getPlaceManager()  {
-    return placeManager;
-  }
+						Log.debug("onSuccess() - " + result.getSessionKey());
+					}
+				});
+	}
+
+	private DispatchAsync getDispatcher() {
+		return dispatcher;
+	}
+
+	private PlaceManager getPlaceManager() {
+		return placeManager;
+	}
 }

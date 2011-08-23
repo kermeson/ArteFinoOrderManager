@@ -445,4 +445,10 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Login")
 	String tituloLogin();
 
+	@DefaultStringValue("Descrição")
+	String descricao();
+
+	@DefaultStringValue("Sair")
+	String sair();
+
 }

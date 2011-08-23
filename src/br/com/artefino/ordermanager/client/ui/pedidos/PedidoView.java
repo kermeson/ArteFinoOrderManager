@@ -136,15 +136,16 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 			@Override
 			public void onRecordClick(final RecordClickEvent event) {
 				final Record record = event.getRecord();
-				if (record == null) {
-					return;
-				}
+
 				SC.confirm("Deseja remover o item?", new BooleanCallback() {
 					public void execute(Boolean value) {
 						if (value) {
-							listGridItens.removeData(record);
-						} else {
-							listGridItens.discardEdits(event.getRecordNum(), 1);
+							if (record != null) {
+								listGridItens.removeData(record);
+							} else {
+								listGridItens.discardEdits(
+										event.getRecordNum(), 1);
+							}
 						}
 
 					}
@@ -160,20 +161,23 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 						.getRowNum());
 
 				double valorUnitario = 0;
-				if ( record
+				if (record
 						.getAttributeAsString(ItemPedidoRecord.VALOR_UNITARIO) != null) {
 					valorUnitario = FormatadorUtil.getFormatDouble(record
-					.getAttributeAsString(ItemPedidoRecord.VALOR_UNITARIO));
+							.getAttributeAsString(ItemPedidoRecord.VALOR_UNITARIO));
 				}
 
 				long qtdItens = 0;
-				if (record
-				.getAttributeAsString(ItemPedidoRecord.QUANTIDADE) != null) {
+				if (record.getAttributeAsString(ItemPedidoRecord.QUANTIDADE) != null) {
 					qtdItens = Long.valueOf(record
-				.getAttributeAsString(ItemPedidoRecord.QUANTIDADE));
+							.getAttributeAsString(ItemPedidoRecord.QUANTIDADE));
 				}
 
-				record.setAttribute(ItemPedidoRecord.VALOR_TOTAL, "R$ " + FormatadorUtil.formatarDecimal(qtdItens * valorUnitario));
+				record.setAttribute(
+						ItemPedidoRecord.VALOR_TOTAL,
+						"R$ "
+								+ FormatadorUtil.formatarDecimal(qtdItens
+										* valorUnitario));
 			}
 		});
 
@@ -274,6 +278,7 @@ public class PedidoView extends ViewWithUiHandlers<PedidoUIHandlers> implements
 	public void limparTelaCadastro() {
 		dynamicForm.clearValues();
 		listGridItens.removerItens();
+		selectItemSituacao.setDisabled(true);
 		clienteVo = null;
 		pedidoVo = null;
 	}

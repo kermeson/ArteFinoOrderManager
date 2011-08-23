@@ -1,14 +1,19 @@
 package br.com.artefino.ordermanager.client.ui.main;
 
+import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
+import br.com.artefino.ordermanager.shared.action.LogoutAction;
+import br.com.artefino.ordermanager.shared.action.LogoutResult;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
+import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
@@ -21,11 +26,16 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
+import com.smartgwt.client.util.SC;
 
 public class MainPagePresenter extends
 		Presenter<MainPagePresenter.MyView, MainPagePresenter.MyProxy>
 		implements MainUIHandlers {
 	private final PlaceManager placeManager;
+
+	private DispatchAsync dispatcher;
+
+	private EventBus eventBus;
 
 	private static NavigationPaneHeader navigationPaneHeader;
 	private static NavigationPane navigationPane;
@@ -51,9 +61,11 @@ public class MainPagePresenter extends
 
 	@Inject
 	public MainPagePresenter(final EventBus eventBus, final MyView view,
-			final MyProxy proxy, PlaceManager placeManager) {
+			final MyProxy proxy, final PlaceManager placeManager, final DispatchAsync dispatcher) {
 		super(eventBus, view, proxy);
+		this.eventBus = eventBus;
 		this.placeManager = placeManager;
+		this.dispatcher = dispatcher;
 
 		getView().setUiHandlers(this);
 
@@ -93,6 +105,31 @@ public class MainPagePresenter extends
 			PlaceRequest placeRequest = new PlaceRequest(TOKEN + place);
 			placeManager.revealPlace(placeRequest);
 		}
+
+	}
+
+	@Override
+	public void onLabelSairClicked() {
+		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
+		dispatcher.execute(new LogoutAction(),
+				new AsyncCallback<LogoutResult>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						SC.clearPrompt();
+						String message = "onFailure() - "
+								+ caught.getLocalizedMessage();
+						SC.warn(message);
+					}
+
+					@Override
+					public void onSuccess(LogoutResult result) {
+						SC.clearPrompt();
+						PlaceRequest placeRequest = new PlaceRequest(
+								NameTokens.login);
+						placeManager.revealPlace(placeRequest);
+					}
+				});
 
 	}
 

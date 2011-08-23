@@ -68,7 +68,6 @@ public class LoginActionHandler implements ActionHandler<LoginAction, LoginResul
 
   private Boolean isValidLogin(LoginAction action, Usuario user) {
     String hash = Security.sha256(user.getSalt() + action.getPassword());
-
     return hash.equals(user.getSenha());
   }
 

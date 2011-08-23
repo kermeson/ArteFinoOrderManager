@@ -124,7 +124,7 @@ public class FormularioPesquisarPedidosView extends
 				canvasItem);
 		dynamicForm.setNumCols(4);
 		dynamicForm.setWidth(700);
-		dynamicForm.setColWidths(90, 120, "*");
+		dynamicForm.setColWidths(90, 120, 190, 200);
 
 		panel.addMember(dynamicForm);
 		panel.setStyleName("containerPadrao");

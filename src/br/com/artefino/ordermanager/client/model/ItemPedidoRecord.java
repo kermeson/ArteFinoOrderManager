@@ -12,19 +12,23 @@ public class ItemPedidoRecord extends ListGridRecord {
 	public static final String QUANTIDADE = "quantidade";
 	public static final String VALOR_UNITARIO = "valorUnitario";
 	public static final String VALOR_TOTAL = "valorTotal";
+	public static final String DESCRICAO = "descricao";
 
 	public ItemPedidoRecord(JavaScriptObject javaScriptObject) {
 		super(javaScriptObject);
 	}
 
 	public ItemPedidoRecord(int id, String referencia, int quantidade,
-			double valorUnitario, double valorTotal) {
+			double valorUnitario, double valorTotal, String descricao) {
 		setId(id);
 		setReferencia(referencia);
 		setQuantidade(quantidade);
 		setValorUnitario(valorUnitario);
 		setValorTotal(valorTotal);
+		setDescricao(descricao);
 	}
+
+
 
 	public void setId(int attribute) {
 		setAttribute(ID, attribute);
@@ -46,6 +50,11 @@ public class ItemPedidoRecord extends ListGridRecord {
 		setAttribute(VALOR_TOTAL, attribute);
 	}
 
+	private void setDescricao(String attribute) {
+		setAttribute(DESCRICAO, attribute);
+
+	}
+
 	public int getId() {
 		return getAttributeAsInt(ID);
 	}
@@ -64,5 +73,9 @@ public class ItemPedidoRecord extends ListGridRecord {
 
 	public double getValorTotal() {
 		return FormatadorUtil.getFormatDouble(getAttributeAsString(VALOR_TOTAL));
+	}
+
+	public String getDescricao() {
+		return getAttributeAsString(DESCRICAO);
 	}
 }
