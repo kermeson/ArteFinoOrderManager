@@ -17,22 +17,21 @@ package br.com.artefino.ordermanager.client;
 public class CurrentUser {
 
   private String login;
-  
+
   private boolean loggedIn = true;
   private boolean administrator;
-  
+
   // private boolean authenticated = true;
   // private String email;
   // private String nickname;
   // private String realName;
   // private String locale;
-  
-  public CurrentUser(String login) {
-    this.login = login;
+
+  public CurrentUser() {
   }
-  
+
   public String getLogin() {
-    return login;    
+    return login;
   }
 
   public boolean isLoggedIn() {

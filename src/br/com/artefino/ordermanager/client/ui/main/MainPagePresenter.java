@@ -1,6 +1,7 @@
 package br.com.artefino.ordermanager.client.ui.main;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
+import br.com.artefino.ordermanager.client.CurrentUser;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
@@ -33,9 +34,9 @@ public class MainPagePresenter extends
 		implements MainUIHandlers {
 	private final PlaceManager placeManager;
 
-	private DispatchAsync dispatcher;
+	private final DispatchAsync dispatcher;
 
-	private EventBus eventBus;
+	private final CurrentUser currentUser;
 
 	private static NavigationPaneHeader navigationPaneHeader;
 	private static NavigationPane navigationPane;
@@ -61,11 +62,12 @@ public class MainPagePresenter extends
 
 	@Inject
 	public MainPagePresenter(final EventBus eventBus, final MyView view,
-			final MyProxy proxy, final PlaceManager placeManager, final DispatchAsync dispatcher) {
+			final MyProxy proxy, final PlaceManager placeManager,
+			final DispatchAsync dispatcher, final CurrentUser currentUser) {
 		super(eventBus, view, proxy);
-		this.eventBus = eventBus;
 		this.placeManager = placeManager;
 		this.dispatcher = dispatcher;
+		this.currentUser = currentUser;
 
 		getView().setUiHandlers(this);
 
@@ -125,6 +127,7 @@ public class MainPagePresenter extends
 					@Override
 					public void onSuccess(LogoutResult result) {
 						SC.clearPrompt();
+						currentUser.setLoggedIn(false);
 						PlaceRequest placeRequest = new PlaceRequest(
 								NameTokens.login);
 						placeManager.revealPlace(placeRequest);

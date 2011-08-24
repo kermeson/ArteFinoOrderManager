@@ -18,26 +18,25 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.NoGatekeeper;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
-import com.gwtplatform.mvp.client.proxy.Place;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
-import com.gwtplatform.mvp.client.proxy.Proxy;
+import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 import com.smartgwt.client.util.SC;
 
-public class SignInPagePresenter extends
-		Presenter<SignInPagePresenter.MyView, SignInPagePresenter.MyProxy>
+public class LoginPresenter extends
+		Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
 		implements SignInPageUiHandlers {
 
-	private final EventBus eventBus;
 	private final DispatchAsync dispatcher;
 	private final PlaceManager placeManager;
+	private final CurrentUser currentUser;
 
 	// don't forget to update SerendipityGinjector & ClientModule
 	@ProxyStandard
 	@NameToken(NameTokens.login)
 	@NoGatekeeper
-	public interface MyProxy extends Proxy<SignInPagePresenter>, Place {
+	public interface MyProxy extends ProxyPlace<LoginPresenter> {
 	}
 
 	public interface MyView extends View, HasUiHandlers<SignInPageUiHandlers> {
@@ -49,16 +48,15 @@ public class SignInPagePresenter extends
 	}
 
 	@Inject
-	public SignInPagePresenter(final EventBus eventBus, MyView view,
+	public LoginPresenter(final EventBus eventBus, MyView view,
 			MyProxy proxy, final DispatchAsync dispatcher,
-			final PlaceManager placeManager) {
+			final PlaceManager placeManager, final CurrentUser currentUser) {
 		super(eventBus, view, proxy);
 
 		getView().setUiHandlers(this);
-
-		this.eventBus = eventBus;
 		this.dispatcher = dispatcher;
 		this.placeManager = placeManager;
+		this.currentUser = currentUser;
 	}
 
 	@Override
@@ -72,6 +70,17 @@ public class SignInPagePresenter extends
 	protected void revealInParent() {
 		RevealRootContentEvent.fire(this, this);
 	}
+
+	@Override
+	protected void onBind() {
+		super.onBind();
+	}
+
+	@Override
+	protected void onReveal() {
+		super.onReveal();
+	}
+
 
 	@Override
 	public void onOkButtonClicked() {
@@ -97,10 +106,8 @@ public class SignInPagePresenter extends
 					@Override
 					public void onSuccess(LoginResult result) {
 						SC.clearPrompt();
-						CurrentUser currentUser = new CurrentUser(getView()
-								.getUserName());
 
-						LoginAuthenticatedEvent.fire(eventBus, currentUser);
+						currentUser.setLoggedIn(true);
 
 						PlaceRequest placeRequest = new PlaceRequest(
 								NameTokens.main);

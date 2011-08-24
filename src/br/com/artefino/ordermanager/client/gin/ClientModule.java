@@ -1,5 +1,6 @@
 package br.com.artefino.ordermanager.client.gin;
 
+import br.com.artefino.ordermanager.client.CurrentUser;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.ClientPlaceManager;
 import br.com.artefino.ordermanager.client.place.DefaultPlace;
@@ -10,8 +11,8 @@ import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClienteView;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesView;
-import br.com.artefino.ordermanager.client.ui.login.SignInPagePresenter;
-import br.com.artefino.ordermanager.client.ui.login.SignInPageView;
+import br.com.artefino.ordermanager.client.ui.login.LoginPresenter;
+import br.com.artefino.ordermanager.client.ui.login.LoginView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPageView;
 import br.com.artefino.ordermanager.client.ui.pedidos.FormularioPesquisarPedidosPresenterWidget;
@@ -40,6 +41,8 @@ public class ClientModule extends AbstractPresenterModule {
 
 		install(new DefaultModule(ClientPlaceManager.class));
 
+
+
 		bindPresenter(MainPagePresenter.class, MainPagePresenter.MyView.class,
 				MainPageView.class, MainPagePresenter.MyProxy.class);
 
@@ -57,8 +60,8 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenter(PedidoPresenter.class, PedidoPresenter.MyView.class,
 				PedidoView.class, PedidoPresenter.MyProxy.class);
 
-		bindPresenter(SignInPagePresenter.class, SignInPagePresenter.MyView.class,
-				SignInPageView.class, SignInPagePresenter.MyProxy.class);
+		bindPresenter(LoginPresenter.class, LoginPresenter.MyView.class,
+				LoginView.class, LoginPresenter.MyProxy.class);
 
 		bindSingletonPresenterWidget(
 				PesquisarClientesDialogPresenterWidget.class,
@@ -69,17 +72,19 @@ public class ClientModule extends AbstractPresenterModule {
 				RelatorioPedidosPresenter.MyView.class,
 				RelatorioPedidosView.class,
 				RelatorioPedidosPresenter.MyProxy.class);
-		
+
 		bindPresenter(ErrorPagePresenter.class,
 				ErrorPagePresenter.MyView.class,
 				ErrorPageView.class,
 				ErrorPagePresenter.MyProxy.class);
-		
+
 
 		bindPresenterWidget(FormularioPesquisarPedidosPresenterWidget.class,
 				FormularioPesquisarPedidosPresenterWidget.MyView.class,
 				FormularioPesquisarPedidosView.class);
 
 		bind(LoggedInGatekeeper.class).in(Singleton.class);
+
+		bind(CurrentUser.class).in(Singleton.class);
 	}
 }
