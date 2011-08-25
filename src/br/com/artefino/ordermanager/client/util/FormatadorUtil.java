@@ -134,6 +134,10 @@ public class FormatadorUtil {
 		return nf.format(value);
 	}
 
+	public static String formatarMoeda(Double value, String prefix) {
+		return prefix + formatarDecimal(value);
+	}
+
 	public static native String encodeBase64(String string) /*-{
 		return $wnd.btoa(string);
 	}-*/;

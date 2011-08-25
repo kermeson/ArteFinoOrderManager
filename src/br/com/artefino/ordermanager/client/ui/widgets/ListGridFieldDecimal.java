@@ -62,7 +62,7 @@ public class ListGridFieldDecimal extends ListGridField {
         }
         if (min != null) {
             this.setValidators(ValidadoresUtil.getValidadorMinimoDecimal(min));
-        }        
+        }
         setAlign(Alignment.RIGHT);
         addChangeHandler(new HandlerChanged());
     }

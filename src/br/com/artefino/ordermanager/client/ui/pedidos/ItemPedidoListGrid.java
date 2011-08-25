@@ -72,6 +72,7 @@ public class ItemPedidoListGrid extends ListGrid {
 				.getConstants().prefixoMoeda());
 		listGridFieldValorUnitario.setRequired(true);
 
+
 		listGridFieldValorTotal = new ListGridFieldDecimal(
 				ItemPedidoRecord.VALOR_TOTAL, ArteFinoOrderManager
 						.getConstants().valorTotal());
@@ -81,6 +82,7 @@ public class ItemPedidoListGrid extends ListGrid {
 				.getConstants().prefixoMoeda());
 		listGridFieldValorTotal.setRequired(true);
 		listGridFieldValorTotal.setCanEdit(false);
+
 
 		// Icone Remover
 		listGridFieldRemover = new ListGridField("btnRemover", 25);

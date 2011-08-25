@@ -43,11 +43,11 @@ public class ItemPedidoRecord extends ListGridRecord {
 	}
 
 	public void setValorUnitario(double attribute) {
-		setAttribute(VALOR_UNITARIO, attribute);
+		setAttribute(VALOR_UNITARIO, FormatadorUtil.formatarMoeda(attribute, "R$ "));
 	}
 
 	public void setValorTotal(double attribute) {
-		setAttribute(VALOR_TOTAL, attribute);
+		setAttribute(VALOR_TOTAL, FormatadorUtil.formatarMoeda(attribute, "R$ "));
 	}
 
 	private void setDescricao(String attribute) {
