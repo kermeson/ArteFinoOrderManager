@@ -10,6 +10,7 @@ public class NameTokens {
 	public static final String relatoriopedidos = "!relatoriopedidos";
 	public static final String login = "!login";
 	public static final String errorpage = "!erro";
+	public static final String root = "!root";
 
 	public static String getMain() {
 		return main;
@@ -43,6 +44,9 @@ public class NameTokens {
 		return errorpage;
 	}
 
+	public static String getRoot() {
+		return root;
+	}
 
 
 

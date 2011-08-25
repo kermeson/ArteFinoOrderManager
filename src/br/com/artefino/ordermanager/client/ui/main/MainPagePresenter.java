@@ -4,6 +4,7 @@ import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.CurrentUser;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
+import br.com.artefino.ordermanager.client.ui.RootPresenter;
 import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
@@ -25,8 +26,8 @@ import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
-import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
 import com.smartgwt.client.util.SC;
 
 public class MainPagePresenter extends
@@ -77,7 +78,7 @@ public class MainPagePresenter extends
 
 	@Override
 	protected void revealInParent() {
-		RevealRootContentEvent.fire(this, this);
+		RevealContentEvent.fire(this, RootPresenter.TYPE_SetContextAreaContent, this);
 	}
 
 	@Override

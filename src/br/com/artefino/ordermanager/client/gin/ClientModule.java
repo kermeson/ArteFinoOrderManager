@@ -7,10 +7,14 @@ import br.com.artefino.ordermanager.client.place.DefaultPlace;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.ErrorPagePresenter;
 import br.com.artefino.ordermanager.client.ui.ErrorPageView;
+import br.com.artefino.ordermanager.client.ui.RootPresenter;
+import br.com.artefino.ordermanager.client.ui.RootView;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClienteView;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesView;
+import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
+import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 import br.com.artefino.ordermanager.client.ui.login.LoginPresenter;
 import br.com.artefino.ordermanager.client.ui.login.LoginView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
@@ -28,8 +32,6 @@ import com.google.inject.Singleton;
 import com.gwtplatform.dispatch.shared.SecurityCookie;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import com.gwtplatform.mvp.client.gin.DefaultModule;
-import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
-import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 
 public class ClientModule extends AbstractPresenterModule {
 
@@ -38,15 +40,19 @@ public class ClientModule extends AbstractPresenterModule {
 
 		// Protect against XSRF attacks
 		bindConstant().annotatedWith(SecurityCookie.class).to("gwtSessionId");
+		bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.root);
 
 		install(new DefaultModule(ClientPlaceManager.class));
 
+		bind(LoggedInGatekeeper.class).in(Singleton.class);
 
+		bind(CurrentUser.class).in(Singleton.class);
+
+		bindPresenter(RootPresenter.class, RootPresenter.MyView.class,
+				RootView.class, RootPresenter.MyProxy.class);
 
 		bindPresenter(MainPagePresenter.class, MainPagePresenter.MyView.class,
 				MainPageView.class, MainPagePresenter.MyProxy.class);
-
-		bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.login);
 
 		bindPresenter(ClientesPresenter.class, ClientesPresenter.MyView.class,
 				ClientesView.class, ClientesPresenter.MyProxy.class);
@@ -63,28 +69,23 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenter(LoginPresenter.class, LoginPresenter.MyView.class,
 				LoginView.class, LoginPresenter.MyProxy.class);
 
-		bindSingletonPresenterWidget(
-				PesquisarClientesDialogPresenterWidget.class,
-				PesquisarClientesDialogPresenterWidget.MyView.class,
-				PesquisarClientesDialogView.class);
-
 		bindPresenter(RelatorioPedidosPresenter.class,
 				RelatorioPedidosPresenter.MyView.class,
 				RelatorioPedidosView.class,
 				RelatorioPedidosPresenter.MyProxy.class);
 
 		bindPresenter(ErrorPagePresenter.class,
-				ErrorPagePresenter.MyView.class,
-				ErrorPageView.class,
+				ErrorPagePresenter.MyView.class, ErrorPageView.class,
 				ErrorPagePresenter.MyProxy.class);
-
 
 		bindPresenterWidget(FormularioPesquisarPedidosPresenterWidget.class,
 				FormularioPesquisarPedidosPresenterWidget.MyView.class,
 				FormularioPesquisarPedidosView.class);
 
-		bind(LoggedInGatekeeper.class).in(Singleton.class);
+		bindSingletonPresenterWidget(
+				PesquisarClientesDialogPresenterWidget.class,
+				PesquisarClientesDialogPresenterWidget.MyView.class,
+				PesquisarClientesDialogView.class);
 
-		bind(CurrentUser.class).in(Singleton.class);
 	}
 }

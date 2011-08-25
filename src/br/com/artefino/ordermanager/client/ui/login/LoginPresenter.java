@@ -3,6 +3,7 @@ package br.com.artefino.ordermanager.client.ui.login;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.CurrentUser;
 import br.com.artefino.ordermanager.client.place.NameTokens;
+import br.com.artefino.ordermanager.client.ui.RootPresenter;
 import br.com.artefino.ordermanager.client.ui.login.handlers.SignInPageUiHandlers;
 import br.com.artefino.ordermanager.shared.action.LoginAction;
 import br.com.artefino.ordermanager.shared.action.LoginResult;
@@ -21,7 +22,7 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import com.gwtplatform.mvp.client.proxy.RevealRootContentEvent;
+import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
 
 public class LoginPresenter extends
@@ -62,25 +63,28 @@ public class LoginPresenter extends
 	@Override
 	protected void onReset() {
 		super.onReset();
-
 		getView().resetAndFocus();
 	}
 
 	@Override
 	protected void revealInParent() {
-		RevealRootContentEvent.fire(this, this);
+		RevealContentEvent.fire(this, RootPresenter.TYPE_SetContextAreaContent, this);
 	}
 
 	@Override
 	protected void onBind() {
 		super.onBind();
 	}
+	
+	@Override
+	protected void onUnbind() {
+		super.onUnbind();
+	}
 
 	@Override
 	protected void onReveal() {
 		super.onReveal();
 	}
-
 
 	@Override
 	public void onOkButtonClicked() {
