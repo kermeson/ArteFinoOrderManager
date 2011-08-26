@@ -20,7 +20,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/hibernate3.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/hibernate-jpa-2.0-api-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/iText-2.1.7.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/jasperreports-4.0.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/mysql-connector-java-5.1.6-bin.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/slf4j-log4j12-1.6.1.jar"/>
@@ -30,6 +29,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/javassist-3.12.0.GA.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jta-1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gwtp-all-0.6.jar" sourcepath="/home/kermeson/.m2/repository/com/gwtplatform/gwtp-all/0.6/gwtp-all-0.6-sources.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/jasperreports-4.1.1.jar"/>
 	<classpathentry kind="src" path=".apt_generated">
 		<attributes>
 			<attribute name="optional" value="true"/>

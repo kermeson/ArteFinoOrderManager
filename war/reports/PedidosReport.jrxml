@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pedidos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="3.104606615295781"/>
+	<property name="ireport.zoom" value="1.7524694974069654"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="328"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/kermeson/workspace-helios/ArteFinoOrderManager/war/reports/"]]></defaultValueExpression>
 	</parameter>
@@ -97,62 +97,10 @@
 					</textElement>
 					<textFieldExpression class="java.lang.Long"><![CDATA[$F{cliente}.getCnpjf()]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement mode="Opaque" x="0" y="15" width="66" height="15" backcolor="#DDD9D5"/>
-					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Data do pedido]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="331" y="15" width="115" height="15" backcolor="#DDD9D5"/>
-					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Situação]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="446" y="15" width="109" height="15" backcolor="#DDD9D5"/>
-					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Valor Total]]></text>
-				</staticText>
-				<staticText>
-					<reportElement mode="Opaque" x="66" y="15" width="265" height="15" backcolor="#DDD9D5"/>
-					<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.5"/>
-						<bottomPen lineWidth="0.5"/>
-						<rightPen lineWidth="0.5"/>
-					</box>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font fontName="Arial" size="8" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Descrição]]></text>
-				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="19">
+			<band height="46">
 				<textField pattern="¤ #,##0.00">
 					<reportElement mode="Opaque" x="446" y="0" width="109" height="15" backcolor="#D7D0D0"/>
 					<box leftPadding="2" rightPadding="2">
@@ -230,9 +178,27 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="14" splitType="Stretch">
+		<band height="47" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="27"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource()]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ItensPedidoSubReport.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="66" height="15" backcolor="#DDD9D5"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data do pedido]]></text>
+			</staticText>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="0" width="66" height="14"/>
+				<reportElement x="66" y="1" width="66" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -245,36 +211,21 @@
 				</textElement>
 				<textFieldExpression class="java.util.Date"><![CDATA[$F{dataCadastro}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="331" y="0" width="115" height="14"/>
-				<box leftPadding="2" rightPadding="2">
+			<staticText>
+				<reportElement mode="Opaque" x="142" y="1" width="115" height="15" backcolor="#DDD9D5"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Justified" verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{situacaoPedido}.getNome()]]></textFieldExpression>
-			</textField>
-			<textField pattern="¤ #,##0.00">
-				<reportElement x="446" y="0" width="109" height="14"/>
-				<box leftPadding="2" rightPadding="2">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{valorTotal}]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
 			<textField>
-				<reportElement x="66" y="0" width="265" height="14"/>
+				<reportElement x="272" y="1" width="115" height="14"/>
 				<box leftPadding="2" rightPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -299,7 +250,7 @@
 		<band/>
 	</lastPageFooter>
 	<summary>
-		<band height="15" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<textField pattern="¤ #,##0.00">
 				<reportElement mode="Opaque" x="446" y="0" width="109" height="15" backcolor="#F8FE67"/>
 				<box leftPadding="2" rightPadding="2">

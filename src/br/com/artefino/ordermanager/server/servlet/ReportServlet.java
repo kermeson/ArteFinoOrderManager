@@ -84,7 +84,7 @@ public class ReportServlet extends HttpServlet {
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
 					pedidos);
 
-			Map<Object, Object> map = new HashMap<Object, Object>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("IMAGES_DIR", pathImagens);
 			map.put("SUBREPORT_DIR", "reports/");
 
@@ -142,7 +142,7 @@ public class ReportServlet extends HttpServlet {
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
 					pedidos);
 
-			Map<Object, Object> map = new HashMap<Object, Object>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("IMAGES_DIR", pathImagens);
 			map.put("SUBREPORT_DIR", "reports/");
 
