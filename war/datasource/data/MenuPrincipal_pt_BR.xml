@@ -14,4 +14,9 @@
     <name>relatoriopedidos</name>
     <displayName>Relatório de Pedidos</displayName>
 </record>
+<record>
+    <icon>sales</icon>
+    <name>despesas</name>
+    <displayName>Despesas</displayName>
+</record>
 </list>

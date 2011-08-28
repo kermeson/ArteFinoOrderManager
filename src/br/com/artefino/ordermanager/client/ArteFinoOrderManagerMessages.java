@@ -10,7 +10,7 @@ public interface ArteFinoOrderManagerMessages extends
 	String clienteAtualizado(String nome);
 
 	@DefaultMessage("Operação realizada com sucesso.")
-	String operacaoRealizadoComSucesso();
+	String operacaoRealizadaComSucesso();
 
 	@DefaultMessage("Selecione o cliente do pedido.")
 	String selecioneClientePedido();

@@ -451,4 +451,17 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Sair")
 	String sair();
 
+	@DefaultStringValue("Despesas")
+	String tituloPaginaDespesas();
+
+	@DefaultStringValue("Categoria")
+	String categoria();
+
+	@DefaultStringValue("Valor")
+	String valor();
+
+	@DefaultStringValue("Incluir")
+	String incluir();
+
+
 }

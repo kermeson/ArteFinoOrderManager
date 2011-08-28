@@ -8,6 +8,14 @@ import br.com.artefino.ordermanager.server.handler.clientes.CadastrarClienteActi
 import br.com.artefino.ordermanager.server.handler.clientes.PesquisarClientesActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.RecuperarClienteActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.RemoverClienteActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.AtualizarDespesaActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.CadastrarDespesaActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.PesquisarDespesasActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.RecuperarDespesaActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.RemoverDespesaActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.categorias.CadastrarCategoriaDespesaActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.categorias.PesquisarCategoriasDespesaActionHandler;
+import br.com.artefino.ordermanager.server.handler.despesas.categorias.RemoverCategoriaDespesaActionHandler;
 import br.com.artefino.ordermanager.server.handler.pedidos.AtualizarPedidoActionHandler;
 import br.com.artefino.ordermanager.server.handler.pedidos.CadastrarPedidoActionHandler;
 import br.com.artefino.ordermanager.server.handler.pedidos.PesquisarPedidosActionHandler;
@@ -21,6 +29,14 @@ import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteActio
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
 import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.RemoverClienteAction;
+import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasAction;
+import br.com.artefino.ordermanager.shared.action.despesas.RecuperarDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.RemoverDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.categorias.CadastrarCategoriaDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.categorias.PesquisarCategoriasDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.categorias.RemoverCategoriaDespesaAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.AtualizarPedidoAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.CadastrarPedidoAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosAction;
@@ -46,6 +62,30 @@ public class ServerModule extends HandlerModule {
 				AtualizarClienteActionHandler.class, LoggedInActionValidator.class);
 		bindHandler(RecuperarClienteAction.class,
 				RecuperarClienteActionHandler.class, LoggedInActionValidator.class);
+
+		// Despesas
+		bindHandler(CadastrarDespesaAction.class,
+				CadastrarDespesaActionHandler.class, LoggedInActionValidator.class);
+		bindHandler(PesquisarDespesasAction.class,
+				PesquisarDespesasActionHandler.class, LoggedInActionValidator.class);
+		bindHandler(RemoverDespesaAction.class,
+				RemoverDespesaActionHandler.class, LoggedInActionValidator.class);
+		bindHandler(AtualizarDespesaAction.class,
+				AtualizarDespesaActionHandler.class, LoggedInActionValidator.class);
+		bindHandler(RecuperarDespesaAction.class,
+				RecuperarDespesaActionHandler.class, LoggedInActionValidator.class);
+
+		// Categorias de despesas
+		bindHandler(CadastrarCategoriaDespesaAction.class,
+				CadastrarCategoriaDespesaActionHandler.class, LoggedInActionValidator.class);
+
+		bindHandler(PesquisarCategoriasDespesaAction.class,
+				PesquisarCategoriasDespesaActionHandler.class, LoggedInActionValidator.class);
+		bindHandler(RemoverCategoriaDespesaAction.class,
+				RemoverCategoriaDespesaActionHandler.class, LoggedInActionValidator.class);
+
+
+
 
 		// Pedidos
 		bindHandler(CadastrarPedidoAction.class,

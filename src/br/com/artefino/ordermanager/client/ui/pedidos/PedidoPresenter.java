@@ -200,7 +200,7 @@ public class PedidoPresenter extends
 					public void onSuccess(CadastrarPedidoResult result) {
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
-								.operacaoRealizadoComSucesso());
+								.operacaoRealizadaComSucesso());
 						getView().setIdPedido(result.getId());
 					}
 				});
@@ -221,7 +221,7 @@ public class PedidoPresenter extends
 					public void onSuccess(AtualizarPedidoResult result) {
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
-								.operacaoRealizadoComSucesso());
+								.operacaoRealizadaComSucesso());
 					}
 				});
 

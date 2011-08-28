@@ -1,17 +1,17 @@
-package br.com.artefino.ordermanager.client.ui.clientes;
+package br.com.artefino.ordermanager.client.ui.despesas;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientInformationUIHandlers;
+import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesaUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
-import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteAction;
-import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteResult;
-import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteAction;
-import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteResult;
-import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteAction;
-import br.com.artefino.ordermanager.shared.action.clientes.RecuperarClienteResult;
-import br.com.artefino.ordermanager.shared.vo.ClienteVo;
+import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaResult;
+import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaResult;
+import br.com.artefino.ordermanager.shared.action.despesas.RecuperarDespesaAction;
+import br.com.artefino.ordermanager.shared.action.despesas.RecuperarDespesaResult;
+import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
@@ -30,10 +30,10 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
 
-public class ClientePresenter
+public class DespesaPresenter
 		extends
-		Presenter<ClientePresenter.MyView, ClientePresenter.MyProxy>
-		implements ClientInformationUIHandlers {
+		Presenter<DespesaPresenter.MyView, DespesaPresenter.MyProxy>
+		implements DespesaUIHandlers {
 
 	private static final String ACAO = "acao";
 	private static final String ID = "id";
@@ -45,8 +45,8 @@ public class ClientePresenter
 	private String acao;
 
 	public interface MyView extends View,
-			HasUiHandlers<ClientInformationUIHandlers> {
-		void setCliente(ClienteVo clienteVo);
+			HasUiHandlers<DespesaUIHandlers> {
+		void setDespesa(DespesaVo despesa);
 
 		void limparFormulario();
 
@@ -56,11 +56,11 @@ public class ClientePresenter
 	@ProxyStandard
 	@NameToken(NameTokens.clientinformation)
 	@UseGatekeeper(LoggedInGatekeeper.class)
-	public interface MyProxy extends ProxyPlace<ClientePresenter> {
+	public interface MyProxy extends ProxyPlace<DespesaPresenter> {
 	}
 
 	@Inject
-	public ClientePresenter(final EventBus eventBus,
+	public DespesaPresenter(final EventBus eventBus,
 			final MyView view, final MyProxy proxy, DispatchAsync dispatcher,
 			PlaceManager placeManager) {
 		super(eventBus, view, proxy);
@@ -105,7 +105,7 @@ public class ClientePresenter
 								+ nfe.getLocalizedMessage());
 				return;
 			}
-			recuperarCliente(id);
+			recuperarDespesa(id);
 		} else if (NOVO.equals(acao)) {
 			getView().limparFormulario();
 		}
@@ -113,10 +113,10 @@ public class ClientePresenter
 
 	}
 
-	private void recuperarCliente(Long id) {
+	private void recuperarDespesa(Long id) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
-		dispatcher.execute(new RecuperarClienteAction(id),
-				new AsyncCallback<RecuperarClienteResult>() {
+		dispatcher.execute(new RecuperarDespesaAction(id),
+				new AsyncCallback<RecuperarDespesaResult>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						SC.clearPrompt();
@@ -125,28 +125,28 @@ public class ClientePresenter
 					}
 
 					@Override
-					public void onSuccess(RecuperarClienteResult result) {
+					public void onSuccess(RecuperarDespesaResult result) {
 						SC.clearPrompt();
 						Log.debug("onSuccess()");
-						getView().setCliente(result.getClienteVo());
+						getView().setDespesa(result.getDespesa());
 					}
 				});
 
 	}
 
 	@Override
-	public void onButtonSalvarClicked(ClienteVo cliente) {
-		if (cliente.getId() != null) {
-			atualizarCliente(cliente);
+	public void onButtonSalvarClicked(DespesaVo despesa) {
+		if (despesa.getId() != null) {
+			atualizar(despesa);
 		} else {
-			cadastrarCliente(cliente);
+			cadastrar(despesa);
 		}
 	}
 
-	private void cadastrarCliente(ClienteVo cliente) {
+	private void cadastrar(DespesaVo despesa) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
-		dispatcher.execute(new CadastrarClienteAction(cliente),
-				new AsyncCallback<CadastrarClienteResult>() {
+		dispatcher.execute(new CadastrarDespesaAction(despesa),
+				new AsyncCallback<CadastrarDespesaResult>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						SC.clearPrompt();
@@ -154,7 +154,7 @@ public class ClientePresenter
 					}
 
 					@Override
-					public void onSuccess(CadastrarClienteResult result) {
+					public void onSuccess(CadastrarDespesaResult result) {
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadaComSucesso());
@@ -164,10 +164,10 @@ public class ClientePresenter
 
 	}
 
-	private void atualizarCliente(final ClienteVo cliente) {
+	private void atualizar(final DespesaVo despesa) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
-		dispatcher.execute(new AtualizarClienteAction(cliente),
-				new AsyncCallback<AtualizarClienteResult>() {
+		dispatcher.execute(new AtualizarDespesaAction(despesa),
+				new AsyncCallback<AtualizarDespesaResult>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						SC.clearPrompt();
@@ -175,10 +175,10 @@ public class ClientePresenter
 					}
 
 					@Override
-					public void onSuccess(AtualizarClienteResult result) {
+					public void onSuccess(AtualizarDespesaResult result) {
 						SC.clearPrompt();
 						SC.say(ArteFinoOrderManager.getMessages()
-								.clienteAtualizado(cliente.getNome()));
+								.operacaoRealizadaComSucesso());
 					}
 				});
 
@@ -186,7 +186,7 @@ public class ClientePresenter
 
 	@Override
 	public void onButtonVoltarClicked() {
-		PlaceRequest placeRequest = new PlaceRequest(NameTokens.clientes);
+		PlaceRequest placeRequest = new PlaceRequest(NameTokens.despesas);
 		placeManager.revealPlace(placeRequest);
 	}
 

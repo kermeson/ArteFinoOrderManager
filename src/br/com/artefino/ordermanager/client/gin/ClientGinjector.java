@@ -5,6 +5,8 @@ import br.com.artefino.ordermanager.client.ui.ErrorPagePresenter;
 import br.com.artefino.ordermanager.client.ui.RootPresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientePresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
+import br.com.artefino.ordermanager.client.ui.despesas.DespesaPresenter;
+import br.com.artefino.ordermanager.client.ui.despesas.DespesasPresenter;
 import br.com.artefino.ordermanager.client.ui.login.LoginPresenter;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.PedidoPresenter;
@@ -35,6 +37,10 @@ public interface ClientGinjector extends Ginjector {
 	Provider<PedidosPresenter> getPedidosPresenter();
 
 	Provider<PedidoPresenter> getPedidoPresenter();
+
+	Provider<DespesasPresenter> getDespesasPresenter();
+
+	Provider<DespesaPresenter> getDespesaPresenter();
 
 	Provider<RelatorioPedidosPresenter> getRelatorioPedidosPresenter();
 

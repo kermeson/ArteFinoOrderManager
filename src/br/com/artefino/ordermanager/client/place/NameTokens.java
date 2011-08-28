@@ -11,6 +11,8 @@ public class NameTokens {
 	public static final String login = "!login";
 	public static final String errorpage = "!erro";
 	public static final String root = "!root";
+	public static final String despesas = "!despesas";
+	public static final String despesa = "!depesa";
 
 	public static String getMain() {
 		return main;
@@ -39,13 +41,21 @@ public class NameTokens {
 	public static String getLogin() {
 		return login;
 	}
-	
+
 	public static String getErrorpage() {
 		return errorpage;
 	}
 
 	public static String getRoot() {
 		return root;
+	}
+
+	public static String getDespesas() {
+		return despesas;
+	}
+
+	public static String getDespesa() {
+		return despesa;
 	}
 
 

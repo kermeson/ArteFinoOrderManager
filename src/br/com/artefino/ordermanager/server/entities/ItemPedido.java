@@ -93,7 +93,7 @@ public class ItemPedido {
 	}
 
 
-	@Column(name = "DS_DESCRICAO")
+	@Column(name = "DS_ITEM")
 	public String getDescricao() {
 		return descricao;
 	}
