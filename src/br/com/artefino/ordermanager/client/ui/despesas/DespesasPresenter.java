@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasAction;
 import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasResult;
@@ -32,9 +32,9 @@ import com.smartgwt.client.util.SC;
 
 public class DespesasPresenter extends
 		Presenter<DespesasPresenter.MyView, DespesasPresenter.MyProxy> implements
-		ClientUIHandlers {
+		ClientesUIHandlers {
 
-	public interface MyView extends View, HasUiHandlers<ClientUIHandlers> {
+	public interface MyView extends View, HasUiHandlers<ClientesUIHandlers> {
 
 		void setResultSet(List<DespesaVo> despesas);
 

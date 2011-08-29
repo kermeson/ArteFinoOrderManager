@@ -4,4 +4,8 @@ import com.gwtplatform.mvp.client.UiHandlers;
 
 public interface CategoriaUIHandlers extends UiHandlers {
 
+	void onButtonIncluirClicked();
+
+	void onRemoverCategoriaClicked(int id);
+
 }

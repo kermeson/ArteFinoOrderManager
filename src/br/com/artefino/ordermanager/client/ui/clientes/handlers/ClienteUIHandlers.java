@@ -4,7 +4,7 @@ import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 
-public interface ClientInformationUIHandlers extends UiHandlers {
+public interface ClienteUIHandlers extends UiHandlers {
 
 	void onButtonSalvarClicked(ClienteVo cliente);
 

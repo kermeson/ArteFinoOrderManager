@@ -10,4 +10,6 @@ public interface DespesaUIHandlers extends UiHandlers {
 
 	void onButtonSalvarClicked(DespesaVo despesa);
 
+	void onButtonGerenciarCategoriasClicked();
+
 }

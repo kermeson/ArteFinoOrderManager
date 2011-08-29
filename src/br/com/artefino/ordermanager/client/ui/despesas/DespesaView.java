@@ -18,8 +18,11 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.DateItem;
+import com.smartgwt.client.widgets.form.fields.FormItemIcon;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
 import com.smartgwt.client.widgets.form.fields.TextAreaItem;
+import com.smartgwt.client.widgets.form.fields.events.FormItemClickHandler;
+import com.smartgwt.client.widgets.form.fields.events.FormItemIconClickEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class DespesaView extends
@@ -36,6 +39,7 @@ public class DespesaView extends
 	private TextAreaItem textAreaItemDescricao;
 	private ToolBar toolBar;
 	private DateItem dateItemData;
+	private FormItemIcon formItemIconGerencCategs;
 
 	@Inject
 	public DespesaView() {
@@ -45,14 +49,21 @@ public class DespesaView extends
 
 		VLayout vLayoutContainer = new VLayout();
 		vLayoutContainer.setStyleName("containerPadrao");
-
+	        
+		formItemIconGerencCategs = new FormItemIcon();
+		formItemIconGerencCategs.setSrc("icons/16/settings.png");
+		formItemIconGerencCategs.setPrompt(ArteFinoOrderManager.getConstants().gerenciarCategorias());
+		formItemIconGerencCategs.setNeverDisable(true);
+		
 		selectItemCategoria = new SelectItem();
 		selectItemCategoria.setTitle(ArteFinoOrderManager.getConstants()
-				.tipoPessoa());
+				.categoria());
 		selectItemCategoria.setWidth(90);
+		selectItemCategoria.setIcons(formItemIconGerencCategs);
+
 
 		currencyItemValor = new CurrencyItem();
-		currencyItemValor.setTitle(ArteFinoOrderManager.getConstants().numeroEndereco());
+		currencyItemValor.setTitle(ArteFinoOrderManager.getConstants().valor());
 		currencyItemValor.setLimit(5);
 		currencyItemValor.setWidth(90);
 
@@ -87,6 +98,16 @@ public class DespesaView extends
 
 		// initialise the ToolBar and register its handlers
 		initToolBar();
+		
+		formItemIconGerencCategs
+		.addFormItemClickHandler(new FormItemClickHandler() {
+			@Override
+			public void onFormItemClick(FormItemIconClickEvent event) {
+				if (getUiHandlers() != null) {
+					getUiHandlers().onButtonGerenciarCategoriasClicked();
+				}
+			}
+		});
 
 	}
 

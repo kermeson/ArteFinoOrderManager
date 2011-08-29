@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.ClienteRecord;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class ClientesView extends ViewWithUiHandlers<ClientUIHandlers> implements
+public class ClientesView extends ViewWithUiHandlers<ClientesUIHandlers> implements
 		ClientesPresenter.MyView {
 
 	private VLayout panel;

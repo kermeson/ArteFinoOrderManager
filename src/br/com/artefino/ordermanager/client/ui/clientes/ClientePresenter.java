@@ -3,7 +3,7 @@ package br.com.artefino.ordermanager.client.ui.clientes;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientInformationUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClienteUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteResult;
@@ -33,7 +33,7 @@ import com.smartgwt.client.util.SC;
 public class ClientePresenter
 		extends
 		Presenter<ClientePresenter.MyView, ClientePresenter.MyProxy>
-		implements ClientInformationUIHandlers {
+		implements ClienteUIHandlers {
 
 	private static final String ACAO = "acao";
 	private static final String ID = "id";
@@ -45,7 +45,7 @@ public class ClientePresenter
 	private String acao;
 
 	public interface MyView extends View,
-			HasUiHandlers<ClientInformationUIHandlers> {
+			HasUiHandlers<ClienteUIHandlers> {
 		void setCliente(ClienteVo clienteVo);
 
 		void limparFormulario();

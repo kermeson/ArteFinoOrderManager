@@ -41,7 +41,9 @@ public class ToolBar extends HLayout {
 
 	public static final String ADD_ORDER = "toolbar/new.png";
 	public static final String PESQUISAR = "toolbar/find.png";
-	public static final String EDITAR_PEDIDO = "toolbar/edit.png";;
+	public static final String EDITAR_PEDIDO = "toolbar/edit.png";
+	public static final String ADICIONAR_DESPESA = "toolbar/money_add.png";
+	public static final String EDITAR_DESPESA = "toolbar/edit.png";;
 
 
 	protected final ToolStrip toolStrip;

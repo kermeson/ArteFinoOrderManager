@@ -7,12 +7,6 @@
   <persistence-unit name="ARTEFINO" transaction-type="RESOURCE_LOCAL">
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-    <class>br.com.artefino.ordermanager.server.entities.Cliente</class>
-    <class>br.com.artefino.ordermanager.server.entities.Usuario</class>
-
-
-
-
     <properties>
 
 

@@ -3,7 +3,7 @@ package br.com.artefino.ordermanager.client.ui.clientes;
 import java.util.LinkedHashMap;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientInformationUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClienteUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.IntegerTextItem;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.client.util.FormatadorUtil;
@@ -26,7 +26,7 @@ import com.smartgwt.client.widgets.form.fields.events.ChangedHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class ClienteView extends
-		ViewWithUiHandlers<ClientInformationUIHandlers> implements
+		ViewWithUiHandlers<ClienteUIHandlers> implements
 		ClientePresenter.MyView {
 
 	private ClienteVo clienteVo;

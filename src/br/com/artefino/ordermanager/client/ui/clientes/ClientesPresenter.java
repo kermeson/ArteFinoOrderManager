@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesResult;
@@ -32,9 +32,9 @@ import com.smartgwt.client.util.SC;
 
 public class ClientesPresenter extends
 		Presenter<ClientesPresenter.MyView, ClientesPresenter.MyProxy> implements
-		ClientUIHandlers {
+		ClientesUIHandlers {
 
-	public interface MyView extends View, HasUiHandlers<ClientUIHandlers> {
+	public interface MyView extends View, HasUiHandlers<ClientesUIHandlers> {
 
 		void setResultSet(List<ClienteVo> clientes);
 
@@ -143,8 +143,7 @@ public class ClientesPresenter extends
 					@Override
 					public void onFailure(Throwable caught) {
 						SC.clearPrompt();
-						Log.debug("onFailure() - "
-								+ caught.getLocalizedMessage());
+						SC.warn(caught.getMessage());
 					}
 
 					@Override

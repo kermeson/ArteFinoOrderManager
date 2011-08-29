@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.ClienteRecord;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientUIHandlers;
+import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
@@ -22,7 +22,7 @@ import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class DespesasView extends ViewWithUiHandlers<ClientUIHandlers> implements
+public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> implements
 		DespesasPresenter.MyView {
 
 	private VLayout panel;
@@ -74,7 +74,7 @@ public class DespesasView extends ViewWithUiHandlers<ClientUIHandlers> implement
 
 		Log.debug("initToolBar()");
 
-		toolBar.addButton(ToolBar.ADD_CLIENT, ArteFinoOrderManager
+		toolBar.addButton(ToolBar.ADICIONAR_DESPESA, ArteFinoOrderManager
 				.getConstants().newButton(), new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				if (getUiHandlers() != null) {
@@ -116,7 +116,7 @@ public class DespesasView extends ViewWithUiHandlers<ClientUIHandlers> implement
 			}
 		});
 
-		toolBar.addButton(ToolBar.EDIT_CLIENT, ArteFinoOrderManager
+		toolBar.addButton(ToolBar.EDITAR_DESPESA, ArteFinoOrderManager
 				.getConstants().editar(),
 				new ClickHandler() {
 					public void onClick(ClickEvent event) {

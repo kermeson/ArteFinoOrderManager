@@ -6,7 +6,7 @@ public interface ArteFinoOrderManagerMessages extends
 	@DefaultMessage("Preencha os campos obrigatórios.")
 	String preenchaCamposObrigatorios();
 	
-	@DefaultMessage("O cliente {0} foi atualizado com sucesso.")
+	@DefaultMessage("O cliente <b>{0}</b> foi atualizado com sucesso.")
 	String clienteAtualizado(String nome);
 
 	@DefaultMessage("Operação realizada com sucesso.")
@@ -20,5 +20,11 @@ public interface ArteFinoOrderManagerMessages extends
 
 	@DefaultMessage("Preencha as informações obrigatórias dos itens do pedido.")
 	String preenchaCamposObrigatoriosItensPedido();
+
+	@DefaultMessage("Informe o nome da Categoria de despesas.")
+	String nomeCategoriaObrigatorio();
+
+	@DefaultMessage("Deseja remover a categoria <b>{0}</b>?.")
+	String confirmarRemoverCategoria(String nomeCategoria);
 
 }

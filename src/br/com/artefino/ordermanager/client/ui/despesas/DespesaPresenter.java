@@ -2,15 +2,20 @@ package br.com.artefino.ordermanager.client.ui.despesas;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
+import br.com.artefino.ordermanager.client.model.ClienteRecord;
 import br.com.artefino.ordermanager.client.place.NameTokens;
+import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
+import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesaUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
+import br.com.artefino.ordermanager.client.ui.pedidos.FormularioPesquisarPedidosPresenterWidget;
 import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaResult;
 import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaResult;
 import br.com.artefino.ordermanager.shared.action.despesas.RecuperarDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.RecuperarDespesaResult;
+import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -29,6 +34,7 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 
 public class DespesaPresenter
 		extends
@@ -39,10 +45,11 @@ public class DespesaPresenter
 	private static final String ID = "id";
 	private static final String EDITAR = "editar";
 	private static final String NOVO = "novo";
-	private DispatchAsync dispatcher;
-	private PlaceManager placeManager;
-	private String idCliente;
+	private final DispatchAsync dispatcher;
+	private final PlaceManager placeManager;
+	private String idDespesa;
 	private String acao;
+	private final EventBus eventBus;
 
 	public interface MyView extends View,
 			HasUiHandlers<DespesaUIHandlers> {
@@ -54,7 +61,7 @@ public class DespesaPresenter
 	}
 
 	@ProxyStandard
-	@NameToken(NameTokens.clientinformation)
+	@NameToken(NameTokens.despesa)
 	@UseGatekeeper(LoggedInGatekeeper.class)
 	public interface MyProxy extends ProxyPlace<DespesaPresenter> {
 	}
@@ -64,6 +71,7 @@ public class DespesaPresenter
 			final MyView view, final MyProxy proxy, DispatchAsync dispatcher,
 			PlaceManager placeManager) {
 		super(eventBus, view, proxy);
+		this.eventBus = eventBus;
 		this.dispatcher = dispatcher;
 		this.placeManager = placeManager;
 
@@ -93,12 +101,12 @@ public class DespesaPresenter
 
 		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();
 		acao = placeRequest.getParameter(ACAO, NOVO);
-		idCliente = placeRequest.getParameter(ID, null);
+		idDespesa = placeRequest.getParameter(ID, null);
 		if (EDITAR.equals(acao)) {
 			Long id = -1L;
 
 			try {
-				id = Long.valueOf(idCliente);
+				id = Long.valueOf(idDespesa);
 			} catch (NumberFormatException nfe) {
 				Log
 						.debug("NumberFormatException: "
@@ -188,6 +196,27 @@ public class DespesaPresenter
 	public void onButtonVoltarClicked() {
 		PlaceRequest placeRequest = new PlaceRequest(NameTokens.despesas);
 		placeManager.revealPlace(placeRequest);
+	}
+
+	@Override
+	public void onButtonGerenciarCategoriasClicked() {
+		CategoriaDialogPresenterWidget dialogBox = new CategoriaDialogPresenterWidget(
+				eventBus, new CategoriaDialogView(), dispatcher) {
+			public void onRecordSelecionarClicked(RecordClickEvent event) {
+//				CategoriaR clienteRecord = (ClienteRecord) event.getRecord();
+//				if (clienteRecord != null) {
+//					ClienteVo clienteVo = new ClienteVo();
+//					clienteVo.setId(Long.valueOf(clienteRecord.getId()));
+//					clienteVo.setNome(clienteRecord.getNome());
+//					FormularioPesquisarPedidosPresenterWidget.this.getView()
+//							.setCliente(clienteVo);
+//				}
+				fecharDialogo();
+			}
+
+		};
+		dialogBox.show();
+		
 	}
 
 }

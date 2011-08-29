@@ -15,6 +15,8 @@ import br.com.artefino.ordermanager.client.ui.clientes.ClientesPresenter;
 import br.com.artefino.ordermanager.client.ui.clientes.ClientesView;
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
+import br.com.artefino.ordermanager.client.ui.despesas.DespesaPresenter;
+import br.com.artefino.ordermanager.client.ui.despesas.DespesaView;
 import br.com.artefino.ordermanager.client.ui.despesas.DespesasPresenter;
 import br.com.artefino.ordermanager.client.ui.despesas.DespesasView;
 import br.com.artefino.ordermanager.client.ui.login.LoginPresenter;
@@ -73,6 +75,9 @@ public class ClientModule extends AbstractPresenterModule {
 
 		bindPresenter(DespesasPresenter.class, DespesasPresenter.MyView.class,
 				DespesasView.class, DespesasPresenter.MyProxy.class);
+		
+		bindPresenter(DespesaPresenter.class, DespesaPresenter.MyView.class,
+				DespesaView.class, DespesaPresenter.MyProxy.class);
 
 		bindPresenter(RelatorioPedidosPresenter.class,
 				RelatorioPedidosPresenter.MyView.class,
