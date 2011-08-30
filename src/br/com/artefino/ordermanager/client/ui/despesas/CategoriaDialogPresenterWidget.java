@@ -27,7 +27,8 @@ public class CategoriaDialogPresenterWidget extends
 		CategoriaUIHandlers {
 
 	private DispatchAsync dispatcher;
-	private EventBus eventBus;
+	private List<CategoriaDespesaVo> categorias;
+	private DespesaPresenter despesaPresenter;
 
 	public interface MyView extends View, HasUiHandlers<CategoriaUIHandlers> {
 
@@ -47,7 +48,6 @@ public class CategoriaDialogPresenterWidget extends
 	public CategoriaDialogPresenterWidget(final EventBus eventBus,
 			final MyView view, final DispatchAsync dispatcher) {
 		super(eventBus, view);
-		this.eventBus = eventBus;
 		this.dispatcher = dispatcher;
 		getView().setUiHandlers(this);
 	}
@@ -58,6 +58,12 @@ public class CategoriaDialogPresenterWidget extends
 
 	public void show() {
 		getView().exibirDialogo();
+		listarCategorias();
+	}
+
+	@Override
+	protected void onBind() {
+		super.onBind();
 		listarCategorias();
 	}
 
@@ -96,9 +102,17 @@ public class CategoriaDialogPresenterWidget extends
 							PesquisarCategoriasDespesaResult result) {
 						SC.clearPrompt();
 						getView().limparFormulario();
-						getView().setResultSet(result.getCategorias());
+						setCategorias(result.getCategorias());
+						getView().setResultSet(getCategorias());
+						despesaPresenter.setCategorias(getCategorias());
+
 					}
 				});
+	}
+
+	protected void onListarCategorias() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -127,6 +141,19 @@ public class CategoriaDialogPresenterWidget extends
 						listarCategorias();
 					}
 				});
+
+	}
+
+	public void setCategorias(List<CategoriaDespesaVo> categorias) {
+		this.categorias = categorias;
+	}
+
+	public List<CategoriaDespesaVo> getCategorias() {
+		return categorias;
+	}
+
+	public void setPresenterParent(DespesaPresenter despesaPresenter) {
+		this.despesaPresenter = despesaPresenter;
 
 	}
 

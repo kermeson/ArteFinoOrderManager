@@ -1,5 +1,8 @@
 package br.com.artefino.ordermanager.client.ui.despesas;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesaUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.CurrencyItem;
@@ -49,12 +52,12 @@ public class DespesaView extends
 
 		VLayout vLayoutContainer = new VLayout();
 		vLayoutContainer.setStyleName("containerPadrao");
-	        
+
 		formItemIconGerencCategs = new FormItemIcon();
 		formItemIconGerencCategs.setSrc("icons/16/settings.png");
 		formItemIconGerencCategs.setPrompt(ArteFinoOrderManager.getConstants().gerenciarCategorias());
 		formItemIconGerencCategs.setNeverDisable(true);
-		
+
 		selectItemCategoria = new SelectItem();
 		selectItemCategoria.setTitle(ArteFinoOrderManager.getConstants()
 				.categoria());
@@ -98,7 +101,7 @@ public class DespesaView extends
 
 		// initialise the ToolBar and register its handlers
 		initToolBar();
-		
+
 		formItemIconGerencCategs
 		.addFormItemClickHandler(new FormItemClickHandler() {
 			@Override
@@ -156,7 +159,7 @@ public class DespesaView extends
 		}
 		despesa.setDescricao(textAreaItemDescricao.getValueAsString());
 		CategoriaDespesaVo categoriaDespesaVo = new CategoriaDespesaVo();
-		categoriaDespesaVo.setId((Long) textAreaItemDescricao.getValue());
+		categoriaDespesaVo.setId(Long.valueOf(selectItemCategoria.getValueAsString()));
 		despesa.setCategoria(categoriaDespesaVo);
 		despesa.setDataCadastro(dateItemData.getValueAsDate());
 		despesa.setValor(currencyItemValor.getValor());
@@ -188,5 +191,17 @@ public class DespesaView extends
 	@Override
 	public void setIdCliente(Long id) {
 		despesa.setId(id);
+	}
+
+	@Override
+	public void setCategorias(List<CategoriaDespesaVo> categorias) {
+		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+		if (categorias != null) {
+			for (CategoriaDespesaVo categoriaDespesaVo : categorias) {
+				map.put(categoriaDespesaVo.getId().toString(), categoriaDespesaVo.getNome());
+			}
+		}
+		selectItemCategoria.setValueMap(map);
+
 	}
 }

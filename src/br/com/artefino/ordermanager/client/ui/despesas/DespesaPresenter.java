@@ -1,21 +1,19 @@
 package br.com.artefino.ordermanager.client.ui.despesas;
 
+import java.util.List;
+
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
-import br.com.artefino.ordermanager.client.model.ClienteRecord;
 import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
-import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesaUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
-import br.com.artefino.ordermanager.client.ui.pedidos.FormularioPesquisarPedidosPresenterWidget;
 import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaResult;
 import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaResult;
 import br.com.artefino.ordermanager.shared.action.despesas.RecuperarDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.RecuperarDespesaResult;
-import br.com.artefino.ordermanager.shared.vo.ClienteVo;
+import br.com.artefino.ordermanager.shared.vo.CategoriaDespesaVo;
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -34,7 +32,6 @@ import com.gwtplatform.mvp.client.proxy.PlaceRequest;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
-import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 
 public class DespesaPresenter
 		extends
@@ -49,7 +46,7 @@ public class DespesaPresenter
 	private final PlaceManager placeManager;
 	private String idDespesa;
 	private String acao;
-	private final EventBus eventBus;
+	private CategoriaDialogPresenterWidget categoriaDialog;
 
 	public interface MyView extends View,
 			HasUiHandlers<DespesaUIHandlers> {
@@ -58,6 +55,8 @@ public class DespesaPresenter
 		void limparFormulario();
 
 		void setIdCliente(Long id);
+
+		void setCategorias(List<CategoriaDespesaVo> categorias);
 	}
 
 	@ProxyStandard
@@ -69,11 +68,11 @@ public class DespesaPresenter
 	@Inject
 	public DespesaPresenter(final EventBus eventBus,
 			final MyView view, final MyProxy proxy, DispatchAsync dispatcher,
-			PlaceManager placeManager) {
+			PlaceManager placeManager, final CategoriaDialogPresenterWidget categoriaDialog) {
 		super(eventBus, view, proxy);
-		this.eventBus = eventBus;
 		this.dispatcher = dispatcher;
 		this.placeManager = placeManager;
+		this.categoriaDialog = categoriaDialog;
 
 		getView().setUiHandlers(this);
 	}
@@ -88,6 +87,8 @@ public class DespesaPresenter
 	protected void onBind() {
 		super.onBind();
 
+		getView().setCategorias(categoriaDialog.getCategorias());
+		categoriaDialog.setPresenterParent(this);
 	}
 
 	@Override
@@ -200,23 +201,13 @@ public class DespesaPresenter
 
 	@Override
 	public void onButtonGerenciarCategoriasClicked() {
-		CategoriaDialogPresenterWidget dialogBox = new CategoriaDialogPresenterWidget(
-				eventBus, new CategoriaDialogView(), dispatcher) {
-			public void onRecordSelecionarClicked(RecordClickEvent event) {
-//				CategoriaR clienteRecord = (ClienteRecord) event.getRecord();
-//				if (clienteRecord != null) {
-//					ClienteVo clienteVo = new ClienteVo();
-//					clienteVo.setId(Long.valueOf(clienteRecord.getId()));
-//					clienteVo.setNome(clienteRecord.getNome());
-//					FormularioPesquisarPedidosPresenterWidget.this.getView()
-//							.setCliente(clienteVo);
-//				}
-				fecharDialogo();
-			}
+		categoriaDialog.show();
 
-		};
-		dialogBox.show();
-		
+	}
+
+	public void setCategorias(List<CategoriaDespesaVo> categorias) {
+		getView().setCategorias(categorias);
+
 	}
 
 }

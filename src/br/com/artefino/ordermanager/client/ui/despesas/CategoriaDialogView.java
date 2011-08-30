@@ -167,14 +167,18 @@ public class CategoriaDialogView extends
 				final CategoriaDespesaRecord categoriaDespesaRecord = (CategoriaDespesaRecord) event
 						.getRecord();
 
-				SC.confirm(ArteFinoOrderManager.getMessages()
-						.confirmarRemoverCategoria(
-								categoriaDespesaRecord.getNome()),
+				SC.confirm(
+						ArteFinoOrderManager.getMessages()
+								.confirmarRemoverCategoria(
+										categoriaDespesaRecord.getNome()),
 						new BooleanCallback() {
 							public void execute(Boolean value) {
 								if (value) {
 									if (getUiHandlers() != null) {
-										getUiHandlers().onRemoverCategoriaClicked(categoriaDespesaRecord.getId());
+										getUiHandlers()
+												.onRemoverCategoriaClicked(
+														categoriaDespesaRecord
+																.getId());
 									}
 								}
 							}
@@ -209,16 +213,18 @@ public class CategoriaDialogView extends
 
 	@Override
 	public void setResultSet(List<CategoriaDespesaVo> categorias) {
-		CategoriaDespesaRecord[] categoriasRecord = new CategoriaDespesaRecord[categorias
-				.size()];
+		if (categorias != null) {
+			CategoriaDespesaRecord[] categoriasRecord = new CategoriaDespesaRecord[categorias
+					.size()];
 
-		for (int i = 0; i < categorias.size(); i++) {
-			categoriasRecord[i] = createCategoriaDespesaRecord(categorias
-					.get(i));
+			for (int i = 0; i < categorias.size(); i++) {
+				categoriasRecord[i] = createCategoriaDespesaRecord(categorias
+						.get(i));
+			}
+
+			// populate the List Grid
+			listGridCategoria.setData(categoriasRecord);
 		}
-
-		// populate the List Grid
-		listGridCategoria.setData(categoriasRecord);
 	}
 
 	private CategoriaDespesaRecord createCategoriaDespesaRecord(
