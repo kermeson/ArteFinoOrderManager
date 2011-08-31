@@ -466,5 +466,8 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Adicionar/Remover  Categorias")
 	String gerenciarCategorias();
 
+	@DefaultStringValue("Informações da Despesa")
+	String tituloInformacoesDespesa();
+
 
 }

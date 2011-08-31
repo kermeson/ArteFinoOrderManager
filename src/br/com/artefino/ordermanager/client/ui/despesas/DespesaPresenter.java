@@ -97,7 +97,7 @@ public class DespesaPresenter
 
 		MainPagePresenter.getNavigationPaneHeader()
 		.setContextAreaHeaderLabelContents(
-				ArteFinoOrderManager.getConstants().tituloInformacoesCliente());
+				ArteFinoOrderManager.getConstants().tituloInformacoesDespesa());
 
 
 		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();

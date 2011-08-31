@@ -7,13 +7,13 @@ import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.ItemPedidoRecord;
 import br.com.artefino.ordermanager.client.ui.widgets.ListGridFieldDecimal;
 import br.com.artefino.ordermanager.client.ui.widgets.ListGridFieldInteger;
+import br.com.artefino.ordermanager.client.ui.widgets.TextAreaItem;
 import br.com.artefino.ordermanager.shared.vo.ItemPedidoVo;
 
 import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.CharacterCasing;
 import com.smartgwt.client.types.ListGridFieldType;
 import com.smartgwt.client.types.SelectionStyle;
-import com.smartgwt.client.widgets.form.fields.TextAreaItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 import com.smartgwt.client.widgets.grid.HoverCustomizer;
 import com.smartgwt.client.widgets.grid.ListGrid;
@@ -50,11 +50,10 @@ public class ItemPedidoListGrid extends ListGrid {
 		listGridFieldReferencia.setWidth(100);
 
 		TextAreaItem textAreaItemDescricao = new TextAreaItem();
-		listGridFieldDescricao = new ListGridField(
-				ItemPedidoRecord.DESCRICAO, ArteFinoOrderManager
-						.getConstants().descricao());
+		textAreaItemDescricao.setCharacterCasing(CharacterCasing.UPPER);
+		listGridFieldDescricao = new ListGridField(ItemPedidoRecord.DESCRICAO,
+				ArteFinoOrderManager.getConstants().descricao());
 		listGridFieldDescricao.setEditorType(textAreaItemDescricao);
-
 
 		listGridFieldQuantidade = new ListGridFieldInteger(
 				ItemPedidoRecord.QUANTIDADE, ArteFinoOrderManager
@@ -72,17 +71,15 @@ public class ItemPedidoListGrid extends ListGrid {
 				.getConstants().prefixoMoeda());
 		listGridFieldValorUnitario.setRequired(true);
 
-
 		listGridFieldValorTotal = new ListGridFieldDecimal(
 				ItemPedidoRecord.VALOR_TOTAL, ArteFinoOrderManager
 						.getConstants().valorTotal());
 		listGridFieldValorTotal.setWidth(150);
 		listGridFieldValorTotal.setLimit(10);
-		listGridFieldValorTotal.setPrefix(ArteFinoOrderManager
-				.getConstants().prefixoMoeda());
+		listGridFieldValorTotal.setPrefix(ArteFinoOrderManager.getConstants()
+				.prefixoMoeda());
 		listGridFieldValorTotal.setRequired(true);
 		listGridFieldValorTotal.setCanEdit(false);
-
 
 		// Icone Remover
 		listGridFieldRemover = new ListGridField("btnRemover", 25);
@@ -104,29 +101,30 @@ public class ItemPedidoListGrid extends ListGrid {
 			}
 		});
 
-		this.setFields(new ListGridField[] { listGridFieldReferencia, listGridFieldDescricao,
-				listGridFieldQuantidade, listGridFieldValorUnitario, listGridFieldValorTotal,
+		this.setFields(new ListGridField[] { listGridFieldReferencia,
+				listGridFieldDescricao, listGridFieldQuantidade,
+				listGridFieldValorUnitario, listGridFieldValorTotal,
 				listGridFieldRemover });
 	}
 
 	public void setResultSet(List<ItemPedidoVo> itens) {
 
-		ItemPedidoRecord[] itensRecord = new
-		ItemPedidoRecord[itens.size()];
+		ItemPedidoRecord[] itensRecord = new ItemPedidoRecord[itens.size()];
 
-		 for (int i = 0; i < itens.size(); i++) {
-			 itensRecord[i] = createItemPedidoRecord(itens.get(i));
-		 }
+		for (int i = 0; i < itens.size(); i++) {
+			itensRecord[i] = createItemPedidoRecord(itens.get(i));
+		}
 
-		 // populate the List Grid
-		 this.setData(itensRecord);
+		// populate the List Grid
+		this.setData(itensRecord);
 	}
 
 	private ItemPedidoRecord createItemPedidoRecord(ItemPedidoVo itemPedidoVo) {
 		return new ItemPedidoRecord(itemPedidoVo.getId().intValue(),
 				itemPedidoVo.getReferencia(), itemPedidoVo.getQuantidadeItens()
 						.intValue(), itemPedidoVo.getValorUnitario()
-						.doubleValue(), itemPedidoVo.getValorTotal(), itemPedidoVo.getDescricao());
+						.doubleValue(), itemPedidoVo.getValorTotal(),
+				itemPedidoVo.getDescricao());
 	}
 
 	public void addRecordExcluirClickHandler(

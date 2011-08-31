@@ -135,8 +135,7 @@ public class CategoriaDialogView extends
 			}
 		});
 
-		listGridCategoria.setFields(new ListGridField[] { listGridFieldId,
-				listGridFieldNome, listGridFieldRemover });
+		listGridCategoria.setFields(new ListGridField[] { listGridFieldNome, listGridFieldRemover });
 
 		vLayout.addMember(listGridCategoria);
 

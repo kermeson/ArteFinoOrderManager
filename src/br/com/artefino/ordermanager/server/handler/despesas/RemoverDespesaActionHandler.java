@@ -24,11 +24,11 @@ public class RemoverDespesaActionHandler implements
 
 		RemoverDespesaResult result = null;
 
-		try {
+		try {		
 			JPAUtil.remove(Despesa.class, action.getId());
 			result = new RemoverDespesaResult();
 		} catch (Exception e) {
-			Log.error("Erro ao remover despesa", e);
+			Log.error("Erro ao remover categoria", e);
 			throw new ActionException(e);
 		}
 		return result;

@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesaUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.CurrencyItem;
+import br.com.artefino.ordermanager.client.ui.widgets.TextAreaItem;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.CategoriaDespesaVo;
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
@@ -14,6 +15,7 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import com.smartgwt.client.types.CharacterCasing;
 import com.smartgwt.client.types.DateDisplayFormat;
 import com.smartgwt.client.types.TitleOrientation;
 import com.smartgwt.client.util.SC;
@@ -23,7 +25,6 @@ import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.DateItem;
 import com.smartgwt.client.widgets.form.fields.FormItemIcon;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
-import com.smartgwt.client.widgets.form.fields.TextAreaItem;
 import com.smartgwt.client.widgets.form.fields.events.FormItemClickHandler;
 import com.smartgwt.client.widgets.form.fields.events.FormItemIconClickEvent;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -61,17 +62,22 @@ public class DespesaView extends
 		selectItemCategoria = new SelectItem();
 		selectItemCategoria.setTitle(ArteFinoOrderManager.getConstants()
 				.categoria());
-		selectItemCategoria.setWidth(90);
+		selectItemCategoria.setWidth(200);
 		selectItemCategoria.setIcons(formItemIconGerencCategs);
-
+		selectItemCategoria.setRequired(true);
 
 		currencyItemValor = new CurrencyItem();
 		currencyItemValor.setTitle(ArteFinoOrderManager.getConstants().valor());
-		currencyItemValor.setLimit(5);
-		currencyItemValor.setWidth(90);
+		currencyItemValor.setLimit(8);
+		currencyItemValor.setWidth(110);
+		currencyItemValor.setRequired(true);
 
 		textAreaItemDescricao = new TextAreaItem();
 		textAreaItemDescricao.setTitle(ArteFinoOrderManager.getConstants().descricao());
+		textAreaItemDescricao.setColSpan(3);
+		textAreaItemDescricao.setRequired(true);
+		textAreaItemDescricao.setWidth(450);
+		textAreaItemDescricao.setCharacterCasing(CharacterCasing.UPPER);
 
 		dateItemData = new DateItem();
 		dateItemData.setTitle(ArteFinoOrderManager.getConstants()
@@ -80,13 +86,13 @@ public class DespesaView extends
 		dateItemData.setUseMask(true);
 		dateItemData
 				.setDateFormatter(DateDisplayFormat.TOEUROPEANSHORTDATE);
-		dateItemData.setWidth(90);
+		dateItemData.setWidth(140);
+		dateItemData.setRequired(true);
 
 		dynamicForm = new DynamicForm();
 		dynamicForm.setTitleOrientation(TitleOrientation.TOP);
-		dynamicForm.setColWidths(110, 110, 380, 90, 200);
 		dynamicForm.setNumCols(3);
-		dynamicForm.setWidth(780);
+		dynamicForm.setWidth(450);
 		dynamicForm.setFields(selectItemCategoria, currencyItemValor,dateItemData, textAreaItemDescricao);
 		vLayoutContainer.addMember(dynamicForm);
 
