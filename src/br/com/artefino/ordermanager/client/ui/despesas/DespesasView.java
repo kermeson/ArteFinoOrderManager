@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.smartgwt.client.data.Record;
+import com.smartgwt.client.types.SelectionType;
 import com.smartgwt.client.util.BooleanCallback;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickEvent;
@@ -29,6 +30,7 @@ public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> impleme
 	private ToolBar toolBar;
 	private DespesasListGrid despesasListGrid;
 	private String idDespesa;
+	private VLayout containerFormPesquisa;
 
 	@Inject
 	public DespesasView(DespesasListGrid clientesListGrid) {
@@ -36,6 +38,12 @@ public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> impleme
 
 		toolBar = new ToolBar();
 		panel.addMember(toolBar);
+		
+		
+		containerFormPesquisa = new VLayout();
+		containerFormPesquisa.setAutoHeight();
+		containerFormPesquisa.setVisible(false);
+		panel.addMember(containerFormPesquisa);
 
 		//
 		this.despesasListGrid = clientesListGrid;
@@ -136,6 +144,18 @@ public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> impleme
 						}
 					}
 				});
+		
+		toolBar.addButton(ToolBar.PESQUISAR, ArteFinoOrderManager
+				.getConstants().pesquisar(), SelectionType.CHECKBOX,
+				new ClickHandler() {
+					public void onClick(ClickEvent event) {
+						if (containerFormPesquisa.isVisible()) {
+							containerFormPesquisa.setVisible(false);
+						} else {
+							containerFormPesquisa.setVisible(true);
+						}
+					}
+				});
 
 	}
 
@@ -149,5 +169,16 @@ public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> impleme
 	@Override
 	public void removerDespesaSelecionada() {
 		despesasListGrid.removeSelectedData();
+	}
+	
+	@Override
+	public void addToSlot(Object slot, Widget content) {
+		if (slot == DespesasPresenter.TYPE_SetContextAreaContent) {
+			if (content != null) {
+				containerFormPesquisa.setMembers((VLayout) content);
+			}
+		} else {
+			super.addToSlot(slot, content);
+		}
 	}
 }

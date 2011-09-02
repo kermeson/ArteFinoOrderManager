@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import br.com.artefino.ordermanager.server.businessobject.DespesaBO;
 import br.com.artefino.ordermanager.server.businessobject.PedidoBO;
+import br.com.artefino.ordermanager.server.entities.Despesa;
 import br.com.artefino.ordermanager.server.entities.Pedido;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
 
@@ -33,6 +35,7 @@ public class ReportServlet extends HttpServlet {
 	private static final String DEFAULT_REPORTS_SERVICE_PATH = "/reports/";
 	private static final String REPORT_PEDIDO = "pedido";
 	private static final String REPORT_PEDIDOS = "pedidos";
+	private static final String REPORT_DESPESAS = "despesas";
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,9 +57,10 @@ public class ReportServlet extends HttpServlet {
 
 		if (reportName.equalsIgnoreCase(REPORT_PEDIDO)) {
 			relatorioPedido(request, response);
-
 		} else if (reportName.equalsIgnoreCase(REPORT_PEDIDOS)) {
 			relatorioPedidos(request, response);
+		} else if (reportName.equalsIgnoreCase(REPORT_DESPESAS)) {
+			relatorioDespesas(request, response);
 		} else {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);
 		}
@@ -161,4 +165,59 @@ public class ReportServlet extends HttpServlet {
 		}
 
 	}
+
+	private void relatorioDespesas(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		response.setContentType("application/pdf");
+		OutputStream servletOutputStream = response.getOutputStream();
+		try {
+			String resourceName = DEFAULT_REPORTS_SERVICE_PATH
+					+ "DespesasReport.jasper";
+			InputStream reportStream = getServletConfig().getServletContext()
+					.getResourceAsStream(resourceName);
+
+			String pathImagens = getServletConfig().getServletContext()
+					.getRealPath("/images");
+
+			Map<String, Object> parametros = new HashMap<String, Object>();
+
+			if (request.getParameter("idCategoria") != null) {
+				parametros.put("idCategoria", Long.valueOf(request
+						.getParameter("idCategoria")));
+			}
+
+			if (request.getParameter("dataInicial") != null) {
+				parametros.put("dataInicial", Long.valueOf(request
+						.getParameter("dataInicial")));
+			}
+			if (request.getParameter("dataFinal") != null) {
+				parametros.put("dataFinal", Long.valueOf(request
+						.getParameter("dataFinal")));
+			}
+
+			List<Despesa> pedidos = DespesaBO.pesquisarDespesa(parametros);
+
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
+					pedidos);
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("IMAGES_DIR", pathImagens);
+			map.put("SUBREPORT_DIR", "reports/");
+
+			JasperRunManager.runReportToPdfStream(reportStream,
+					servletOutputStream, map, ds);
+		} catch (Exception e) {
+			// display stack trace in the browser
+			StringWriter stringWriter = new StringWriter();
+			PrintWriter printWriter = new PrintWriter(stringWriter);
+			e.printStackTrace(printWriter);
+			response.setContentType("text/plain");
+			response.getOutputStream().print(stringWriter.toString());
+		} finally {
+			servletOutputStream.flush();
+			servletOutputStream.close();
+		}
+
+	}
+
 }

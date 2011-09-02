@@ -1,6 +1,7 @@
 package br.com.artefino.ordermanager.shared.action.despesas;
 
 import java.util.List;
+import java.util.Map;
 
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
@@ -13,7 +14,7 @@ import com.gwtplatform.dispatch.shared.ActionImpl;
 public class PesquisarDespesas {
 	  @In(1) int maxResults;
 	  @In(2) int firstResult;
-
+	  @In(3) Map<String, Object> parametros;
 	  @Out(1) List<DespesaVo> despesas;
 }
 

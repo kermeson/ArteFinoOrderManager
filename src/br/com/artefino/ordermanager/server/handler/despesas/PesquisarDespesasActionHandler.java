@@ -3,14 +3,8 @@ package br.com.artefino.ordermanager.server.handler.despesas;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
+import br.com.artefino.ordermanager.server.businessobject.DespesaBO;
 import br.com.artefino.ordermanager.server.entities.Despesa;
-import br.com.artefino.ordermanager.server.util.JPAUtil;
 import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasAction;
 import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasResult;
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
@@ -36,21 +30,14 @@ public class PesquisarDespesasActionHandler implements
 
 		try {
 
-			EntityManager em = JPAUtil.getEntityManager();
-			CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-			CriteriaQuery<Despesa> criteriaQuery = criteriaBuilder
-					.createQuery(Despesa.class);
-			Root<Despesa> root = criteriaQuery.from(Despesa.class);
-			criteriaQuery.select(root);
-			TypedQuery<Despesa> typedQuery = em.createQuery(criteriaQuery);
-			List<Despesa> despesas = typedQuery.getResultList();
-
+			List<Despesa> despesas = DespesaBO.pesquisarDespesa(action
+					.getParametros());
 			if (despesas != null) {
-				List<DespesaVo> despesasVo = new ArrayList<DespesaVo>(despesas
-						.size());
+				List<DespesaVo> despesasVo = new ArrayList<DespesaVo>(
+						despesas.size());
 
-				for (Despesa cliente : despesas) {
-					despesasVo.add(cliente.converterParaVo());
+				for (Despesa despesa : despesas) {
+					despesasVo.add(despesa.converterParaVo());
 
 				}
 

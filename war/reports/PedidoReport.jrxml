@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pedido" pageWidth="595" pageHeight="421" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.7715610000000268"/>
+	<property name="ireport.zoom" value="1.9487171000000305"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -25,55 +25,55 @@
 	</background>
 	<title>
 		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement x="155" y="67" width="245" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO]]></text>
+			</staticText>
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="63"/>
+				<reportElement x="0" y="1" width="555" height="63"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="86" y="0" width="245" height="20"/>
+				<reportElement x="87" y="7" width="245" height="20"/>
 				<textElement>
 					<font fontName="Arial" size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ARTE FINO SERIGRAFIA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="86" y="20" width="245" height="10"/>
+				<reportElement x="87" y="27" width="245" height="10"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Endereço: Rua xxxxxxxxxxxxxxx]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="86" y="30" width="153" height="11"/>
+				<reportElement x="87" y="37" width="153" height="11"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Telefone: (85) 33333333]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="86" y="41" width="153" height="11"/>
+				<reportElement x="87" y="48" width="153" height="11"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
+					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CNPJ: 000000000/0001-0]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="155" y="67" width="245" height="17"/>
-				<textElement textAlignment="Center">
-					<font fontName="Arial" size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[RECIBO]]></text>
-			</staticText>
 			<image>
-				<reportElement x="11" y="1" width="55" height="51"/>
-				<imageExpression class="java.lang.String"><![CDATA[$P{IMAGES_DIR} + "/logo.png"]]></imageExpression>
+				<reportElement x="16" y="8" width="55" height="51"/>
+				<imageExpression><![CDATA[$P{IMAGES_DIR} + "/logo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="32" splitType="Stretch">
 			<frame>
 				<reportElement mode="Transparent" x="0" y="2" width="555" height="30" backcolor="#FFF5F5"/>
 				<box>
@@ -124,7 +124,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[$F{dataCadastro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{dataCadastro}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="22" width="41" height="10"/>
@@ -152,7 +152,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{situacaoPedido}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{situacaoPedido}.getNome()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="41" y="12" width="335" height="10"/>
@@ -166,7 +166,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{cliente}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cliente}.getNome()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement mode="Opaque" x="0" y="2" width="555" height="10" backcolor="#847B7B"/>
@@ -208,7 +208,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Long"><![CDATA[$F{cliente}.getCnpjf()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cliente}.retornarCnpjfFormatado()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -216,12 +216,26 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="555" height="20"/>
+				<reportElement x="0" y="9" width="555" height="20"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{itens})]]></dataSourceExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "ItensPedidoSubReport.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ItensPedidoSubReport.jasper"]]></subreportExpression>
 			</subreport>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="-1" width="555" height="10" backcolor="#847B7B"/>
+				<box leftPadding="2" rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ITENS]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
@@ -251,14 +265,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{cliente}.getNome()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cliente}.getNome()]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="41" y="6" width="100" height="10"/>
 				<textElement>
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

@@ -30,9 +30,9 @@ public interface ClientGinjector extends Ginjector {
 	Provider<RootPresenter> getRootPresenter();
 	Provider<MainPagePresenter> getMainPagePresenter();
 
-	Provider<ClientesPresenter> getClientPresenter();
+	Provider<ClientesPresenter> getClientesPresenter();
 
-	Provider<ClientePresenter> getClientInformationPresenter();
+	Provider<ClientePresenter> getClientePresenter();
 
 	Provider<PedidosPresenter> getPedidosPresenter();
 

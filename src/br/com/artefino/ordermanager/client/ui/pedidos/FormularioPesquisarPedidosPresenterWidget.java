@@ -57,7 +57,9 @@ public class FormularioPesquisarPedidosPresenterWidget extends
 	}
 
 	@Override
-	protected void onBind() {
+	protected void onReveal() {
+		super.onReveal();
+		
 		dispatcher.execute(new RecuperarSituacoesPedidoAction(),
 				new AsyncCallback<RecuperarSituacoesPedidoResult>() {
 

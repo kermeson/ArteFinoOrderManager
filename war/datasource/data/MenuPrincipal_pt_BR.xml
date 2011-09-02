@@ -9,11 +9,11 @@
     <name>pedidos</name>
     <displayName>Pedidos</displayName>
 </record>
-<record>
-    <icon>report</icon>
-    <name>relatoriopedidos</name>
-    <displayName>Relatório de Pedidos</displayName>
-</record>
+<!--<record>-->
+<!--    <icon>report</icon>-->
+<!--    <name>relatoriopedidos</name>-->
+<!--    <displayName>Relatório de Pedidos</displayName>-->
+<!--</record>-->
 <record>
     <icon>sales</icon>
     <name>despesas</name>

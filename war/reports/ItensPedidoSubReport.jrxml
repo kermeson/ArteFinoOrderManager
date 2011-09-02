@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ItensPedidoSubReport" pageWidth="555" pageHeight="300" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.zoom" value="3.452271214393128"/>
-	<property name="ireport.x" value="1016"/>
+	<property name="ireport.zoom" value="1.9487171000000227"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -37,6 +37,7 @@
 	<field name="valorUnitario" class="java.lang.Double">
 		<fieldDescription><![CDATA[valorUnitario]]></fieldDescription>
 	</field>
+	<field name="descricao" class="java.lang.String"/>
 	<variable name="valorTotal" class="java.lang.Double" resetType="Column">
 		<variableExpression><![CDATA[$F{valorUnitario} * $F{quantidadeItens}]]></variableExpression>
 	</variable>
@@ -50,27 +51,12 @@
 		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="11" splitType="Stretch">
-			<staticText>
-				<reportElement mode="Opaque" x="0" y="1" width="554" height="10" backcolor="#847B7B"/>
-				<box leftPadding="2" rightPadding="2">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ITENS ]]></text>
-			</staticText>
-		</band>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="11" splitType="Stretch">
+		<band height="10" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="99" height="10" backcolor="#C1C1C1"/>
+				<reportElement mode="Opaque" x="0" y="0" width="79" height="10" backcolor="#F0EFEF"/>
 				<box leftPadding="2" rightPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -84,7 +70,7 @@
 				<text><![CDATA[Referência]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="254" y="0" width="100" height="10" backcolor="#C1C1C1"/>
+				<reportElement mode="Opaque" x="314" y="0" width="40" height="10" backcolor="#F0EFEF"/>
 				<box leftPadding="2" rightPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -95,11 +81,11 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Quantidade Itens]]></text>
+				<text><![CDATA[Qtd. Itens]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="354" y="0" width="100" height="10" backcolor="#C1C1C1"/>
-				<box leftPadding="2" rightPadding="2">
+				<reportElement mode="Opaque" x="354" y="0" width="100" height="10" backcolor="#F0EFEF"/>
+				<box topPadding="0" leftPadding="2" bottomPadding="0" rightPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -112,8 +98,8 @@
 				<text><![CDATA[Valor Unitário]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="454" y="0" width="100" height="10" backcolor="#C1C1C1"/>
-				<box leftPadding="2" rightPadding="2">
+				<reportElement mode="Opaque" x="454" y="0" width="101" height="10" backcolor="#F0EFEF"/>
+				<box leftPadding="2" rightPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -126,7 +112,7 @@
 				<text><![CDATA[Valor Total]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="99" y="0" width="155" height="10" backcolor="#C1C1C1"/>
+				<reportElement mode="Opaque" x="79" y="0" width="235" height="10" backcolor="#F0EFEF"/>
 				<box leftPadding="2" rightPadding="2">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -143,83 +129,93 @@
 	</columnHeader>
 	<detail>
 		<band height="10" splitType="Stretch">
-			<textField>
-				<reportElement x="99" y="-1" width="155" height="10"/>
-				<box leftPadding="2" rightPadding="2">
+			<frame>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="10"/>
+				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{referencia}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="-1" width="99" height="10"/>
-				<box leftPadding="2" rightPadding="2">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{referencia}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="254" y="-1" width="100" height="10"/>
-				<box leftPadding="2" rightPadding="2">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{quantidadeItens}]]></textFieldExpression>
-			</textField>
-			<textField pattern="R$ #,##0.00">
-				<reportElement x="354" y="-1" width="100" height="10"/>
-				<box leftPadding="2" rightPadding="2">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{valorUnitario}]]></textFieldExpression>
-			</textField>
-			<textField pattern="¤ #,##0.00">
-				<reportElement x="454" y="-1" width="100" height="10"/>
-				<box leftPadding="2" rightPadding="2">
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$V{valorTotal}]]></textFieldExpression>
-			</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement stretchType="RelativeToTallestObject" x="454" y="0" width="101" height="10"/>
+					<box leftPadding="2" rightPadding="4">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{valorTotal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="79" y="0" width="235" height="10"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+				</textField>
+				<textField pattern="R$ #,##0.00">
+					<reportElement stretchType="RelativeToTallestObject" x="354" y="0" width="100" height="10"/>
+					<box leftPadding="2" rightPadding="4">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{valorUnitario}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="79" height="10"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{referencia}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement stretchType="RelativeToTallestObject" x="314" y="0" width="40" height="10"/>
+					<box leftPadding="2">
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{quantidadeItens}]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</detail>
 	<columnFooter>
 		<band height="10" splitType="Stretch">
 			<textField pattern="¤ #,##0.00">
-				<reportElement x="454" y="0" width="100" height="10"/>
-				<box leftPadding="2" rightPadding="2">
+				<reportElement mode="Opaque" x="454" y="0" width="101" height="10" backcolor="#CCCCCC"/>
+				<box leftPadding="2" rightPadding="4">
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
 					<leftPen lineWidth="0.5"/>
@@ -229,8 +225,16 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$V{valorTotalItens}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{valorTotalItens}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="379" y="0" width="75" height="10"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor total pedido:]]></text>
+			</staticText>
 		</band>
 	</columnFooter>
 	<pageFooter>

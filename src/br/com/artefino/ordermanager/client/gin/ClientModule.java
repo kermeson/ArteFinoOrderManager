@@ -21,6 +21,8 @@ import br.com.artefino.ordermanager.client.ui.despesas.DespesaPresenter;
 import br.com.artefino.ordermanager.client.ui.despesas.DespesaView;
 import br.com.artefino.ordermanager.client.ui.despesas.DespesasPresenter;
 import br.com.artefino.ordermanager.client.ui.despesas.DespesasView;
+import br.com.artefino.ordermanager.client.ui.despesas.FormularioPesquisarDespesasPresenterWidget;
+import br.com.artefino.ordermanager.client.ui.despesas.FormularioPesquisarDespesasView;
 import br.com.artefino.ordermanager.client.ui.login.LoginPresenter;
 import br.com.artefino.ordermanager.client.ui.login.LoginView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
@@ -97,6 +99,10 @@ public class ClientModule extends AbstractPresenterModule {
 		bindPresenterWidget(CategoriaDialogPresenterWidget.class,
 				CategoriaDialogPresenterWidget.MyView.class,
 				CategoriaDialogView.class);
+		
+		bindPresenterWidget(FormularioPesquisarDespesasPresenterWidget.class,
+				FormularioPesquisarDespesasPresenterWidget.MyView.class,
+				FormularioPesquisarDespesasView.class);
 
 		bindSingletonPresenterWidget(
 				PesquisarClientesDialogPresenterWidget.class,

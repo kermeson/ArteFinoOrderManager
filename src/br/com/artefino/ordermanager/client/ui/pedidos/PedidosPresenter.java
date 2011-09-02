@@ -1,6 +1,8 @@
 package br.com.artefino.ordermanager.client.ui.pedidos;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
@@ -89,8 +91,26 @@ public class PedidosPresenter extends
 				pesquisarPedidos();
 			}
 		});
+		
+		form.addButtonExportarClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				StringBuilder url = new StringBuilder();
+				url.append("/reports/?report=pedidos&rnd=" + new Date().getTime());
 
-		form.exibirBotaoExportar(false);
+				Map<String, Object> parametros = form.getParametrosPesquisa();
+				if (parametros != null) {
+					for (String key : parametros.keySet()) {
+						if (parametros.get(key) != null) {
+							url.append("&" + key + "=" + parametros.get(key));
+						}
+					}
+				}
+
+				Window.open(url.toString(), "_blank", "");
+			}
+		});
+
 	}
 
 	@Override

@@ -1,11 +1,15 @@
 package br.com.artefino.ordermanager.server.entities;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
@@ -112,7 +116,6 @@ public class Cliente {
 		this.tipoPessoa = tipoPessoa;
 	}
 
-
 	@Column(name = "NM_CIDADE")
 	public String getCidade() {
 		return cidade;
@@ -158,7 +161,6 @@ public class Cliente {
 		this.telefoneCelular = telefoneCelular;
 	}
 
-
 	@Column(name = "DS_UF")
 	public String getUf() {
 		return uf;
@@ -183,6 +185,20 @@ public class Cliente {
 		return clienteVo;
 	}
 
-
+	public String retornarCnpjfFormatado() {
+		String value = "";
+		if (cnpjf != null) {
+			if (tipoPessoa.intValue() == 1) {
+				NumberFormat numberFormat = new DecimalFormat("00000000000");
+				return numberFormat.format(cnpjf).replaceFirst(
+						"(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+			} else if (tipoPessoa.intValue() == 2) {
+				NumberFormat numberFormat = new DecimalFormat("00000000000000");
+				return  numberFormat.format(cnpjf).replaceFirst(
+						"(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})", "$1.$2.$3/$4-$5");
+			}
+		}
+		return value;
+	}
 
 }
