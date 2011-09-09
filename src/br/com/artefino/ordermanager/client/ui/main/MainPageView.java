@@ -1,5 +1,7 @@
 package br.com.artefino.ordermanager.client.ui.main;
 
+import java.util.Date;
+
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManagerConstants;
 import br.com.artefino.ordermanager.client.data.MenuPrincipalDataSource;
@@ -11,11 +13,15 @@ import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneSectionListGrid;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.smartgwt.client.data.Record;
+import com.smartgwt.client.types.Alignment;
+import com.smartgwt.client.types.Cursor;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
@@ -23,7 +29,8 @@ import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements MainPagePresenter.MyView {
+public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements
+		MainPagePresenter.MyView {
 
 	// NORTH_HEIGHT = MASTHEAD_HEIGHT + APPLICATION_MENU_HEIGHT +
 	// NAVIGATION_PANE_HEADER_HEIGHT
@@ -34,7 +41,7 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 	private final Masthead masthead;
 	private final ApplicationMenu applicationMenu;
 	private final NavigationPaneHeader navigationPaneHeader;
-	//private final NavigationPane navigationPane;
+	// private final NavigationPane navigationPane;
 
 	private VLayout panel;
 	private HLayout northLayout;
@@ -42,6 +49,9 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 	private VLayout westLayout;
 	private VLayout content;
 	private NavigationPaneSectionListGrid menuListGrid;
+	private Label lblUsuarioLogado;
+	private Label lblBoasVindas;
+	private Label lblSair;
 
 	private static final ArteFinoOrderManagerConstants constants = ArteFinoOrderManager
 			.getConstants();
@@ -55,9 +65,9 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 		this.applicationMenu = applicationMenu;
 		this.navigationPaneHeader = navigationPaneHeader;
 
-		menuListGrid =  new NavigationPaneSectionListGrid(MenuPrincipalDataSource
-				.getInstance());
-		//this.navigationPane = navigationPane;
+		menuListGrid = new NavigationPaneSectionListGrid(
+				MenuPrincipalDataSource.getInstance());
+		// this.navigationPane = navigationPane;
 
 		// get rid of scroll bars, and clear out the window's built-in margin,
 		// because we want to take advantage of the entire client area
@@ -73,10 +83,61 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 		northLayout = new HLayout();
 		northLayout.setHeight(NORTH_HEIGHT);
 
+		// Label para informa o nome do usuário logado na aplicação
+		lblUsuarioLogado = new Label("Kermeson");
+		lblUsuarioLogado.setStyleName("boasVindas");
+		lblUsuarioLogado.setID("nomeUsuario");
+		lblUsuarioLogado.setWidth100();
+
+		lblBoasVindas = new Label("Bem vindo(a), ");
+		lblBoasVindas.setStyleName("boasVindas");
+		lblBoasVindas.setWidth(70);
+
+		// Container para a barra de navegação lado direito
+		HLayout hlyBarraNavDir = new HLayout();
+		hlyBarraNavDir.setWidth(310);
+		hlyBarraNavDir.setHeight(20);
+		hlyBarraNavDir.setStyleName("barraNavegacaoDir");
+
+		hlyBarraNavDir.addMember(lblBoasVindas);
+		hlyBarraNavDir.addMember(lblUsuarioLogado);
+
+		// label para a data e versão
+		String data = DateTimeFormat.getFormat("EEEE, dd 'de' MMMM 'de' yyyy.")
+				.format(new Date());
+
+		Label lblData = new Label(data);
+		lblData.setWidth(250);
+		lblData.setStyleName("barraNavEsqData");
+
+		// Botão de sair
+		lblSair = new Label("Sair");
+		lblSair.setWidth(60);
+		lblSair.setIcon("icons/16/exit.png");
+		lblSair.setStyleName("barraNavEsq");
+		lblSair.setCursor(Cursor.HAND);
+		lblSair.setTooltip("Sair");
+
+		HLayout hlyBarraNavEsq = new HLayout();
+		hlyBarraNavEsq.setWidth100();
+		hlyBarraNavEsq.setHeight(20);
+		hlyBarraNavEsq.setAlign(Alignment.RIGHT);
+		hlyBarraNavEsq.setStyleName("barraNavegacaoEsq");
+		hlyBarraNavEsq.addMember(lblData);
+		hlyBarraNavEsq.addMember(lblSair);
+
+		// Container para a barra de navegação
+		HLayout hlyBarraNavegacao = new HLayout();
+		hlyBarraNavegacao.setWidth100();
+		hlyBarraNavegacao.setHeight(20);
+		hlyBarraNavegacao.addMember(hlyBarraNavDir);
+		hlyBarraNavegacao.addMember(hlyBarraNavEsq);
+		hlyBarraNavegacao.setStyleName("barraNavegacao");
+
 		// initialise the nested layout container
 		VLayout vLayout = new VLayout();
 		vLayout.addMember(this.masthead);
-		//vLayout.addMember(this.applicationMenu);
+		vLayout.addMember(hlyBarraNavegacao);
 		vLayout.addMember(this.navigationPaneHeader);
 
 		// add the nested layout container to the North layout container
@@ -109,6 +170,16 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 	 * SmartGWT Event and GWT Handler Mapping should be done here.
 	 */
 	protected void bindCustomUiHandlers() {
+		lblSair.addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				if (getUiHandlers() != null) {
+					getUiHandlers().onLabelSairClicked();
+				}
+
+			}
+		});
 
 		// initialise the ToolBar and register its handlers
 		initApplicationMenu();
@@ -150,34 +221,23 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 	}
 
 	private void initNavigationPane() {
-//		navigationPane.addSection(ArteFinoOrderManager.getConstants()
-//				.menuPrincipalStackSectionName(), MenuPrincipalDataSource
-//				.getInstance());
+		// navigationPane.addSection(ArteFinoOrderManager.getConstants()
+		// .menuPrincipalStackSectionName(), MenuPrincipalDataSource
+		// .getInstance());
 
-//		navigationPane.addRecordClickHandler(ArteFinoOrderManager
-//				.getConstants().menuPrincipalStackSectionName(),
-//				new RecordClickHandler() {
-//					@Override
-//					public void onRecordClick(RecordClickEvent event) {
-//						onRecordClicked(event);
-//					}
-//				});
+		// navigationPane.addRecordClickHandler(ArteFinoOrderManager
+		// .getConstants().menuPrincipalStackSectionName(),
+		// new RecordClickHandler() {
+		// @Override
+		// public void onRecordClick(RecordClickEvent event) {
+		// onRecordClicked(event);
+		// }
+		// });
 
-		menuListGrid.addRecordClickHandler(
-				new RecordClickHandler() {
-					@Override
-					public void onRecordClick(RecordClickEvent event) {
-						onRecordClicked(event);
-					}
-				});
-		masthead.addLabelSairClickHandler(new ClickHandler() {
-
+		menuListGrid.addRecordClickHandler(new RecordClickHandler() {
 			@Override
-			public void onClick(ClickEvent event) {
-				if (getUiHandlers() != null) {
-					getUiHandlers().onLabelSairClicked();
-				}
-
+			public void onRecordClick(RecordClickEvent event) {
+				onRecordClicked(event);
 			}
 		});
 
@@ -198,10 +258,10 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements 
 		}
 	}
 
-//	@Override
-//	public NavigationPane getNavigationPane() {
-//		return navigationPane;
-//	}
+	// @Override
+	// public NavigationPane getNavigationPane() {
+	// return navigationPane;
+	// }
 
 	@Override
 	public NavigationPaneHeader getNavigationPaneHeader() {

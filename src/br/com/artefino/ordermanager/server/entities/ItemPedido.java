@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import br.com.artefino.ordermanager.shared.vo.ItemPedidoVo;
@@ -93,6 +94,7 @@ public class ItemPedido {
 	}
 
 
+	@Lob
 	@Column(name = "DS_ITEM")
 	public String getDescricao() {
 		return descricao;

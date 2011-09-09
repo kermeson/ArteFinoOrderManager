@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -74,7 +75,9 @@ public class Despesa {
 		this.categoria = categoria;
 	}
 
-	@Column(name = "DS_PEDIDO")
+
+	@Lob
+	@Column(name = "DS_DESPESA")
 	public String getDescricao() {
 		return descricao;
 	}
@@ -83,7 +86,7 @@ public class Despesa {
 		this.descricao = descricao;
 	}
 
-	@Column(name = "VL_PEDIDO")
+	@Column(name = "VL_DESPESA")
 	public Double getValor() {
 		return valor;
 	}
