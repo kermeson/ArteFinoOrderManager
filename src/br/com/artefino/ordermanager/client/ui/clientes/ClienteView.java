@@ -7,6 +7,7 @@ import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClienteUIHandler
 import br.com.artefino.ordermanager.client.ui.widgets.IntegerTextItem;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.client.util.FormatadorUtil;
+import br.com.artefino.ordermanager.client.util.ValidadoresUtil;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -78,6 +79,7 @@ public class ClienteView extends
 		textItemCnpjf.setRequired(true);
 		textItemCnpjf.setMask("###.###.###-##");
 		textItemCnpjf.setWidth(200);
+		textItemCnpjf.setValidators(ValidadoresUtil.getValidadorCpfCnpj());
 
 		textItemEndereco = new TextItem();
 		textItemEndereco.setTitle(ArteFinoOrderManager.getConstants()

@@ -7,6 +7,7 @@ import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesaUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.AtualizarDespesaResult;
 import br.com.artefino.ordermanager.shared.action.despesas.CadastrarDespesaAction;
@@ -18,7 +19,6 @@ import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -125,17 +125,11 @@ public class DespesaPresenter
 	private void recuperarDespesa(Long id) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new RecuperarDespesaAction(id),
-				new AsyncCallback<RecuperarDespesaResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						Log.debug("onFailure() - "
-								+ caught.getLocalizedMessage());
-					}
-
+				new DefaultAsyncCallback<RecuperarDespesaResult>() {
+					
 					@Override
 					public void onSuccess(RecuperarDespesaResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						Log.debug("onSuccess()");
 						getView().setDespesa(result.getDespesa());
 					}
@@ -155,16 +149,10 @@ public class DespesaPresenter
 	private void cadastrar(DespesaVo despesa) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new CadastrarDespesaAction(despesa),
-				new AsyncCallback<CadastrarDespesaResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
-
+				new DefaultAsyncCallback<CadastrarDespesaResult>() {
 					@Override
 					public void onSuccess(CadastrarDespesaResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadaComSucesso());
 						getView().setIdCliente(result.getId());
@@ -176,16 +164,12 @@ public class DespesaPresenter
 	private void atualizar(final DespesaVo despesa) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new AtualizarDespesaAction(despesa),
-				new AsyncCallback<AtualizarDespesaResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
+				new DefaultAsyncCallback<AtualizarDespesaResult>() {
+					
 
 					@Override
 					public void onSuccess(AtualizarDespesaResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadaComSucesso());
 					}

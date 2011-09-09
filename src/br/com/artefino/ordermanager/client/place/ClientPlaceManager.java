@@ -33,7 +33,13 @@ public class ClientPlaceManager extends PlaceManagerImpl {
 	@Override
 	public void revealUnauthorizedPlace(String unauthorizedHistoryToken) {
 		PlaceRequest placeRequest = new PlaceRequest(NameTokens.login);
-		placeRequest = placeRequest.with("redirect", unauthorizedHistoryToken);
 		revealPlace(placeRequest);
+	}
+	
+	
+	@Override
+	public void revealPlace(PlaceRequest request, boolean updateBrowserUrl) {
+		// TODO Auto-generated method stub
+		super.revealPlace(request, updateBrowserUrl);
 	}
 }

@@ -7,6 +7,7 @@ import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesResult;
 import br.com.artefino.ordermanager.shared.action.clientes.RemoverClienteAction;
@@ -15,7 +16,6 @@ import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -31,8 +31,8 @@ import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
 
 public class ClientesPresenter extends
-		Presenter<ClientesPresenter.MyView, ClientesPresenter.MyProxy> implements
-		ClientesUIHandlers {
+		Presenter<ClientesPresenter.MyView, ClientesPresenter.MyProxy>
+		implements ClientesUIHandlers {
 
 	public interface MyView extends View, HasUiHandlers<ClientesUIHandlers> {
 
@@ -102,17 +102,11 @@ public class ClientesPresenter extends
 	private void pesquisarClientes() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
 		dispatcher.execute(new PesquisarClientesAction(10, 1),
-				new AsyncCallback<PesquisarClientesResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						Log.debug("onFailure() - "
-								+ caught.getLocalizedMessage());
-					}
+				new DefaultAsyncCallback<PesquisarClientesResult>() {
 
 					@Override
 					public void onSuccess(PesquisarClientesResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						getView().setResultSet(result.getClientes());
 					}
 				});
@@ -139,16 +133,10 @@ public class ClientesPresenter extends
 
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new RemoverClienteAction(id),
-				new AsyncCallback<RemoverClienteResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
-
+				new DefaultAsyncCallback<RemoverClienteResult>() {
 					@Override
 					public void onSuccess(RemoverClienteResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						getView().removerClienteSelecionado();
 					}
 				});

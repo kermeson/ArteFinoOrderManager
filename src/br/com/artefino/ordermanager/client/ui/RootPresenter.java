@@ -53,11 +53,12 @@ public class RootPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
+
 		// reveal the first nested Presenter
 		PlaceRequest placRequest = new PlaceRequest(NameTokens.login);
 		placeManager.revealPlace(placRequest);
 	}
-	
+
 	@Override
 	protected void revealInParent() {
 		RevealRootContentEvent.fire(this, this);
@@ -65,6 +66,12 @@ public class RootPresenter extends
 
 	public DispatchAsync getDispatcher() {
 		return dispatcher;
+	}
+	
+	@Override
+	protected void onReveal() {
+		// TODO Auto-generated method stub
+		super.onReveal();
 	}
 
 }

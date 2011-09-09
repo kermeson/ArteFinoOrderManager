@@ -4,13 +4,12 @@ import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.clientes.handlers.PesquisarClientesDialogUIHandlers;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesResult;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -57,17 +56,10 @@ public class PesquisarClientesDialogPresenterWidget extends
 	private void pesquisarClientes() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
 		dispatcher.execute(new PesquisarClientesAction(10, 1),
-				new AsyncCallback<PesquisarClientesResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						Log.debug("onFailure() - "
-								+ caught.getLocalizedMessage());
-					}
-
+				new DefaultAsyncCallback<PesquisarClientesResult>() {
 					@Override
 					public void onSuccess(PesquisarClientesResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						getView().setResultSet(result.getClientes());
 					}
 				});

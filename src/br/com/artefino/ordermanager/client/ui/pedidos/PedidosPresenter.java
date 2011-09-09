@@ -9,15 +9,14 @@ import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosAction;
 import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosResult;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -91,12 +90,13 @@ public class PedidosPresenter extends
 				pesquisarPedidos();
 			}
 		});
-		
+
 		form.addButtonExportarClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				StringBuilder url = new StringBuilder();
-				url.append("/reports/?report=pedidos&rnd=" + new Date().getTime());
+				url.append("/reports/?report=pedidos&rnd="
+						+ new Date().getTime());
 
 				Map<String, Object> parametros = form.getParametrosPesquisa();
 				if (parametros != null) {
@@ -137,17 +137,11 @@ public class PedidosPresenter extends
 
 		dispatcher.execute(new PesquisarPedidosAction(10, 1, form
 				.getParametrosPesquisa()),
-				new AsyncCallback<PesquisarPedidosResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						Log.debug("onFailure() - "
-								+ caught.getLocalizedMessage());
-					}
+				new DefaultAsyncCallback<PesquisarPedidosResult>() {
 
 					@Override
 					public void onSuccess(PesquisarPedidosResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						getView().setResultSet(result.getPedidosVo());
 					}
 				});
@@ -160,13 +154,16 @@ public class PedidosPresenter extends
 		Window.open(url.toString(), "_blank", "");
 	}
 
-
 	@Override
 	public void onEditarButtonClicked(String idPedido) {
-		PlaceRequest placeRequest = new PlaceRequest(
-				NameTokens.pedido);
-		placeRequest = placeRequest.with("acao", "editar").with("id", idPedido);
-		placeManager.revealPlace(placeRequest);
+		if (ArteFinoOrderManager.getCurrentUser().isAdministrator()) {
+			PlaceRequest placeRequest = new PlaceRequest(NameTokens.pedido);
+			placeRequest = placeRequest.with("acao", "editar").with("id",
+					idPedido);
+			placeManager.revealPlace(placeRequest);
+		} else {
+			SC.warn(ArteFinoOrderManager.getMessages().usuariosemPermissao());
+		}
 
 	}
 }

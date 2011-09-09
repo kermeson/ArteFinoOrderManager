@@ -4,6 +4,7 @@ import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.despesas.handlers.CategoriaUIHandlers;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.despesas.categorias.CadastrarCategoriaDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.categorias.CadastrarCategoriaDespesaResult;
 import br.com.artefino.ordermanager.shared.action.despesas.categorias.PesquisarCategoriasDespesaAction;
@@ -14,7 +15,6 @@ import br.com.artefino.ordermanager.shared.vo.CategoriaDespesaVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -72,16 +72,10 @@ public class CategoriaDialogPresenterWidget extends
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new CadastrarCategoriaDespesaAction(getView()
 				.getCategoria()),
-				new AsyncCallback<CadastrarCategoriaDespesaResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
-
+				new DefaultAsyncCallback<CadastrarCategoriaDespesaResult>() {
 					@Override
 					public void onSuccess(CadastrarCategoriaDespesaResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						listarCategorias();
 					}
 				});
@@ -90,17 +84,11 @@ public class CategoriaDialogPresenterWidget extends
 	protected void listarCategorias() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
 		dispatcher.execute(new PesquisarCategoriasDespesaAction(10, 1),
-				new AsyncCallback<PesquisarCategoriasDespesaResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
-
+				new DefaultAsyncCallback<PesquisarCategoriasDespesaResult>() {
 					@Override
 					public void onSuccess(
 							PesquisarCategoriasDespesaResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						getView().limparFormulario();
 						setCategorias(result.getCategorias());
 						getView().setResultSet(getCategorias());
@@ -128,16 +116,10 @@ public class CategoriaDialogPresenterWidget extends
 
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new RemoverCategoriaDespesaAction(id),
-				new AsyncCallback<RemoverCategoriaDespesaResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
-
+				new DefaultAsyncCallback<RemoverCategoriaDespesaResult>() {
 					@Override
 					public void onSuccess(RemoverCategoriaDespesaResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						listarCategorias();
 					}
 				});

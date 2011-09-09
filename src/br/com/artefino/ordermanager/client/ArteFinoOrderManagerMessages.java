@@ -27,4 +27,10 @@ public interface ArteFinoOrderManagerMessages extends
 	@DefaultMessage("Deseja remover a categoria <b>{0}</b>?.")
 	String confirmarRemoverCategoria(String nomeCategoria);
 
+	@DefaultMessage("A sessão expirou. É necessário efeutar o login novamente.")
+	String sessaoExpirou();
+
+	@DefaultMessage("Este usuário não tem permissão para executar essa operação.")
+	String usuariosemPermissao();
+
 }

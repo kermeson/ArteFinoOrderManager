@@ -18,7 +18,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public class LoginView extends ViewWithUiHandlers<SignInPageUiHandlers>
 		implements LoginPresenter.MyView {
 
-	private static final String DEFAULT_USER_NAME = "Administrator";
+	private static final String DEFAULT_USER_NAME = "admin";
 	private static final String DEFAULT_PASSWORD = "12345";
 
 	private VLayout panel;

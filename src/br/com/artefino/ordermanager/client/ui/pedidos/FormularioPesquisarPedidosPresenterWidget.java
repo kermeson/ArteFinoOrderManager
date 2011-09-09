@@ -7,19 +7,18 @@ import br.com.artefino.ordermanager.client.model.ClienteRecord;
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPresenterWidget;
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.FormularioPesquisarPedidosUIHandlers;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoAction;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoResult;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
-import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 
@@ -59,14 +58,9 @@ public class FormularioPesquisarPedidosPresenterWidget extends
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		
-		dispatcher.execute(new RecuperarSituacoesPedidoAction(),
-				new AsyncCallback<RecuperarSituacoesPedidoResult>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.warn(caught.getMessage());
-					}
+		dispatcher.execute(new RecuperarSituacoesPedidoAction(),
+				new DefaultAsyncCallback<RecuperarSituacoesPedidoResult>() {
 
 					@Override
 					public void onSuccess(RecuperarSituacoesPedidoResult result) {

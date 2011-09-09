@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.artefino.ordermanager.shared.vo.UsuarioVo;
+
 @Entity
 @Table(name = "TB_USUARIO")
 public class Usuario {
@@ -18,6 +20,8 @@ public class Usuario {
 	private String senha;
 
 	private String salt;
+	
+	private String adminstrador;
 
 	// JPA requires a no-argument constructor
 	public Usuario() {
@@ -59,6 +63,23 @@ public class Usuario {
 	@Column(name = "DS_SALT")
 	public String getSalt() {
 		return salt;
+	}
+
+	public void setAdminstrador(String adminstrador) {
+		this.adminstrador = adminstrador;
+	}
+
+	@Column(name = "FL_ADMIN")
+	public String getAdminstrador() {
+		return adminstrador;
+	}
+	
+	public UsuarioVo converterParaVo() {
+		UsuarioVo usuarioVo = new UsuarioVo();
+		usuarioVo.setLogin(getLogin());
+		usuarioVo.setAdminstrador(getAdminstrador());
+		return usuarioVo;
+		
 	}
 
 }

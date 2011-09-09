@@ -20,65 +20,67 @@ import com.gwtplatform.dispatch.shared.ActionException;
 
 // don't forget to update bindHandler() in ServerModule
 
-public class LoginActionHandler implements ActionHandler<LoginAction, LoginResult> {
+public class LoginActionHandler implements
+		ActionHandler<LoginAction, LoginResult> {
 
-  private final Provider<HttpServletRequest> requestProvider;
-  // private final ServletContext servletContext;
+	private final Provider<HttpServletRequest> requestProvider;
 
-  @Inject
-  LoginActionHandler(final ServletContext servletContext,
-      final Provider<HttpServletRequest> requestProvider) {
-    this.requestProvider = requestProvider;
-    // this.servletContext = servletContext;
-  }
+	// private final ServletContext servletContext;
 
-  @Override
-  public LoginResult execute(final LoginAction action,
-      final ExecutionContext context) throws ActionException {
+	@Inject
+	LoginActionHandler(final ServletContext servletContext,
+			final Provider<HttpServletRequest> requestProvider) {
+		this.requestProvider = requestProvider;
+		// this.servletContext = servletContext;
+	}
 
-    LoginResult result = null;
+	@Override
+	public LoginResult execute(final LoginAction action,
+			final ExecutionContext context) throws ActionException {
 
-    // Log.debug("LoginHandler - login: " + action.getLogin() + ", password: " + action.getPassword());
+		LoginResult result = null;
 
-    try {
-      Usuario user = UsuarioBO.retornarUsuario(action.getLogin());
+		// Log.debug("LoginHandler - login: " + action.getLogin() +
+		// ", password: " + action.getPassword());
 
-      if (user != null && isValidLogin(action, user)) {
-        Log.debug(action.getLogin() + " has logged in");
+		try {
+			Usuario user = UsuarioBO.retornarUsuario(action.getLogin());
 
-        HttpSession session = requestProvider.get().getSession();
-        session.setAttribute("login.authenticated", action.getLogin());
+			if (user != null && isValidLogin(action, user)) {
+				Log.debug(action.getLogin() + " has logged in");
 
-        result = new LoginResult(session.getId());
-      }
-      else {
-        // GWTP only includes the exception type and it's message?
-        // Looks like it needs only a small change on the DispatchServiceImpl class,
-        // on the execute() method:
-        // Instead of calling logger.warning(message), use logger.log(level, message, throwable).
-        throw new LoginException("Invalid User name or Password.");
-      }
-    }
-    catch (Exception e) {
-      throw new ActionException(e);
-    }
+				HttpSession session = requestProvider.get().getSession();
+				session.setAttribute("login.authenticated", user);
 
-    return result;
-  }
+				result = new LoginResult(session.getId(), user.converterParaVo());
+			} else {
+				// GWTP only includes the exception type and it's message?
+				// Looks like it needs only a small change on the
+				// DispatchServiceImpl class,
+				// on the execute() method:
+				// Instead of calling logger.warning(message), use
+				// logger.log(level, message, throwable).
+				throw new LoginException("Invalid User name or Password.");
+			}
+		} catch (Exception e) {
+			throw new ActionException(e);
+		}
 
-  private Boolean isValidLogin(LoginAction action, Usuario user) {
-    String hash = Security.sha256(user.getSalt() + action.getPassword());
-    return hash.equals(user.getSenha());
-  }
+		return result;
+	}
 
-  @Override
-  public Class<LoginAction> getActionType() {
-    return LoginAction.class;
-  }
+	private Boolean isValidLogin(LoginAction action, Usuario user) {
+		String hash = Security.sha256(user.getSalt() + action.getPassword());
+		return hash.equals(user.getSenha());
+	}
 
-  @Override
-  public void undo(LoginAction action, LoginResult result,
-      ExecutionContext context) throws ActionException {
-  }
+	@Override
+	public Class<LoginAction> getActionType() {
+		return LoginAction.class;
+	}
+
+	@Override
+	public void undo(LoginAction action, LoginResult result,
+			ExecutionContext context) throws ActionException {
+	}
 }
-

@@ -14,9 +14,6 @@ public class Masthead extends HLayout {
 	private static final String EAST_WIDTH = "50%";
 	private static final String LOGO = "logo.png";
 	private static final String NAME_LABEL = "ARTE FINO ESTAMPARIA";
-	private static final String SIGNED_IN_USER_LABEL = "<b>Administrator</b>";
-
-	private Label logoutLabel;
 
 	public Masthead() {
 		super();

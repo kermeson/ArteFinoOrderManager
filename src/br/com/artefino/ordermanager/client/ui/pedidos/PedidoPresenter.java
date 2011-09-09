@@ -10,6 +10,7 @@ import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogPr
 import br.com.artefino.ordermanager.client.ui.clientes.PesquisarClientesDialogView;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidoUIHandlers;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoAction;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoResult;
 import br.com.artefino.ordermanager.shared.action.pedidos.AtualizarPedidoAction;
@@ -25,7 +26,6 @@ import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -100,15 +100,11 @@ public class PedidoPresenter extends
 
 	private void recuperarSituacoesPedidos() {
 		dispatcher.execute(new RecuperarSituacoesPedidoAction(),
-				new AsyncCallback<RecuperarSituacoesPedidoResult>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.warn(caught.getMessage());
-					}
+				new DefaultAsyncCallback<RecuperarSituacoesPedidoResult>() {
 
 					@Override
 					public void onSuccess(RecuperarSituacoesPedidoResult result) {
+						super.onSuccess(result);
 						getView().setSituacoes(result.getSituacaoPedidoVos());
 					}
 				});
@@ -129,18 +125,22 @@ public class PedidoPresenter extends
 		PlaceRequest placeRequest = placeManager.getCurrentPlaceRequest();
 		acao = placeRequest.getParameter(ACAO, NOVO);
 		idPedido = placeRequest.getParameter(ID, null);
-		if (EDITAR.equals(acao)) {
-			Long id = -1L;
-
-			try {
-				id = Long.valueOf(idPedido);
-			} catch (NumberFormatException nfe) {
-				Log
-						.debug("NumberFormatException: "
-								+ nfe.getLocalizedMessage());
-				return;
+		if (EDITAR.equals(acao) && idPedido != null) {
+			if (ArteFinoOrderManager.getCurrentUser().isAdministrator()) {
+				Long id = -1L;
+				try {
+					id = Long.valueOf(idPedido);
+				} catch (NumberFormatException nfe) {
+					Log.debug("NumberFormatException: "
+							+ nfe.getLocalizedMessage());
+					return;
+				}
+				recuperarPedido(id);
+			} else {
+				SC.warn(ArteFinoOrderManager.getMessages()
+						.usuariosemPermissao());
 			}
-			recuperarPedido(id);
+
 		} else if (NOVO.equals(acao)) {
 			getView().limparTelaCadastro();
 		}
@@ -189,16 +189,11 @@ public class PedidoPresenter extends
 	private void cadastrarPedido(PedidoVo pedido) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new CadastrarPedidoAction(pedido),
-				new AsyncCallback<CadastrarPedidoResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
+				new DefaultAsyncCallback<CadastrarPedidoResult>() {
 
 					@Override
 					public void onSuccess(CadastrarPedidoResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadaComSucesso());
 						getView().setIdPedido(result.getId());
@@ -210,16 +205,10 @@ public class PedidoPresenter extends
 	private void atualizarPedido(PedidoVo pedido) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new AtualizarPedidoAction(pedido),
-				new AsyncCallback<AtualizarPedidoResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
-
+				new DefaultAsyncCallback<AtualizarPedidoResult>() {
 					@Override
 					public void onSuccess(AtualizarPedidoResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						SC.say(ArteFinoOrderManager.getMessages()
 								.operacaoRealizadaComSucesso());
 					}
@@ -238,18 +227,11 @@ public class PedidoPresenter extends
 	private void recuperarPedido(Long id) {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new RecuperarPedidoAction(id),
-				new AsyncCallback<RecuperarPedidoResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						Log.debug("onFailure() - "
-								+ caught.getLocalizedMessage());
-					}
+				new DefaultAsyncCallback<RecuperarPedidoResult>() {
 
 					@Override
 					public void onSuccess(RecuperarPedidoResult result) {
-						SC.clearPrompt();
-						Log.debug("onSuccess()");
+						super.onSuccess(result);
 						getView().setPedido(result.getPedido());
 					}
 				});

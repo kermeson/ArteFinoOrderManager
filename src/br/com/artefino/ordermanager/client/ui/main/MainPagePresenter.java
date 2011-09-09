@@ -8,12 +8,13 @@ import br.com.artefino.ordermanager.client.ui.RootPresenter;
 import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
+import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneSectionListGrid;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.LogoutAction;
 import br.com.artefino.ordermanager.shared.action.LogoutResult;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -39,12 +40,18 @@ public class MainPagePresenter extends
 
 	private final CurrentUser currentUser;
 
+	private static NavigationPaneSectionListGrid menuPrincipalListGrid;
+
 	private static NavigationPaneHeader navigationPaneHeader;
 	private static NavigationPane navigationPane;
 
 	public interface MyView extends View, HasUiHandlers<MainUIHandlers> {
 
 		NavigationPaneHeader getNavigationPaneHeader();
+
+		NavigationPaneSectionListGrid getMenuPricipalListGrid();
+
+		void setNomeUsuario(String login);
 	}
 
 	@ProxyStandard
@@ -72,26 +79,35 @@ public class MainPagePresenter extends
 
 		getView().setUiHandlers(this);
 
-		MainPagePresenter.navigationPaneHeader = getView()
-				.getNavigationPaneHeader();
+		navigationPaneHeader = getView().getNavigationPaneHeader();
+
+		menuPrincipalListGrid = getView().getMenuPricipalListGrid();
 	}
 
 	@Override
 	protected void revealInParent() {
-		RevealContentEvent.fire(this, RootPresenter.TYPE_SetContextAreaContent, this);
+		RevealContentEvent.fire(this, RootPresenter.TYPE_SetContextAreaContent,
+				this);
 	}
 
 	@Override
 	protected void onBind() {
 		super.onBind();
-		// reveal the first nested Presenter
-		PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);
-		placeManager.revealPlace(placRequest);
 	}
 
 	@Override
 	protected void onReveal() {
 		super.onReveal();
+
+		// reveal the first nested Presenter
+		PlaceRequest placRequest = new PlaceRequest(NameTokens.clientes);
+		placeManager.revealPlace(placRequest);
+
+		// Seleciona o item cliente
+		menuPrincipalListGrid.deselectAllRecords();
+		menuPrincipalListGrid.selectRecord(0);
+		
+		getView().setNomeUsuario(ArteFinoOrderManager.getCurrentUser().getLogin());
 	}
 
 	public static NavigationPaneHeader getNavigationPaneHeader() {
@@ -115,20 +131,16 @@ public class MainPagePresenter extends
 	public void onLabelSairClicked() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new LogoutAction(),
-				new AsyncCallback<LogoutResult>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						String message = "onFailure() - "
-								+ caught.getLocalizedMessage();
-						SC.warn(message);
-					}
+				new DefaultAsyncCallback<LogoutResult>() {
 
 					@Override
 					public void onSuccess(LogoutResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
+
+						// Logout
 						currentUser.setLoggedIn(false);
+						currentUser.setAdministrator(false);
+
 						PlaceRequest placeRequest = new PlaceRequest(
 								NameTokens.login);
 						placeManager.revealPlace(placeRequest);

@@ -84,7 +84,7 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements
 		northLayout.setHeight(NORTH_HEIGHT);
 
 		// Label para informa o nome do usuário logado na aplicação
-		lblUsuarioLogado = new Label("Kermeson");
+		lblUsuarioLogado = new Label();
 		lblUsuarioLogado.setStyleName("boasVindas");
 		lblUsuarioLogado.setID("nomeUsuario");
 		lblUsuarioLogado.setWidth100();
@@ -241,7 +241,6 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements
 			}
 		});
 
-
 	}
 
 	@Override
@@ -275,6 +274,17 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements
 		if (getUiHandlers() != null) {
 			getUiHandlers().onNavigationPaneSectionClicked(place);
 		}
+	}
+
+	@Override
+	public NavigationPaneSectionListGrid getMenuPricipalListGrid() {
+		return menuListGrid;
+	}
+
+	@Override
+	public void setNomeUsuario(String login) {
+		lblUsuarioLogado.setContents(login);
+
 	}
 
 }

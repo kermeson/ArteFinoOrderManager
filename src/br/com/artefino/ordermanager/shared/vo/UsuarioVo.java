@@ -14,6 +14,8 @@ public class UsuarioVo implements Serializable {
 	private String login;
 
 	private String senha;
+	
+	private String adminstrador;
 
 	// JPA requires a no-argument constructor
 	public UsuarioVo() {
@@ -41,6 +43,14 @@ public class UsuarioVo implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public void setAdminstrador(String adminstrador) {
+		this.adminstrador = adminstrador;
+	}
+
+	public String getAdminstrador() {
+		return adminstrador;
 	}
 
 

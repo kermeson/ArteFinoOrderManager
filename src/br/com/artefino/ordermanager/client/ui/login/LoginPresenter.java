@@ -5,12 +5,15 @@ import br.com.artefino.ordermanager.client.CurrentUser;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.RootPresenter;
 import br.com.artefino.ordermanager.client.ui.login.handlers.SignInPageUiHandlers;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.LoginAction;
 import br.com.artefino.ordermanager.shared.action.LoginResult;
+import br.com.artefino.ordermanager.shared.action.RecuperarUsuarioLogadoAction;
+import br.com.artefino.ordermanager.shared.action.RecuperarUsuarioLogadoResult;
+import br.com.artefino.ordermanager.shared.vo.UsuarioVo;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -26,8 +29,8 @@ import com.gwtplatform.mvp.client.proxy.RevealContentEvent;
 import com.smartgwt.client.util.SC;
 
 public class LoginPresenter extends
-		Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy>
-		implements SignInPageUiHandlers {
+		Presenter<LoginPresenter.MyView, LoginPresenter.MyProxy> implements
+		SignInPageUiHandlers {
 
 	private final DispatchAsync dispatcher;
 	private final PlaceManager placeManager;
@@ -49,9 +52,9 @@ public class LoginPresenter extends
 	}
 
 	@Inject
-	public LoginPresenter(final EventBus eventBus, MyView view,
-			MyProxy proxy, final DispatchAsync dispatcher,
-			final PlaceManager placeManager, final CurrentUser currentUser) {
+	public LoginPresenter(final EventBus eventBus, MyView view, MyProxy proxy,
+			final DispatchAsync dispatcher, final PlaceManager placeManager,
+			final CurrentUser currentUser) {
 		super(eventBus, view, proxy);
 
 		getView().setUiHandlers(this);
@@ -68,22 +71,29 @@ public class LoginPresenter extends
 
 	@Override
 	protected void revealInParent() {
-		RevealContentEvent.fire(this, RootPresenter.TYPE_SetContextAreaContent, this);
-	}
-
-	@Override
-	protected void onBind() {
-		super.onBind();
-	}
-	
-	@Override
-	protected void onUnbind() {
-		super.onUnbind();
+		RevealContentEvent.fire(this, RootPresenter.TYPE_SetContextAreaContent,
+				this);
 	}
 
 	@Override
 	protected void onReveal() {
 		super.onReveal();
+		
+		dispatcher.execute(new RecuperarUsuarioLogadoAction(),
+				new DefaultAsyncCallback<RecuperarUsuarioLogadoResult>() {
+
+					@Override
+					public void onSuccess(RecuperarUsuarioLogadoResult result) {
+						super.onSuccess(result);
+
+						if (result != null) {
+							PlaceRequest placRequest = new PlaceRequest(
+									NameTokens.main);
+							placeManager.revealPlace(placRequest);
+						}
+					}
+				});
+	
 	}
 
 	@Override
@@ -97,21 +107,22 @@ public class LoginPresenter extends
 
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		getDispatcher().execute(new LoginAction(login, password),
-				new AsyncCallback<LoginResult>() {
-
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						String message = "onFailure() - "
-								+ caught.getLocalizedMessage();
-						SC.warn(message);
-					}
+				new DefaultAsyncCallback<LoginResult>() {
 
 					@Override
 					public void onSuccess(LoginResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 
+						UsuarioVo usuarioVo = result.getUsuario();
 						currentUser.setLoggedIn(true);
+						currentUser.setLogin(usuarioVo.getLogin());
+						if (usuarioVo.getAdminstrador() != null
+								&& usuarioVo.getAdminstrador()
+										.equalsIgnoreCase("S")) {
+							currentUser.setAdministrator(true);
+						} else {
+							currentUser.setAdministrator(false);
+						}
 
 						PlaceRequest placeRequest = new PlaceRequest(
 								NameTokens.main);

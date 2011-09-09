@@ -3,6 +3,7 @@ package br.com.artefino.ordermanager.server.guice;
 import br.com.artefino.ordermanager.server.handler.LoginActionHandler;
 import br.com.artefino.ordermanager.server.handler.LogoutActionHandler;
 import br.com.artefino.ordermanager.server.handler.RecuperarSituacoesPedidoActionHandler;
+import br.com.artefino.ordermanager.server.handler.RecuperarUsuarioLogadoActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.AtualizarClienteActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.CadastrarClienteActionHandler;
 import br.com.artefino.ordermanager.server.handler.clientes.PesquisarClientesActionHandler;
@@ -24,6 +25,7 @@ import br.com.artefino.ordermanager.server.handler.validator.LoggedInActionValid
 import br.com.artefino.ordermanager.shared.action.LoginAction;
 import br.com.artefino.ordermanager.shared.action.LogoutAction;
 import br.com.artefino.ordermanager.shared.action.RecuperarSituacoesPedidoAction;
+import br.com.artefino.ordermanager.shared.action.RecuperarUsuarioLogadoAction;
 import br.com.artefino.ordermanager.shared.action.clientes.AtualizarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.CadastrarClienteAction;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
@@ -100,5 +102,8 @@ public class ServerModule extends HandlerModule {
 		// Login
 		bindHandler(LoginAction.class, LoginActionHandler.class);
 		bindHandler(LogoutAction.class, LogoutActionHandler.class);
+		
+		bindHandler(RecuperarUsuarioLogadoAction.class,
+				RecuperarUsuarioLogadoActionHandler.class);
 	}
 }

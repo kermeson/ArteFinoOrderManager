@@ -9,6 +9,7 @@ import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
 import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
+import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasAction;
 import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasResult;
 import br.com.artefino.ordermanager.shared.action.despesas.RemoverDespesaAction;
@@ -19,7 +20,6 @@ import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 import com.gwtplatform.dispatch.shared.DispatchAsync;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -39,8 +39,8 @@ import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 
 public class DespesasPresenter extends
-		Presenter<DespesasPresenter.MyView, DespesasPresenter.MyProxy> implements
-		ClientesUIHandlers {
+		Presenter<DespesasPresenter.MyView, DespesasPresenter.MyProxy>
+		implements ClientesUIHandlers {
 
 	public interface MyView extends View, HasUiHandlers<ClientesUIHandlers> {
 
@@ -72,16 +72,16 @@ public class DespesasPresenter extends
 
 	@ContentSlot
 	public static final Type<RevealContentHandler<?>> TYPE_SetContextAreaContent = new Type<RevealContentHandler<?>>();
-	
+
 	@Inject
 	public DespesasPresenter(final EventBus eventBus, final MyView view,
 			final MyProxy proxy, final PlaceManager placeManager,
-			final DispatchAsync dispatcher, final FormularioPesquisarDespesasPresenterWidget form) {
+			final DispatchAsync dispatcher,
+			final FormularioPesquisarDespesasPresenterWidget form) {
 		super(eventBus, view, proxy);
 		this.placeManager = placeManager;
 		this.dispatcher = dispatcher;
 		this.form = form;
-		
 
 		getView().setUiHandlers(this);
 		addToSlot(TYPE_SetContextAreaContent, form);
@@ -96,19 +96,20 @@ public class DespesasPresenter extends
 	@Override
 	protected void onBind() {
 		super.onBind();
-		
+
 		form.addButtonPesquisarClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				pesquisarDespesas();
 			}
 		});
-		
+
 		form.addButtonExportarClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				StringBuilder url = new StringBuilder();
-				url.append("/reports/?report=despesas&rnd=" + new Date().getTime());
+				url.append("/reports/?report=despesas&rnd="
+						+ new Date().getTime());
 
 				Map<String, Object> parametros = form.getParametrosPesquisa();
 				if (parametros != null) {
@@ -127,7 +128,7 @@ public class DespesasPresenter extends
 	@Override
 	protected void onReveal() {
 		super.onReveal();
-		
+
 		pesquisarDespesas();
 
 		MainPagePresenter.getNavigationPaneHeader()
@@ -145,17 +146,13 @@ public class DespesasPresenter extends
 
 	private void pesquisarDespesas() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
-		dispatcher.execute(new PesquisarDespesasAction(10, 1, form.getParametrosPesquisa()),
-				new AsyncCallback<PesquisarDespesasResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						SC.warn(caught.getMessage());
-					}
+		dispatcher.execute(new PesquisarDespesasAction(10, 1, form
+				.getParametrosPesquisa()),
+				new DefaultAsyncCallback<PesquisarDespesasResult>() {
 
 					@Override
 					public void onSuccess(PesquisarDespesasResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						getView().setResultSet(result.getDespesas());
 					}
 				});
@@ -181,17 +178,11 @@ public class DespesasPresenter extends
 
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemAguarde());
 		dispatcher.execute(new RemoverDespesaAction(id),
-				new AsyncCallback<RemoverDespesaResult>() {
-					@Override
-					public void onFailure(Throwable caught) {
-						SC.clearPrompt();
-						Log.debug("onFailure() - "
-								+ caught.getLocalizedMessage());
-					}
+				new DefaultAsyncCallback<RemoverDespesaResult>() {
 
 					@Override
 					public void onSuccess(RemoverDespesaResult result) {
-						SC.clearPrompt();
+						super.onSuccess(result);
 						getView().removerDespesaSelecionada();
 					}
 				});

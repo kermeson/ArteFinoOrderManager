@@ -15,7 +15,8 @@ public class UsuarioTest {
 	public void cadastrarUsuario() {
 
 		Usuario user1 = new Usuario();
-		user1.setLogin("Administrator");
+		user1.setLogin("admin");
+		user1.setAdminstrador("S");
 
 	    String salt = Security.randomCharString();
 	    Log.debug("salt: " + salt);
@@ -24,9 +25,22 @@ public class UsuarioTest {
 	    String hash = Security.sha256(salt + password);
 	    user1.setSalt(salt);
 	    user1.setSenha(hash);
+	    
+	    Usuario user2 = new Usuario();
+	    user2.setLogin("user");
+	    user2.setAdminstrador("N");
+
+	    salt = Security.randomCharString();
+	    Log.debug("salt: " + salt);
+
+	    password = "12345";
+	    hash = Security.sha256(salt + password);
+	    user2.setSalt(salt);
+	    user2.setSenha(hash);
 
 	    try {
 			UsuarioBO.criarUsuario(user1);
+			UsuarioBO.criarUsuario(user2);
 		} catch (ActionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

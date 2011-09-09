@@ -16,37 +16,36 @@ package br.com.artefino.ordermanager.client;
 
 public class CurrentUser {
 
-  private String login;
+	private String login;
 
-  private boolean loggedIn = true;
-  private boolean administrator;
+	private boolean loggedIn = false;
+	private boolean administrator;
 
-  // private boolean authenticated = true;
-  // private String email;
-  // private String nickname;
-  // private String realName;
-  // private String locale;
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-  public CurrentUser() {
-  }
+	public CurrentUser() {
+	}
 
-  public String getLogin() {
-    return login;
-  }
+	public String getLogin() {
+		return login;
+	}
 
-  public boolean isLoggedIn() {
-    return loggedIn;
-  }
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
 
-  public void setLoggedIn(boolean loggedIn) {
-    this.loggedIn = loggedIn;
-  }
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
 
-  public boolean isAdministrator() {
-    return administrator;
-  }
+	public boolean isAdministrator() {
+		return administrator;
+	}
 
-  public void setAdministrator(boolean administrator) {
-    this.administrator = administrator;
-  }
+	public void setAdministrator(boolean administrator) {
+		this.administrator = administrator;
+	}
+
 }

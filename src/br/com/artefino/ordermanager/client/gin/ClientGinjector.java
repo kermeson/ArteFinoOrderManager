@@ -1,5 +1,6 @@
 package br.com.artefino.ordermanager.client.gin;
 
+import br.com.artefino.ordermanager.client.CurrentUser;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.ui.ErrorPagePresenter;
 import br.com.artefino.ordermanager.client.ui.RootPresenter;
@@ -27,7 +28,10 @@ public interface ClientGinjector extends Ginjector {
 
 	PlaceManager getPlaceManager();
 
+	CurrentUser getCurrentUser();
+
 	Provider<RootPresenter> getRootPresenter();
+
 	Provider<MainPagePresenter> getMainPagePresenter();
 
 	Provider<ClientesPresenter> getClientesPresenter();
