@@ -1,12 +1,10 @@
 package br.com.artefino.ordermanager.server.handler.despesas.categorias;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import br.com.artefino.ordermanager.server.businessobject.DespesaBO;
 import br.com.artefino.ordermanager.server.entities.CategoriaDespesa;
-import br.com.artefino.ordermanager.server.entities.Despesa;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
 import br.com.artefino.ordermanager.shared.action.despesas.categorias.RemoverCategoriaDespesaAction;
 import br.com.artefino.ordermanager.shared.action.despesas.categorias.RemoverCategoriaDespesaResult;
@@ -34,8 +32,8 @@ public class RemoverCategoriaDespesaActionHandler implements
 			// Verifica se a categoria possui despesas
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("idCategoria", action.getId());
-			List<Despesa> despesas = DespesaBO.pesquisarDespesas(parametros);
-			if (despesas != null && !despesas.isEmpty()) {
+			Long despesas = DespesaBO.retornarTotalDespesas(parametros);
+			if (despesas != null && despesas.longValue() > 0) {
 				throw new ActionException(
 						"Não é possível remover a categoria, pois a mesma possui despesas cadastradas.");
 			}

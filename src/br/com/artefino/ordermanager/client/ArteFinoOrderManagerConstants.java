@@ -469,5 +469,17 @@ public interface ArteFinoOrderManagerConstants extends
 	@DefaultStringValue("Informações da Despesa")
 	String tituloInformacoesDespesa();
 
+	@DefaultStringValue("Última página")
+	String ultimaPagina();
+	
+	@DefaultStringValue("Próxima página")
+	String proximaPagina();
+	
+	@DefaultStringValue("Primeira página")
+	String primeiraPagina();
+	
+	@DefaultStringValue("Página anterior")
+	String paginaAnterior();
+
 
 }

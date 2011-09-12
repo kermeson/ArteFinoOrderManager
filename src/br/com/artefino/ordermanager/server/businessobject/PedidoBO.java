@@ -20,7 +20,8 @@ import br.com.artefino.ordermanager.server.util.JPAUtil;
 
 public class PedidoBO {
 
-	public static List<Pedido> pesquisarPedidos(Map<String, Object> parametros) {
+	public static List<Pedido> pesquisarPedidos(Map<String, Object> parametros,
+			int maxResults, int firstResult) {
 		EntityManager em = JPAUtil.getEntityManager();
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder
@@ -65,9 +66,70 @@ public class PedidoBO {
 		}
 
 		TypedQuery<Pedido> typedQuery = em.createQuery(criteriaQuery);
+
+		if (maxResults != 0) {
+			typedQuery.setMaxResults(maxResults);
+			typedQuery.setFirstResult(firstResult);
+		}
+
 		List<Pedido> pedidos = typedQuery.getResultList();
 
 		return pedidos;
+
+	}
+
+	public static List<Pedido> pesquisarPedidos(Map<String, Object> parametros) {
+		return pesquisarPedidos(parametros, 0, 0);
+
+	}
+
+	public static Long retornarTotalPedidos(Map<String, Object> parametros) {
+		EntityManager em = JPAUtil.getEntityManager();
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder
+				.createQuery(Long.class);
+		Root<Pedido> root = criteriaQuery.from(Pedido.class);
+		criteriaQuery.select(criteriaBuilder.count(root));
+
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		if (parametros != null) {
+			if (parametros.containsKey("idCliente")
+					&& parametros.get("idCliente") != null) {
+				Join<Pedido, Cliente> cliente = root.join("cliente");
+				predicates.add(criteriaBuilder.equal(cliente.get("id").as(
+						Long.class), (Long) parametros.get("idCliente")));
+			}
+			if (parametros.containsKey("dataInicial")
+					&& parametros.get("dataInicial") != null) {
+				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(
+						"dataCadastro").as(Date.class), new Date(
+						(Long) parametros.get("dataInicial"))));
+			}
+
+			if (parametros.containsKey("dataFinal")
+					&& parametros.get("dataFinal") != null) {
+				predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(
+						"dataCadastro").as(Date.class), new Date(
+						(Long) parametros.get("dataFinal"))));
+			}
+			if (parametros.containsKey("situacao")
+					&& parametros.get("situacao") != null) {
+				Join<Pedido, SituacaoPedido> situacao = root
+						.join("situacaoPedido");
+				predicates.add(criteriaBuilder.equal(situacao.get("id").as(
+						Long.class), (Long) parametros.get("situacao")));
+			}
+
+		}
+
+		if (predicates.size() > 0) {
+			criteriaQuery.where(predicates.toArray(new Predicate[predicates
+					.size()]));
+		}
+
+		TypedQuery<Long> typedQuery = em.createQuery(criteriaQuery);
+
+		return typedQuery.getSingleResult();
 
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.ClienteRecord;
 import br.com.artefino.ordermanager.client.ui.pedidos.handlers.PedidosUIHandlers;
+import br.com.artefino.ordermanager.client.ui.widgets.ListGridComPaginacao;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
@@ -25,10 +26,19 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
 	private String idPedido;
 	private PedidosListGrid pedidosListGrid;
 	private VLayout containerFormPesquisa;
+	private ListGridComPaginacao listGridComPaginacaoPedidos;
 
 	@Inject
 	public PedidosView(ToolBar toolBar, PedidosListGrid pedidosListGrid) {
 		panel = new VLayout(5);
+
+		listGridComPaginacaoPedidos = new ListGridComPaginacao(pedidosListGrid) {
+
+			@Override
+			protected void retrieveResultSet() {
+				PedidosView.this.getUiHandlers().pesquisarPedidos();
+			}
+		};
 
 		this.toolBar = toolBar;
 		panel.addMember(this.toolBar);
@@ -39,7 +49,7 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
 		panel.addMember(containerFormPesquisa);
 
 		this.pedidosListGrid = pedidosListGrid;
-		panel.addMember(pedidosListGrid);
+		panel.addMember(listGridComPaginacaoPedidos);
 		bindCustomUiHandlers();
 	}
 
@@ -86,25 +96,22 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
 		});
 
 		toolBar.addButton(ToolBar.EDITAR_PEDIDO, ArteFinoOrderManager
-				.getConstants().editar(),
-				new ClickHandler() {
-					public void onClick(ClickEvent event) {
-						if (getUiHandlers() != null) {
-							ListGridRecord record = pedidosListGrid
-									.getSelectedRecord();
+				.getConstants().editar(), new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				if (getUiHandlers() != null) {
+					ListGridRecord record = pedidosListGrid.getSelectedRecord();
 
-							if (record != null) {
-								idPedido = record
-										.getAttributeAsString(ClienteRecord.ID);
-								event.cancel();
-								getUiHandlers()
-										.onEditarButtonClicked(idPedido);
-							} else {
-								pedidosListGrid.deselectAllRecords();
-							}
-						}
+					if (record != null) {
+						idPedido = record
+								.getAttributeAsString(ClienteRecord.ID);
+						event.cancel();
+						getUiHandlers().onEditarButtonClicked(idPedido);
+					} else {
+						pedidosListGrid.deselectAllRecords();
 					}
-				});
+				}
+			}
+		});
 
 		toolBar.addButton(ToolBar.PESQUISAR, ArteFinoOrderManager
 				.getConstants().pesquisar(), SelectionType.CHECKBOX,
@@ -134,4 +141,41 @@ public class PedidosView extends ViewWithUiHandlers<PedidosUIHandlers>
 			super.addToSlot(slot, content);
 		}
 	}
+
+	@Override
+	public int getPrimeiroPedido() {
+		return listGridComPaginacaoPedidos.getFirstResult();
+	}
+
+	@Override
+	public int getNumeroMaximoPedidos() {
+		return listGridComPaginacaoPedidos.getMaxResults();
+	}
+
+	@Override
+	public void setNumeroTotalPedidos(int total) {
+		listGridComPaginacaoPedidos.setTotalResults(total);
+	}
+
+	@Override
+	public void atualizarBarraNavegacaoPedidos() {
+		listGridComPaginacaoPedidos.atualizar();
+	}
+
+	@Override
+	public void setPaginaAtualPedidos(int pagina) {
+		listGridComPaginacaoPedidos.setPageNumber(pagina);	
+	}
+
+	@Override
+	public int getPaginaAtualPedidos() {
+		return listGridComPaginacaoPedidos.getPageNumber();
+	}
+
+	@Override
+	public void setPrimeiroPedido(int i) {
+		listGridComPaginacaoPedidos.setFirstResult(i);
+		
+	}
+	
 }

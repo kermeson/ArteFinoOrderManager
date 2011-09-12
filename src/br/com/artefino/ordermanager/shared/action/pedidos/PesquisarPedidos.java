@@ -16,6 +16,7 @@ public class PesquisarPedidos {
 	  @In(2) int firstResult;
 	  @In(3) Map<String, Object> parametros;
 	  @Out(1) List<PedidoVo> pedidosVo;
+	  @Out(2) Long total;
 }
 
 

@@ -7,7 +7,7 @@ import java.util.Map;
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.LoggedInGatekeeper;
 import br.com.artefino.ordermanager.client.place.NameTokens;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
+import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesasUIHandlers;
 import br.com.artefino.ordermanager.client.ui.main.MainPagePresenter;
 import br.com.artefino.ordermanager.client.util.DefaultAsyncCallback;
 import br.com.artefino.ordermanager.shared.action.despesas.PesquisarDespesasAction;
@@ -40,13 +40,27 @@ import com.smartgwt.client.widgets.events.ClickHandler;
 
 public class DespesasPresenter extends
 		Presenter<DespesasPresenter.MyView, DespesasPresenter.MyProxy>
-		implements ClientesUIHandlers {
+		implements DespesasUIHandlers {
 
-	public interface MyView extends View, HasUiHandlers<ClientesUIHandlers> {
+	public interface MyView extends View, HasUiHandlers<DespesasUIHandlers> {
 
 		void setResultSet(List<DespesaVo> despesas);
 
 		void removerDespesaSelecionada();
+		
+		int getNumeroMaximoDespesas();
+
+		int getPrimeiroDespesa();
+
+		void setNumeroTotalDespesas(int total);
+
+		void setPaginaAtualDespesas(int pagina);
+
+		void atualizarBarraNavegacaoDespesas();
+
+		int getPaginaAtualDespesas();
+
+		void setPrimeiroDespesa(int i);
 
 	}
 
@@ -100,6 +114,8 @@ public class DespesasPresenter extends
 		form.addButtonPesquisarClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				getView().setPaginaAtualDespesas(1);
+				getView().setPrimeiroDespesa(0);
 				pesquisarDespesas();
 			}
 		});
@@ -144,15 +160,23 @@ public class DespesasPresenter extends
 		placeManager.revealPlace(placeRequest);
 	}
 
-	private void pesquisarDespesas() {
+	public void pesquisarDespesas() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
-		dispatcher.execute(new PesquisarDespesasAction(10, 1, form
+		dispatcher.execute(new PesquisarDespesasAction(getView().getNumeroMaximoDespesas(), getView().getPrimeiroDespesa(), form
 				.getParametrosPesquisa()),
 				new DefaultAsyncCallback<PesquisarDespesasResult>() {
 
 					@Override
 					public void onSuccess(PesquisarDespesasResult result) {
 						super.onSuccess(result);
+						if (result.getTotal() != null) {
+							getView().setNumeroTotalDespesas(
+									result.getTotal().intValue());
+						} else {
+							getView().setNumeroTotalDespesas(0);
+						}
+						
+						getView().atualizarBarraNavegacaoDespesas();
 						getView().setResultSet(result.getDespesas());
 					}
 				});
@@ -183,7 +207,7 @@ public class DespesasPresenter extends
 					@Override
 					public void onSuccess(RemoverDespesaResult result) {
 						super.onSuccess(result);
-						getView().removerDespesaSelecionada();
+						pesquisarDespesas();
 					}
 				});
 

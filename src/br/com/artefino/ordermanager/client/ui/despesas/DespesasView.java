@@ -4,7 +4,8 @@ import java.util.List;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.model.ClienteRecord;
-import br.com.artefino.ordermanager.client.ui.clientes.handlers.ClientesUIHandlers;
+import br.com.artefino.ordermanager.client.ui.despesas.handlers.DespesasUIHandlers;
+import br.com.artefino.ordermanager.client.ui.widgets.ListGridComPaginacao;
 import br.com.artefino.ordermanager.client.ui.widgets.ToolBar;
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
@@ -23,7 +24,7 @@ import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> implements
+public class DespesasView extends ViewWithUiHandlers<DespesasUIHandlers> implements
 		DespesasPresenter.MyView {
 
 	private VLayout panel;
@@ -31,10 +32,20 @@ public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> impleme
 	private DespesasListGrid despesasListGrid;
 	private String idDespesa;
 	private VLayout containerFormPesquisa;
+	private ListGridComPaginacao listGridComPaginacaoDespesas;
 
 	@Inject
-	public DespesasView(DespesasListGrid clientesListGrid) {
+	public DespesasView(DespesasListGrid despesasListGrid) {
 		panel = new VLayout(5);
+		
+		listGridComPaginacaoDespesas = new ListGridComPaginacao(despesasListGrid) {
+
+			@Override
+			protected void retrieveResultSet() {
+				DespesasView.this.getUiHandlers().pesquisarDespesas();
+			}
+		};
+
 
 		toolBar = new ToolBar();
 		panel.addMember(toolBar);
@@ -46,8 +57,8 @@ public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> impleme
 		panel.addMember(containerFormPesquisa);
 
 		//
-		this.despesasListGrid = clientesListGrid;
-		panel.addMember(clientesListGrid);
+		this.despesasListGrid = despesasListGrid;
+		panel.addMember(listGridComPaginacaoDespesas);
 
 		bindCustomUiHandlers();
 	}
@@ -180,5 +191,41 @@ public class DespesasView extends ViewWithUiHandlers<ClientesUIHandlers> impleme
 		} else {
 			super.addToSlot(slot, content);
 		}
+	}
+	
+	@Override
+	public int getPrimeiroDespesa() {
+		return listGridComPaginacaoDespesas.getFirstResult();
+	}
+
+	@Override
+	public int getNumeroMaximoDespesas() {
+		return listGridComPaginacaoDespesas.getMaxResults();
+	}
+
+	@Override
+	public void setNumeroTotalDespesas(int total) {
+		listGridComPaginacaoDespesas.setTotalResults(total);
+	}
+
+	@Override
+	public void atualizarBarraNavegacaoDespesas() {
+		listGridComPaginacaoDespesas.atualizar();
+	}
+
+	@Override
+	public void setPaginaAtualDespesas(int pagina) {
+		listGridComPaginacaoDespesas.setPageNumber(pagina);	
+	}
+
+	@Override
+	public int getPaginaAtualDespesas() {
+		return listGridComPaginacaoDespesas.getPageNumber();
+	}
+
+	@Override
+	public void setPrimeiroDespesa(int i) {
+		listGridComPaginacaoDespesas.setFirstResult(i);
+		
 	}
 }

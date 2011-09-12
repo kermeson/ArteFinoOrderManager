@@ -19,7 +19,8 @@ import br.com.artefino.ordermanager.server.util.JPAUtil;
 
 public class DespesaBO {
 
-	public static List<Despesa> pesquisarDespesas(Map<String, Object> parametros) {
+	public static List<Despesa> pesquisarDespesas(
+			Map<String, Object> parametros, int maxResults, int firstResult) {
 		EntityManager em = JPAUtil.getEntityManager();
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<Despesa> criteriaQuery = criteriaBuilder
@@ -31,7 +32,8 @@ public class DespesaBO {
 		if (parametros != null) {
 			if (parametros.containsKey("idCategoria")
 					&& parametros.get("idCategoria") != null) {
-				Join<Despesa, CategoriaDespesa> categoria = root.join("categoria");
+				Join<Despesa, CategoriaDespesa> categoria = root
+						.join("categoria");
 				predicates.add(criteriaBuilder.equal(categoria.get("id").as(
 						Long.class), (Long) parametros.get("idCategoria")));
 			}
@@ -57,9 +59,64 @@ public class DespesaBO {
 		}
 
 		TypedQuery<Despesa> typedQuery = em.createQuery(criteriaQuery);
+		if (maxResults != 0) {
+			typedQuery.setMaxResults(maxResults);
+			typedQuery.setFirstResult(firstResult);
+		}
+
 		List<Despesa> despesas = typedQuery.getResultList();
 
 		return despesas;
+
+	}
+
+	public static List<Despesa> pesquisarDespesas(Map<String, Object> parametros) {
+		return pesquisarDespesas(parametros, 0, 0);
+
+	}
+
+	public static Long retornarTotalDespesas(Map<String, Object> parametros) {
+
+		EntityManager em = JPAUtil.getEntityManager();
+		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+
+		CriteriaQuery<Long> criteriaQuery = criteriaBuilder
+				.createQuery(Long.class);
+		Root<Despesa> root = criteriaQuery.from(Despesa.class);
+		criteriaQuery.select(criteriaBuilder.count(root));
+
+		List<Predicate> predicates = new ArrayList<Predicate>();
+		if (parametros != null) {
+			if (parametros.containsKey("idCategoria")
+					&& parametros.get("idCategoria") != null) {
+				Join<Despesa, CategoriaDespesa> categoria = root
+						.join("categoria");
+				predicates.add(criteriaBuilder.equal(categoria.get("id").as(
+						Long.class), (Long) parametros.get("idCategoria")));
+			}
+			if (parametros.containsKey("dataInicial")
+					&& parametros.get("dataInicial") != null) {
+				predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(
+						"dataCadastro").as(Date.class), new Date(
+						(Long) parametros.get("dataInicial"))));
+			}
+
+			if (parametros.containsKey("dataFinal")
+					&& parametros.get("dataFinal") != null) {
+				predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(
+						"dataCadastro").as(Date.class), new Date(
+						(Long) parametros.get("dataFinal"))));
+			}
+
+		}
+
+		if (predicates.size() > 0) {
+			criteriaQuery.where(predicates.toArray(new Predicate[predicates
+					.size()]));
+		}
+
+		TypedQuery<Long> typedQuery = em.createQuery(criteriaQuery);
+		return typedQuery.getSingleResult();
 
 	}
 }

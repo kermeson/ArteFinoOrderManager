@@ -61,7 +61,6 @@ public class PedidosListGrid extends ListGrid {
 	}
 
 	public void setResultSet(List<PedidoVo> pedidos) {
-
 		PedidoRecord[] PedidoRecords = new PedidoRecord[pedidos.size()];
 
 		for (int i = 0; i < pedidos.size(); i++) {

@@ -29,19 +29,24 @@ public class PesquisarPedidosActionHandler implements
 		PesquisarPedidosResult result = null;
 
 		try {
-			List<Pedido> pedidos = PedidoBO.pesquisarPedidos(action
+			Long totalPedidos = PedidoBO.retornarTotalPedidos(action
 					.getParametros());
-			if (pedidos != null) {
-				List<PedidoVo> pedidoVos = new ArrayList<PedidoVo>(
-						pedidos.size());
+			List<PedidoVo> pedidoVos = new ArrayList<PedidoVo>();
 
-				for (Pedido pedido : pedidos) {
-					pedidoVos.add(pedido.converterParaVo());
+			if (totalPedidos != null && totalPedidos.longValue() > 0) {
+				List<Pedido> pedidos = PedidoBO.pesquisarPedidos(action
+						.getParametros(), action.getMaxResults(), action
+						.getFirstResult());
+				if (pedidos != null) {
+					for (Pedido pedido : pedidos) {
+						pedidoVos.add(pedido.converterParaVo());
 
+					}
 				}
-
-				result = new PesquisarPedidosResult(pedidoVos);
 			}
+
+			result = new PesquisarPedidosResult(pedidoVos, totalPedidos);
+
 		} catch (Exception e) {
 			Log.warn("Erro ao pesquisar pedidos", e);
 

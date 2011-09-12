@@ -33,4 +33,10 @@ public interface ArteFinoOrderManagerMessages extends
 	@DefaultMessage("Este usuário não tem permissão para executar essa operação.")
 	String usuariosemPermissao();
 
+	@DefaultMessage("página {0} de  {1}")
+	String pagina(int paginaAtual, int totalPaginas);
+
+	@DefaultMessage("Total de registros: {0}")
+	String totalRegistros(int totalResults);
+
 }

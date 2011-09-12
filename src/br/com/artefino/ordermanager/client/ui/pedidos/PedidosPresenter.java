@@ -48,6 +48,20 @@ public class PedidosPresenter extends
 
 	public interface MyView extends View, HasUiHandlers<PedidosUIHandlers> {
 		void setResultSet(List<PedidoVo> pedidosVo);
+
+		int getNumeroMaximoPedidos();
+
+		int getPrimeiroPedido();
+
+		void setNumeroTotalPedidos(int total);
+
+		void setPaginaAtualPedidos(int pagina);
+
+		void atualizarBarraNavegacaoPedidos();
+
+		int getPaginaAtualPedidos();
+
+		void setPrimeiroPedido(int i);
 	}
 
 	@ProxyStandard
@@ -88,6 +102,8 @@ public class PedidosPresenter extends
 		form.addButtonPesquisarClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				getView().setPaginaAtualPedidos(1);
+				getView().setPrimeiroPedido(0);
 				pesquisarPedidos();
 			}
 		});
@@ -133,16 +149,29 @@ public class PedidosPresenter extends
 
 	}
 
-	private void pesquisarPedidos() {
+	@Override
+	public void pesquisarPedidos() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
 
-		dispatcher.execute(new PesquisarPedidosAction(10, 1, form
+		dispatcher.execute(new PesquisarPedidosAction(getView()
+				.getNumeroMaximoPedidos(), getView().getPrimeiroPedido(), form
 				.getParametrosPesquisa()),
 				new DefaultAsyncCallback<PesquisarPedidosResult>() {
 
 					@Override
 					public void onSuccess(PesquisarPedidosResult result) {
 						super.onSuccess(result);
+
+						if (result.getTotal() != null) {
+							getView().setNumeroTotalPedidos(
+									result.getTotal().intValue());
+						} else {
+							getView().setNumeroTotalPedidos(0);
+						}
+						getView().setPaginaAtualPedidos(
+								getView().getPaginaAtualPedidos());
+						getView().atualizarBarraNavegacaoPedidos();
+
 						getView().setResultSet(result.getPedidosVo());
 					}
 				});
@@ -151,7 +180,8 @@ public class PedidosPresenter extends
 	@Override
 	public void onButtonImprimirPedido(String idPedido) {
 		StringBuilder url = new StringBuilder();
-		url.append(GWT.getModuleBaseURL() + "/reports/?report=pedido&id=" + idPedido);
+		url.append(GWT.getModuleBaseURL() + "/reports/?report=pedido&id="
+				+ idPedido);
 		Window.open(url.toString(), "_blank", "");
 	}
 
@@ -167,4 +197,5 @@ public class PedidosPresenter extends
 		}
 
 	}
+
 }

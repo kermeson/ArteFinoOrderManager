@@ -30,19 +30,25 @@ public class PesquisarDespesasActionHandler implements
 
 		try {
 
-			List<Despesa> despesas = DespesaBO.pesquisarDespesas(action
-					.getParametros());
-			if (despesas != null) {
-				List<DespesaVo> despesasVo = new ArrayList<DespesaVo>(
-						despesas.size());
+			Long total = DespesaBO
+					.retornarTotalDespesas(action.getParametros());
+			List<DespesaVo> despesasVo = new ArrayList<DespesaVo>();
 
-				for (Despesa despesa : despesas) {
-					despesasVo.add(despesa.converterParaVo());
+			if (total != null && total.longValue() > 0) {
+				List<Despesa> despesas = DespesaBO.pesquisarDespesas(action
+						.getParametros(), action.getMaxResults(), action
+						.getFirstResult());
+				if (despesas != null) {
+					despesasVo = new ArrayList<DespesaVo>(despesas.size());
+
+					for (Despesa despesa : despesas) {
+						despesasVo.add(despesa.converterParaVo());
+
+					}
 
 				}
-
-				result = new PesquisarDespesasResult(despesasVo);
 			}
+			result = new PesquisarDespesasResult(despesasVo, total);
 		} catch (Exception e) {
 			Log.warn("Erro ao pesquisar despesas", e);
 
