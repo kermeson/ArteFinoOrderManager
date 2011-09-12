@@ -3,14 +3,8 @@ package br.com.artefino.ordermanager.server.handler.clientes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
+import br.com.artefino.ordermanager.server.businessobject.ClienteBO;
 import br.com.artefino.ordermanager.server.entities.Cliente;
-import br.com.artefino.ordermanager.server.util.JPAUtil;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesAction;
 import br.com.artefino.ordermanager.shared.action.clientes.PesquisarClientesResult;
 import br.com.artefino.ordermanager.shared.vo.ClienteVo;
@@ -36,18 +30,12 @@ public class PesquisarClientesActionHandler implements
 
 		try {
 
-			EntityManager em = JPAUtil.getEntityManager();
-			CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-			CriteriaQuery<Cliente> criteriaQuery = criteriaBuilder
-					.createQuery(Cliente.class);
-			Root<Cliente> root = criteriaQuery.from(Cliente.class);
-			criteriaQuery.select(root);
-			TypedQuery<Cliente> typedQuery = em.createQuery(criteriaQuery);
-			List<Cliente> clientes = typedQuery.getResultList();
+			List<Cliente> clientes = ClienteBO.pesquisarClientes(action
+					.getParametros());
 
 			if (clientes != null) {
-				List<ClienteVo> clienteVos = new ArrayList<ClienteVo>(clientes
-						.size());
+				List<ClienteVo> clienteVos = new ArrayList<ClienteVo>(
+						clientes.size());
 
 				for (Cliente cliente : clientes) {
 					clienteVos.add(cliente.converterParaVo());

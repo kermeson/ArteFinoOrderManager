@@ -7,7 +7,7 @@ import br.com.artefino.ordermanager.client.ArteFinoOrderManagerConstants;
 import br.com.artefino.ordermanager.client.data.MenuPrincipalDataSource;
 import br.com.artefino.ordermanager.client.ui.main.handlers.MainUIHandlers;
 import br.com.artefino.ordermanager.client.ui.widgets.ApplicationMenu;
-import br.com.artefino.ordermanager.client.ui.widgets.Masthead;
+import br.com.artefino.ordermanager.client.ui.widgets.Cabecalho;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPane;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneHeader;
 import br.com.artefino.ordermanager.client.ui.widgets.NavigationPaneSectionListGrid;
@@ -38,7 +38,7 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements
 	private static final int DEFAULT_MENU_WIDTH = 70;
 	private static final String DEFAULT_MARGIN = "0px";
 
-	private final Masthead masthead;
+	private final Cabecalho masthead;
 	private final ApplicationMenu applicationMenu;
 	private final NavigationPaneHeader navigationPaneHeader;
 	// private final NavigationPane navigationPane;
@@ -58,7 +58,7 @@ public class MainPageView extends ViewWithUiHandlers<MainUIHandlers> implements
 	private static final String NAME = "name";
 
 	@Inject
-	public MainPageView(Masthead masthead, ApplicationMenu applicationMenu,
+	public MainPageView(Cabecalho masthead, ApplicationMenu applicationMenu,
 			NavigationPaneHeader navigationPaneHeader,
 			NavigationPane navigationPane) {
 		this.masthead = masthead;

@@ -6,16 +6,16 @@ import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
-public class Masthead extends HLayout {
+public class Cabecalho extends HLayout {
 
 	private static final int MASTHEAD_HEIGHT = 75;
 
 	private static final String WEST_WIDTH = "50%";
 	private static final String EAST_WIDTH = "50%";
 	private static final String LOGO = "logo.png";
-	private static final String NAME_LABEL = "ARTE FINO ESTAMPARIA";
+	private static final String NAME_LABEL = "ESTAMPARIA ARTE FINO";
 
-	public Masthead() {
+	public Cabecalho() {
 		super();
 
 		// Log.debug("Masthead()");

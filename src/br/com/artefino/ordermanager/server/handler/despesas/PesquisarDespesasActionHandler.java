@@ -30,7 +30,7 @@ public class PesquisarDespesasActionHandler implements
 
 		try {
 
-			List<Despesa> despesas = DespesaBO.pesquisarDespesa(action
+			List<Despesa> despesas = DespesaBO.pesquisarDespesas(action
 					.getParametros());
 			if (despesas != null) {
 				List<DespesaVo> despesasVo = new ArrayList<DespesaVo>(

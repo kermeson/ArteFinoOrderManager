@@ -14,6 +14,7 @@ import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosAction
 import br.com.artefino.ordermanager.shared.action.pedidos.PesquisarPedidosResult;
 import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.Window;
@@ -150,7 +151,7 @@ public class PedidosPresenter extends
 	@Override
 	public void onButtonImprimirPedido(String idPedido) {
 		StringBuilder url = new StringBuilder();
-		url.append("/reports/?report=pedido&id=" + idPedido);
+		url.append(GWT.getModuleBaseURL() + "/reports/?report=pedido&id=" + idPedido);
 		Window.open(url.toString(), "_blank", "");
 	}
 

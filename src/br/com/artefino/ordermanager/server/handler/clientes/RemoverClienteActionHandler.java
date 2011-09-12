@@ -34,7 +34,7 @@ public class RemoverClienteActionHandler implements
 			// Verifica se o cliente possui pedidos
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("idCliente", action.getIdCliente());
-			List<Pedido> pedidos = PedidoBO.pesquisarPedido(parametros);
+			List<Pedido> pedidos = PedidoBO.pesquisarPedidos(parametros);
 			if (pedidos != null && !pedidos.isEmpty()) {
 				throw new ActionException(
 						"Não é possível remover o cliente, pois o mesmo possui pedidos.");

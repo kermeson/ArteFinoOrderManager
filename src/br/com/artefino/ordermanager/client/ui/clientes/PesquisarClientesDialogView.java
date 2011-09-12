@@ -1,7 +1,9 @@
 package br.com.artefino.ordermanager.client.ui.clientes;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.clientes.handlers.PesquisarClientesDialogUIHandlers;
@@ -25,6 +27,7 @@ import com.smartgwt.client.widgets.grid.events.RecordClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordClickHandler;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickEvent;
 import com.smartgwt.client.widgets.grid.events.RecordDoubleClickHandler;
+import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class PesquisarClientesDialogView extends
@@ -38,6 +41,7 @@ public class PesquisarClientesDialogView extends
 	private DynamicForm dynamicForm;
 	private Button btnPesquisar;
 	private ClientesSimplesListGrid listGridClientes;
+	private Button btnLimpar;
 
 	@Inject
 	public PesquisarClientesDialogView() {
@@ -57,7 +61,7 @@ public class PesquisarClientesDialogView extends
 
 		textItemNome = new TextItem();
 		textItemNome.setName(ArteFinoOrderManager.getConstants().nome());
-		textItemNome.setWidth(360);
+		textItemNome.setWidth(470);
 		textItemNome.setLength(200);
 		textItemNome.setColSpan(3);
 		textItemNome.setCharacterCasing(CharacterCasing.UPPER);
@@ -83,16 +87,24 @@ public class PesquisarClientesDialogView extends
 		btnPesquisar.setIcon("icons/16/find.png");
 		btnPesquisar.setTitle(ArteFinoOrderManager.getConstants().pesquisar());
 
+		btnLimpar = new Button();
+		btnLimpar.setIcon("icons/16/eraser.png");
+		btnLimpar.setTitle(ArteFinoOrderManager.getConstants().limpar());
+
+		HLayout hLayoutBotoes = new HLayout(5);
+		hLayoutBotoes.setMembers(btnPesquisar, btnLimpar);
+		hLayoutBotoes.setAutoHeight();
+
 		CanvasItem canvasItem = new CanvasItem();
 		canvasItem.setShowTitle(true);
 		canvasItem.setTitle("");
-		canvasItem.setCanvas(btnPesquisar);
+		canvasItem.setCanvas(hLayoutBotoes);
 		canvasItem.setWidth(150);
 
 		dynamicForm = new DynamicForm();
 		dynamicForm.setTitleOrientation(TitleOrientation.TOP);
 
-		dynamicForm.setWidth(360);
+		dynamicForm.setWidth(470);
 
 		dynamicForm.setFields(//
 				textItemNome, //
@@ -104,7 +116,6 @@ public class PesquisarClientesDialogView extends
 		vLayout.setPadding(5);
 		vLayout.setStyleName("containerPadrao");
 		vLayout.addMember(dynamicForm);
-
 
 		listGridClientes = new ClientesSimplesListGrid();
 		vLayout.addMember(listGridClientes);
@@ -125,6 +136,13 @@ public class PesquisarClientesDialogView extends
 			}
 		});
 
+		btnLimpar.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				dynamicForm.clearValues();
+			}
+		});
+
 		// register the ListGird handlers
 		listGridClientes
 				.addRecordDoubleClickHandler(new RecordDoubleClickHandler() {
@@ -136,16 +154,16 @@ public class PesquisarClientesDialogView extends
 					}
 				});
 
-		listGridClientes.addRecordSelecionarClickHandler(new RecordClickHandler() {
-			@Override
-			public void onRecordClick(RecordClickEvent event) {
-				if (getUiHandlers() != null) {
-					getUiHandlers().onRecordSelecionarClicked(event);
-				}
-			}
-		});
+		listGridClientes
+				.addRecordSelecionarClickHandler(new RecordClickHandler() {
+					@Override
+					public void onRecordClick(RecordClickEvent event) {
+						if (getUiHandlers() != null) {
+							getUiHandlers().onRecordSelecionarClicked(event);
+						}
+					}
+				});
 	}
-
 
 	@Override
 	public Widget asWidget() {
@@ -167,6 +185,22 @@ public class PesquisarClientesDialogView extends
 		panel.destroy();
 	}
 
+	@Override
+	public Map<String, Object> getParametrosPesquisa() {
+		Map<String, Object> parametros = new HashMap<String, Object>();
 
+		if (textItemNome.getValue() != null) {
+			parametros.put("nome", textItemNome.getValueAsString());
+		}
+		if (selectItemTipoPessoa.getValue() != null) {
+			parametros.put("tipoPessoa",
+					Integer.valueOf(selectItemTipoPessoa.getValueAsString()));
+		}
+		if (textItemCNPJF.getValue() != null) {
+			parametros.put("cnpjf",
+					Long.valueOf(textItemCNPJF.getValueAsString()));
+		}
+		return parametros;
+	}
 
 }

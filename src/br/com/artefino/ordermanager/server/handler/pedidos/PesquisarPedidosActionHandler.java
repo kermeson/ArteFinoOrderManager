@@ -29,7 +29,7 @@ public class PesquisarPedidosActionHandler implements
 		PesquisarPedidosResult result = null;
 
 		try {
-			List<Pedido> pedidos = PedidoBO.pesquisarPedido(action
+			List<Pedido> pedidos = PedidoBO.pesquisarPedidos(action
 					.getParametros());
 			if (pedidos != null) {
 				List<PedidoVo> pedidoVos = new ArrayList<PedidoVo>(

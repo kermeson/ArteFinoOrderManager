@@ -17,7 +17,7 @@ body,table td,select {
 }
 
 .masthead {
-	 background: #20366F url(images/masthead.png) 0 bottom repeat-x; 
+	background: #77a3e0 url(images/masthead.png) 0 bottom repeat-x;
 
 }
 
@@ -27,23 +27,25 @@ body,table td,select {
 }
 
 .mastheadName {
-	color: #20366F;
-	font-family: Tahoma, Verdana, sans-serif;
+	color: #003168;
+	font-family: Verdana, sans-serif;
 	font-size: 24px;
 	overflow: hidden;
 	padding-top: 7px;
 	padding-left: 10px;
 	text-align: left;
+	font-weight: bold;
 }
 
 .tituloSistema {
-	color: #20366F;
-	font-family: Tahoma, Verdana, sans-serif;
+	color: #003168;
+	font-family: Verdana, sans-serif;
 	font-size: 24px;
 	overflow: hidden;
 	padding-top: 7px;
 	padding-right: 10px;
 	text-align: right;
+	font-weight: bold;
 
 }
 

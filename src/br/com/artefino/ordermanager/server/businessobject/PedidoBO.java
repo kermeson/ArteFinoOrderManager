@@ -20,7 +20,7 @@ import br.com.artefino.ordermanager.server.util.JPAUtil;
 
 public class PedidoBO {
 
-	public static List<Pedido> pesquisarPedido(Map<String, Object> parametros) {
+	public static List<Pedido> pesquisarPedidos(Map<String, Object> parametros) {
 		EntityManager em = JPAUtil.getEntityManager();
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<Pedido> criteriaQuery = criteriaBuilder

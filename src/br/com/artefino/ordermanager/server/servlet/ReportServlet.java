@@ -78,7 +78,10 @@ public class ReportServlet extends HttpServlet {
 					.getResourceAsStream(resourceName);
 
 			String pathImagens = getServletConfig().getServletContext()
-					.getRealPath("/images");
+					.getRealPath("/images/");
+
+			String pathSubreport = getServletConfig().getServletContext()
+			.getRealPath("/reports/");
 
 			Long idPedido = Long.parseLong(request.getParameter("id"));
 			Pedido pedido = (Pedido) JPAUtil.findByID(Pedido.class, idPedido);
@@ -90,7 +93,7 @@ public class ReportServlet extends HttpServlet {
 
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("IMAGES_DIR", pathImagens);
-			map.put("SUBREPORT_DIR", "reports/");
+			map.put("SUBREPORT_DIR", pathSubreport);
 
 			JasperRunManager.runReportToPdfStream(reportStream,
 					servletOutputStream, map, ds);
@@ -119,7 +122,10 @@ public class ReportServlet extends HttpServlet {
 					.getResourceAsStream(resourceName);
 
 			String pathImagens = getServletConfig().getServletContext()
-					.getRealPath("/images");
+					.getRealPath("/images/");
+
+			String pathSubreport = getServletConfig().getServletContext()
+			.getRealPath("/reports/");
 
 			Map<String, Object> parametros = new HashMap<String, Object>();
 
@@ -141,14 +147,14 @@ public class ReportServlet extends HttpServlet {
 						.getParameter("situacao")));
 			}
 
-			List<Pedido> pedidos = PedidoBO.pesquisarPedido(parametros);
+			List<Pedido> pedidos = PedidoBO.pesquisarPedidos(parametros);
 
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
 					pedidos);
 
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("IMAGES_DIR", pathImagens);
-			map.put("SUBREPORT_DIR", "reports/");
+			map.put("SUBREPORT_DIR", pathSubreport);
 
 			JasperRunManager.runReportToPdfStream(reportStream,
 					servletOutputStream, map, ds);
@@ -177,7 +183,10 @@ public class ReportServlet extends HttpServlet {
 					.getResourceAsStream(resourceName);
 
 			String pathImagens = getServletConfig().getServletContext()
-					.getRealPath("/images");
+					.getRealPath("/images/");
+
+			String pathSubreport = getServletConfig().getServletContext()
+			.getRealPath("/reports/");
 
 			Map<String, Object> parametros = new HashMap<String, Object>();
 
@@ -195,14 +204,16 @@ public class ReportServlet extends HttpServlet {
 						.getParameter("dataFinal")));
 			}
 
-			List<Despesa> pedidos = DespesaBO.pesquisarDespesa(parametros);
+			List<Despesa> pedidos = DespesaBO.pesquisarDespesas(parametros);
 
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
 					pedidos);
 
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("IMAGES_DIR", pathImagens);
-			map.put("SUBREPORT_DIR", "reports/");
+			map.put("SUBREPORT_DIR", pathSubreport);
+
+
 
 			JasperRunManager.runReportToPdfStream(reportStream,
 					servletOutputStream, map, ds);

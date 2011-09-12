@@ -6,10 +6,12 @@ public class PesquisarClientesAction implements Action<PesquisarClientesResult> 
 
   int maxResults;
   int firstResult;
+  java.util.Map<java.lang.String,java.lang.Object> parametros;
 
-  public PesquisarClientesAction(int maxResults, int firstResult) {
+  public PesquisarClientesAction(int maxResults, int firstResult, java.util.Map<java.lang.String,java.lang.Object> parametros) {
     this.maxResults = maxResults;
     this.firstResult = firstResult;
+    this.parametros = parametros;
   }
 
   protected PesquisarClientesAction() {
@@ -22,6 +24,10 @@ public class PesquisarClientesAction implements Action<PesquisarClientesResult> 
 
   public int getFirstResult() {
     return firstResult;
+  }
+
+  public java.util.Map<java.lang.String,java.lang.Object> getParametros() {
+    return parametros;
   }
 
   @Override
@@ -47,6 +53,11 @@ public class PesquisarClientesAction implements Action<PesquisarClientesResult> 
         return false;
     if (firstResult != other.firstResult)
         return false;
+    if (parametros == null) {
+      if (other.parametros != null)
+        return false;
+    } else if (!parametros.equals(other.parametros))
+      return false;
     return true;
   }
 
@@ -55,6 +66,7 @@ public class PesquisarClientesAction implements Action<PesquisarClientesResult> 
     int hashCode = 23;
     hashCode = (hashCode * 37) + new Integer(maxResults).hashCode();
     hashCode = (hashCode * 37) + new Integer(firstResult).hashCode();
+    hashCode = (hashCode * 37) + (parametros == null ? 1 : parametros.hashCode());
     return hashCode;
   }
 
@@ -64,6 +76,8 @@ public class PesquisarClientesAction implements Action<PesquisarClientesResult> 
                  + maxResults
                  + ","
                  + firstResult
+                 + ","
+                 + parametros
     + "]";
   }
 }

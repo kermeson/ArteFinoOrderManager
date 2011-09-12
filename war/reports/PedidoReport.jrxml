@@ -38,38 +38,40 @@
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
-			<staticText>
-				<reportElement x="87" y="7" width="245" height="20"/>
-				<textElement>
-					<font fontName="Arial" size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ARTE FINO SERIGRAFIA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="87" y="27" width="245" height="10"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Endereço: Rua xxxxxxxxxxxxxxx]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="87" y="37" width="153" height="11"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Telefone: (85) 33333333]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="87" y="48" width="153" height="11"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CNPJ: 000000000/0001-0]]></text>
-			</staticText>
 			<image>
 				<reportElement x="16" y="8" width="55" height="51"/>
 				<imageExpression><![CDATA[$P{IMAGES_DIR} + "/logo.png"]]></imageExpression>
 			</image>
+			<elementGroup>
+				<staticText>
+					<reportElement x="83" y="26" width="245" height="10"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Endereço: Rua Jockey Club, nº 394 B, Jockey Club]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="83" y="47" width="153" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Email: estamparia@yahoo.com.br]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="83" y="6" width="245" height="20"/>
+					<textElement>
+						<font fontName="Arial" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ESTAMPARIA ARTE FINO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="83" y="36" width="153" height="11"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Telefone: (85) 3496.2720/8788.34.36]]></text>
+				</staticText>
+			</elementGroup>
 		</band>
 	</title>
 	<pageHeader>

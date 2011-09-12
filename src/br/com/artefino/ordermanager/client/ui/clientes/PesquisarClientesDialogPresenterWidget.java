@@ -1,6 +1,7 @@
 package br.com.artefino.ordermanager.client.ui.clientes;
 
 import java.util.List;
+import java.util.Map;
 
 import br.com.artefino.ordermanager.client.ArteFinoOrderManager;
 import br.com.artefino.ordermanager.client.ui.clientes.handlers.PesquisarClientesDialogUIHandlers;
@@ -30,6 +31,8 @@ public class PesquisarClientesDialogPresenterWidget extends
 		void setResultSet(List<ClienteVo> clientes);
 
 		void fecharDialogo();
+
+		Map<String, Object> getParametrosPesquisa();
 	}
 
 	@Inject
@@ -55,7 +58,8 @@ public class PesquisarClientesDialogPresenterWidget extends
 
 	private void pesquisarClientes() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
-		dispatcher.execute(new PesquisarClientesAction(10, 1),
+		dispatcher.execute(new PesquisarClientesAction(10, 1, getView()
+				.getParametrosPesquisa()),
 				new DefaultAsyncCallback<PesquisarClientesResult>() {
 					@Override
 					public void onSuccess(PesquisarClientesResult result) {

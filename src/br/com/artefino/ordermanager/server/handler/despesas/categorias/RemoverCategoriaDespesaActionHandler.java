@@ -34,7 +34,7 @@ public class RemoverCategoriaDespesaActionHandler implements
 			// Verifica se a categoria possui despesas
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("idCategoria", action.getId());
-			List<Despesa> despesas = DespesaBO.pesquisarDespesa(parametros);
+			List<Despesa> despesas = DespesaBO.pesquisarDespesas(parametros);
 			if (despesas != null && !despesas.isEmpty()) {
 				throw new ActionException(
 						"Não é possível remover a categoria, pois a mesma possui despesas cadastradas.");

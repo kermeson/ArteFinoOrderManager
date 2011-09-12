@@ -8,18 +8,23 @@ import com.smartgwt.client.types.Alignment;
 import com.smartgwt.client.types.VerticalAlignment;
 import com.smartgwt.client.util.SC;
 import com.smartgwt.client.widgets.Button;
+import com.smartgwt.client.widgets.Img;
+import com.smartgwt.client.widgets.Label;
 import com.smartgwt.client.widgets.events.ClickEvent;
 import com.smartgwt.client.widgets.events.ClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.form.fields.PasswordItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.VLayout;
 
 public class LoginView extends ViewWithUiHandlers<SignInPageUiHandlers>
 		implements LoginPresenter.MyView {
 
-	private static final String DEFAULT_USER_NAME = "admin";
-	private static final String DEFAULT_PASSWORD = "12345";
+	private static final String DEFAULT_USER_NAME = "";
+	private static final String DEFAULT_PASSWORD = "";
+	private static final String LOGO = "logo.png";
+	private static final String NAME_LABEL = "ESTAMPARIA ARTE FINO";
 
 	private VLayout panel;
 
@@ -40,7 +45,19 @@ public class LoginView extends ViewWithUiHandlers<SignInPageUiHandlers>
 		vLayoutLogin.setLayoutAlign(Alignment.CENTER);
 
 
-		
+		// initialise the Logo image
+		Img logo = new Img(LOGO, 64, 69);
+		logo.setStyleName("mastheadLogo");
+
+		// initialise the Name label
+		Label name = new Label();
+		name.setStyleName("mastheadName");
+		name.setContents(NAME_LABEL);
+
+		HLayout hLayoutLogo = new HLayout();
+		hLayoutLogo.setMembers(logo, name);
+		hLayoutLogo.setAutoHeight();
+
 		userNameField = new TextItem();
 		userNameField.setTitle("Usuário");
 		userNameField.setDefaultValue(DEFAULT_USER_NAME);
@@ -55,6 +72,7 @@ public class LoginView extends ViewWithUiHandlers<SignInPageUiHandlers>
 
 		signInButton = new Button("Entrar");
 
+		vLayoutLogin.addMember(hLayoutLogo);
 		vLayoutLogin.addMember(dynamicForm);
 		vLayoutLogin.addMember(signInButton);
 

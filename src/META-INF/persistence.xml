@@ -13,14 +13,14 @@
 	  <!-- Database connection settings -->
 	  <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost/artefinodb" />
-	  <property name="hibernate.connection.username" value="root" />
+	  <property name="hibernate.connection.username" value="artefino" />
 	  <property name="hibernate.connection.password" value="12345" />
 
       <!-- JDBC connection pool (use the built-in) -->
 	  <property name="connection.pool_size" value="1" />
 
 	  <!-- SQL dialect -->
-	  <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+	  <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 
       <!-- Enable Hibernate's automatic session context management -->
 	  <property name="current_session_context_class" value="thread" />
@@ -29,8 +29,8 @@
 	  <property name="cache.provider_class" value="org.hibernate.cache.NoCacheProvider" />
 
 	  <!-- Echo all executed SQL to stdout -->
-	  <!-- <property name="hibernate.show_sql" value="true" /> -->
-	  <!-- <property name="hibernate.format_sql" value="true" /> -->
+	  <property name="hibernate.show_sql" value="true" />
+	  <property name="hibernate.format_sql" value="true" />
 
 	  <!-- Drop and re-create the database schema on startup -->
 	  <!-- This property should not be set in PRODUCTION environments -->

@@ -101,7 +101,7 @@ public class ClientesPresenter extends
 
 	private void pesquisarClientes() {
 		SC.showPrompt(ArteFinoOrderManager.getConstants().mensagemCarregando());
-		dispatcher.execute(new PesquisarClientesAction(10, 1),
+		dispatcher.execute(new PesquisarClientesAction(10, 1, null),
 				new DefaultAsyncCallback<PesquisarClientesResult>() {
 
 					@Override

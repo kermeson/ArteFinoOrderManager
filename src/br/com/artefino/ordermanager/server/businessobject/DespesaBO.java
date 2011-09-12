@@ -19,7 +19,7 @@ import br.com.artefino.ordermanager.server.util.JPAUtil;
 
 public class DespesaBO {
 
-	public static List<Despesa> pesquisarDespesa(Map<String, Object> parametros) {
+	public static List<Despesa> pesquisarDespesas(Map<String, Object> parametros) {
 		EntityManager em = JPAUtil.getEntityManager();
 		CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
 		CriteriaQuery<Despesa> criteriaQuery = criteriaBuilder
