@@ -5,7 +5,7 @@ public interface ArteFinoOrderManagerMessages extends
 
 	@DefaultMessage("Preencha os campos obrigatórios.")
 	String preenchaCamposObrigatorios();
-	
+
 	@DefaultMessage("O cliente <b>{0}</b> foi atualizado com sucesso.")
 	String clienteAtualizado(String nome);
 
@@ -27,7 +27,7 @@ public interface ArteFinoOrderManagerMessages extends
 	@DefaultMessage("Deseja remover a categoria <b>{0}</b>?.")
 	String confirmarRemoverCategoria(String nomeCategoria);
 
-	@DefaultMessage("A sessão expirou. É necessário efeutar o login novamente.")
+	@DefaultMessage("A sessão expirou. É necessário efetuar o login novamente.")
 	String sessaoExpirou();
 
 	@DefaultMessage("Este usuário não tem permissão para executar essa operação.")

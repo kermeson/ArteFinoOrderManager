@@ -17,6 +17,7 @@ import br.com.artefino.ordermanager.shared.action.despesas.RemoverDespesaResult;
 import br.com.artefino.ordermanager.shared.vo.DespesaVo;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.user.client.Window;
@@ -47,7 +48,7 @@ public class DespesasPresenter extends
 		void setResultSet(List<DespesaVo> despesas);
 
 		void removerDespesaSelecionada();
-		
+
 		int getNumeroMaximoDespesas();
 
 		int getPrimeiroDespesa();
@@ -124,7 +125,7 @@ public class DespesasPresenter extends
 			@Override
 			public void onClick(ClickEvent event) {
 				StringBuilder url = new StringBuilder();
-				url.append("/reports/?report=despesas&rnd="
+				url.append(GWT.getHostPageBaseURL() + "reports/?report=despesas&rnd="
 						+ new Date().getTime());
 
 				Map<String, Object> parametros = form.getParametrosPesquisa();
@@ -175,7 +176,7 @@ public class DespesasPresenter extends
 						} else {
 							getView().setNumeroTotalDespesas(0);
 						}
-						
+
 						getView().atualizarBarraNavegacaoDespesas();
 						getView().setResultSet(result.getDespesas());
 					}

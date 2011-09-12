@@ -112,7 +112,7 @@ public class PedidosPresenter extends
 			@Override
 			public void onClick(ClickEvent event) {
 				StringBuilder url = new StringBuilder();
-				url.append("/reports/?report=pedidos&rnd="
+				url.append(GWT.getHostPageBaseURL() + "reports/?report=pedidos&rnd="
 						+ new Date().getTime());
 
 				Map<String, Object> parametros = form.getParametrosPesquisa();
@@ -180,7 +180,7 @@ public class PedidosPresenter extends
 	@Override
 	public void onButtonImprimirPedido(String idPedido) {
 		StringBuilder url = new StringBuilder();
-		url.append(GWT.getModuleBaseURL() + "/reports/?report=pedido&id="
+		url.append(GWT.getHostPageBaseURL() + "reports/?report=pedido&id="
 				+ idPedido);
 		Window.open(url.toString(), "_blank", "");
 	}

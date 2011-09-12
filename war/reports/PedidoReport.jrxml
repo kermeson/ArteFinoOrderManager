@@ -69,7 +69,7 @@
 					<textElement verticalAlignment="Middle">
 						<font fontName="Arial" size="8" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Telefone: (85) 3496.2720/8788.34.36]]></text>
+					<text><![CDATA[Telefone: (85) 3496.2720/8788.3436]]></text>
 				</staticText>
 			</elementGroup>
 		</band>
