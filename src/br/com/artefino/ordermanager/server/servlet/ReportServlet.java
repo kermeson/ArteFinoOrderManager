@@ -21,6 +21,7 @@ import br.com.artefino.ordermanager.server.businessobject.DespesaBO;
 import br.com.artefino.ordermanager.server.businessobject.PedidoBO;
 import br.com.artefino.ordermanager.server.entities.Despesa;
 import br.com.artefino.ordermanager.server.entities.Pedido;
+import br.com.artefino.ordermanager.server.entities.Pedidos;
 import br.com.artefino.ordermanager.server.util.JPAUtil;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -73,23 +74,29 @@ public class ReportServlet extends HttpServlet {
 		OutputStream servletOutputStream = response.getOutputStream();
 		try {
 			String resourceName = DEFAULT_REPORTS_SERVICE_PATH
-					+ "PedidoReport.jasper";
+					+ "ReciboPedido.jasper";
 			InputStream reportStream = getServletConfig().getServletContext()
 					.getResourceAsStream(resourceName);
 
 			String pathImagens = getServletConfig().getServletContext()
-					.getRealPath("/images/");
+					.getRealPath("/images") + "/";
 
 			String pathSubreport = getServletConfig().getServletContext()
-			.getRealPath("/reports/");
+			.getRealPath("/reports") + "/";
 
 			Long idPedido = Long.parseLong(request.getParameter("id"));
 			Pedido pedido = (Pedido) JPAUtil.findByID(Pedido.class, idPedido);
 			List<Pedido> pedidos = new ArrayList<Pedido>();
 			pedidos.add(pedido);
 
+			List<Pedidos>  pedidosList = new ArrayList<Pedidos>();
+			Pedidos pedidosBean = new Pedidos();
+			pedidosBean.setPedidos(pedidos);
+			
+			pedidosList.add(pedidosBean);
+
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(
-					pedidos);
+					pedidosList);
 
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("IMAGES_DIR", pathImagens);
@@ -122,10 +129,10 @@ public class ReportServlet extends HttpServlet {
 					.getResourceAsStream(resourceName);
 
 			String pathImagens = getServletConfig().getServletContext()
-					.getRealPath("/images/");
+					.getRealPath("/images/") + "/";
 
 			String pathSubreport = getServletConfig().getServletContext()
-			.getRealPath("/reports/");
+			.getRealPath("/reports/") + "/";
 
 			Map<String, Object> parametros = new HashMap<String, Object>();
 
@@ -183,10 +190,10 @@ public class ReportServlet extends HttpServlet {
 					.getResourceAsStream(resourceName);
 
 			String pathImagens = getServletConfig().getServletContext()
-					.getRealPath("/images/");
+					.getRealPath("/images/") + "/";
 
 			String pathSubreport = getServletConfig().getServletContext()
-			.getRealPath("/reports/");
+			.getRealPath("/reports/") + "/";
 
 			Map<String, Object> parametros = new HashMap<String, Object>();
 

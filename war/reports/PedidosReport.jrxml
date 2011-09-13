@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Pedidos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.zoom" value="1.5026296018031553"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/kermeson/workspace-helios/ArteFinoOrderManager/war/reports/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["I:\\workspaces\\workspace_galileo_leo\\ArteFinoOrderManager\\war\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="IMAGES_DIR" class="java.lang.String"/>
 	<queryString>
@@ -156,7 +156,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Telefone: (85) 3496.2720/8788.34.36]]></text>
+				<text><![CDATA[Telefone: (85) 3496.2720/8788.3436]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="81" y="46" width="153" height="11"/>
@@ -197,10 +197,10 @@
 					<rightPen lineWidth="0.5"/>
 				</box>
 			</frame>
-			<subreport>
+			<subreport isUsingCache="false">
 				<reportElement x="0" y="10" width="555" height="27"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{itens})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/ItensPedidoSubReport.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ItensPedidoSubReport.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
 				<reportElement mode="Transparent" x="0" y="0" width="60" height="10" forecolor="#000000" backcolor="#DDD9D5"/>
@@ -275,10 +275,10 @@
 				<reportElement mode="Opaque" x="454" y="0" width="101" height="10" forecolor="#FFFFFF" backcolor="#666666"/>
 				<box leftPadding="2" rightPadding="4">
 					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>

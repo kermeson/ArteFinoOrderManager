@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/kermeson/workspace-helios/ArteFinoOrderManager/war/reports/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["I:\\workspaces\\workspace_galileo_leo\\ArteFinoOrderManager\\war\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="IMAGES_DIR" class="java.lang.String"/>
 	<queryString>
