@@ -73,6 +73,7 @@ public class PesquisarClientesDialogView extends
 		textItemCNPJF.setValidators(ValidadoresUtil.getValidadorCpfCnpj());
 
 		selectItemTipoPessoa = new SelectItem();
+		selectItemTipoPessoa.setAllowEmptyValue(true);
 		selectItemTipoPessoa.setTitle(ArteFinoOrderManager.getConstants()
 				.tipoPessoa());
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();

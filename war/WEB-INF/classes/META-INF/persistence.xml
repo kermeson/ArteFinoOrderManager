@@ -6,18 +6,19 @@
 
   <persistence-unit name="ARTEFINO" transaction-type="RESOURCE_LOCAL">
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+	<non-jta-data-source>java:comp/env/jdbc/artefino-ds</non-jta-data-source>
 
     <properties>
 
 
 	  <!-- Database connection settings -->
-	  <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost/artefinodb" />
-	  <property name="hibernate.connection.username" value="artefino" />
-	  <property name="hibernate.connection.password" value="12345" />
+<!-- 	  <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" /> -->
+<!--       <property name="hibernate.connection.url" value="jdbc:mysql://localhost/artefinodb" /> -->
+<!-- 	  <property name="hibernate.connection.username" value="artefino" /> -->
+<!-- 	  <property name="hibernate.connection.password" value="12345" /> -->
 
       <!-- JDBC connection pool (use the built-in) -->
-	  <property name="connection.pool_size" value="1" />
+<!-- 	  <property name="connection.pool_size" value="1" /> -->
 
 	  <!-- SQL dialect -->
 	  <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
@@ -36,11 +37,11 @@
 	  <!-- This property should not be set in PRODUCTION environments -->
 <!-- 	  <property name="hibernate.hbm2ddl.auto" value="create" /> -->
 
-	  <property name="hibernate.c3p0.min_size" value="5" />
-	  <property name="hibernate.c3p0.max_size" value="20" />
-	  <property name="hibernate.c3p0.timeout" value="300" />
-	  <property name="hibernate.c3p0.max_statements" value="50" />
-	  <property name="hibernate.c3p0.idle_test_period" value="3000" />
+<!-- 	  <property name="hibernate.c3p0.min_size" value="5" /> -->
+<!-- 	  <property name="hibernate.c3p0.max_size" value="20" /> -->
+<!-- 	  <property name="hibernate.c3p0.timeout" value="300" /> -->
+<!-- 	  <property name="hibernate.c3p0.max_statements" value="50" /> -->
+<!-- 	  <property name="hibernate.c3p0.idle_test_period" value="3000" /> -->
     </properties>
 
   </persistence-unit>

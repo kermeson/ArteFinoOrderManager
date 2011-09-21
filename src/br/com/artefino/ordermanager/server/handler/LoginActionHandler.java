@@ -60,7 +60,7 @@ public class LoginActionHandler implements
 				// on the execute() method:
 				// Instead of calling logger.warning(message), use
 				// logger.log(level, message, throwable).
-				throw new LoginException("Invalid User name or Password.");
+				throw new LoginException("Usuário ou senha inválidos.");
 			}
 		} catch (Exception e) {
 			throw new ActionException(e);
@@ -70,7 +70,7 @@ public class LoginActionHandler implements
 	}
 
 	private Boolean isValidLogin(LoginAction action, Usuario user) {
-		String hash = Security.sha256(user.getSalt() + action.getPassword());
+		String hash = Security.md5(action.getPassword());
 		return hash.equals(user.getSenha());
 	}
 

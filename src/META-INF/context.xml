@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context path="/artefino">
+	<Resource name="jdbc/artefino-ds" auth="Container" type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/artefinodb"
+		username="artefino" password="12345" maxActive="100" maxIdle="10"
+		removeAbandoned="true" removeAbandonedTimeout="60" logAbandoned="true"
+		maxWait="10" initialSize="50" />
+</Context>

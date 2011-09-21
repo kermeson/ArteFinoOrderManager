@@ -10,7 +10,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 public abstract class ListGridComPaginacao extends VLayout {
 	private BarraPaginacao barraPaginacao;
 
-	public static final int DEFAULT_MAX_RESULTS = 2;
+	public static final int DEFAULT_MAX_RESULTS = 30;
 
 	private int maxResults;
 	private int firstResult;

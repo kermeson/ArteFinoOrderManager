@@ -1,6 +1,6 @@
 package br.com.artefino.ordermanager.server.guice;
 
-import br.com.artefino.ordermanager.server.servlet.ReportServlet;
+import br.com.artefino.ordermanager.server.servlet.RelatorioServlet;
 
 import com.google.inject.servlet.ServletModule;
 import com.gwtplatform.dispatch.shared.ActionImpl;
@@ -36,6 +36,6 @@ public class DispatchServletModule extends ServletModule {
 
 	    // This registers a servlet (subclass of HttpServlet) called ReportServlet
 	    // to serve any web requests using a path-style syntax (as you would in web.xml).
-	    serve(DEFAULT_REPORTS_SERVICE_PATH).with(ReportServlet.class);
+	    serve(DEFAULT_REPORTS_SERVICE_PATH).with(RelatorioServlet.class);
 	}
 }

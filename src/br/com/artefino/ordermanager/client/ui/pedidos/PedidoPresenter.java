@@ -24,6 +24,7 @@ import br.com.artefino.ordermanager.shared.vo.PedidoVo;
 import br.com.artefino.ordermanager.shared.vo.SituacaoPedidoVo;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
@@ -219,7 +220,7 @@ public class PedidoPresenter extends
 	@Override
 	public void onButtonImprimirPedido(Long idPedido) {
 		StringBuilder url = new StringBuilder();
-		url.append("/reports/?report=pedido&id=" + idPedido);
+		url.append(GWT.getHostPageBaseURL() + "reports/?report=pedido&id=" + idPedido);
 		Window.open(url.toString(), "_blank", "");
 
 	}

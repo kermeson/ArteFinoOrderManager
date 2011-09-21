@@ -29,7 +29,7 @@ import com.google.inject.Singleton;
 
 @Singleton
 @SuppressWarnings("serial")
-public class ReportServlet extends HttpServlet {
+public class RelatorioServlet extends HttpServlet {
 
 	// as per ReportsRecord
 	private static final String REPORT_NAME = "report";
