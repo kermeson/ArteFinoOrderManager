@@ -45,7 +45,7 @@ public class JPAUtil {
             if (tx.isActive()) {
                 em.getTransaction().commit();
             }
-            em.close();
+            //em.close();
         }
     }
 

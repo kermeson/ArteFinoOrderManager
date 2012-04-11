@@ -4,7 +4,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["I:\\workspaces\\workspace_galileo_leo\\ArteFinoOrderManager\\war\\reports\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/kermeson/workspace-helios/ArteFinoOrderManager/war/reports/"
+]]></defaultValueExpression>
 	</parameter>
 	<parameter name="IMAGES_DIR" class="java.lang.String"/>
 	<queryString>
@@ -159,11 +160,11 @@
 				<text><![CDATA[Telefone: (85) 3496.2720/8788.3436]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="81" y="46" width="153" height="11"/>
+				<reportElement x="81" y="46" width="202" height="11"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Email: estamparia@yahoo.com.br]]></text>
+				<text><![CDATA[Email: artefino_estamparia@yahoo.com.br]]></text>
 			</staticText>
 			<image>
 				<reportElement x="15" y="6" width="55" height="51"/>
